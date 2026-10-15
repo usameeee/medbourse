@@ -1,0 +1,246 @@
+.page {
+  max-width: var(--layout-max);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+  padding-block-end: var(--space-12);
+  display: grid;
+  gap: var(--space-12);
+}
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-block: var(--space-6);
+  border-block-end: 1px solid var(--color-border-default);
+}
+
+.brand {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-brand-primary);
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+}
+
+.navLink {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.navLink:hover,
+.navLink:focus-visible {
+  color: var(--color-brand-primary);
+}
+
+.hero {
+  display: grid;
+  gap: var(--space-4);
+  padding-block-start: var(--space-8);
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-brand-primary);
+}
+
+.heroTitle {
+  margin: 0;
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--color-text-primary);
+}
+
+.heroLead {
+  margin: 0;
+  max-width: 44rem;
+  font-size: var(--text-lg);
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+.heroCta {
+  justify-self: start;
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-brand-primary);
+  color: var(--color-surface-raised);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.section {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-text-primary);
+}
+
+.sectionLead {
+  margin: 0;
+  max-width: 44rem;
+  color: var(--color-text-secondary);
+}
+
+.serviceGrid,
+.offeringGrid {
+  display: grid;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.serviceCard,
+.offeringCard {
+  padding: var(--space-6);
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.offeringCard {
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+}
+
+.badgeRow {
+  justify-self: start;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.cardBody {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.offeringReq {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.offeringReq span {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.offeringMeta {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.disclaimer {
+  margin: 0;
+  padding-inline-start: var(--space-3);
+  border-inline-start: 2px solid var(--color-border-default);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.contactBody {
+  margin: 0;
+  max-width: 44rem;
+  color: var(--color-text-secondary);
+}
+
+.muted {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.error {
+  margin: 0;
+  color: var(--color-danger);
+}
+
+.footer {
+  padding-block-start: var(--space-6);
+  border-block-start: 1px solid var(--color-border-default);
+}
+
+.status {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.statusTitle {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.meta {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+}
+
+.meta dt {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.meta dd {
+  margin: 0;
+  margin-block-start: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+@media (min-width: 640px) {
+  .meta {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .serviceGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .offeringGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .offeringGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .meta {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

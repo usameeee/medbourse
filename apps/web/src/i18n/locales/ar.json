@@ -1,0 +1,332 @@
+{
+  "meta": {
+    "title": "MEDBOURSE"
+  },
+  "brand": {
+    "name": "MEDBOURSE",
+    "eyebrow": "تركيا · التعليم · الرعاية الصحية · السفر",
+    "lead": "استشارات للقبول الجامعي والتنسيق الطبي والسفر في تركيا. هذه بيئة التطوير؛ تشترك الواجهات العامة والتشغيلية في هوية واحدة."
+  },
+  "language": {
+    "label": "اللغة",
+    "en": "English",
+    "tr": "Türkçe",
+    "fr": "Français",
+    "ar": "العربية"
+  },
+  "publicSite": {
+    "navAria": "الموقع العام",
+    "nav": {
+      "services": "المجالات",
+      "offerings": "الخدمات",
+      "contact": "تواصل"
+    },
+    "services": {
+      "title": "ثلاثة مجالات منسّقة",
+      "lead": "القبول الجامعي والتنسيق الطبي ودعم السفر في تركيا — يديرها فريق واحد ضمن ملف واحد.",
+      "education": {
+        "body": "إرشاد حول اختيار الجامعات والبرامج ومواعيد التقديم والمستندات التي تتطلبها كل مؤسسة."
+      },
+      "medical": {
+        "body": "تنسيق مع عيادات شريكة للاستشارات وتخطيط العلاج، مع الحفاظ على خصوصية سجلاتك."
+      },
+      "tourism": {
+        "body": "ترتيبات سفر عملية حول المواعيد وزيارات الحرم الجامعي، ليكون لكل رحلة هدف واضح."
+      }
+    },
+    "offerings": {
+      "title": "الخدمات الحالية",
+      "lead": "خدمات نشطة منشورة من مزوّدين موثّقين.",
+      "loading": "جارٍ تحميل الخدمات…",
+      "error": "تعذر تحميل الخدمات.",
+      "empty": "لم تُنشر أي خدمات بعد.",
+      "requirements": "المتطلبات",
+      "from": "مقدَّم من"
+    },
+    "contact": {
+      "title": "ابدأ من مساحة عملك",
+      "body": "يمر كل طلب عبر ملفك الخاص، فتبقى المستندات والرسائل في مكان خاص واحد. أنشئ حساباً أدناه للبدء، أو سجّل الدخول إن كان لديك حساب.",
+      "cta": "إنشاء حساب"
+    }
+  },
+  "health": {
+    "title": "حالة النظام",
+    "loading": "جارٍ التحقق من واجهة البرمجة…",
+    "error": "تعذر الوصول إلى واجهة البرمجة ({{message}}). شغّلها عبر npm run dev.",
+    "service": "الخدمة",
+    "version": "الإصدار",
+    "status": "الحالة",
+    "database": "قاعدة البيانات",
+    "connected": "متصلة",
+    "disconnected": "غير متصلة"
+  },
+  "auth": {
+    "title": "الحساب",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "passwordHint": "عشرة أحرف على الأقل.",
+    "displayName": "الاسم الظاهر (اختياري)",
+    "login": "تسجيل الدخول",
+    "register": "إنشاء حساب",
+    "logout": "تسجيل الخروج",
+    "needAccount": "ليس لديك حساب؟ سجّل",
+    "haveAccount": "لديك حساب؟ سجّل الدخول",
+    "signedIn": "تم تسجيل الدخول.",
+    "registered": "تم إنشاء الحساب.",
+    "signedOut": "تم تسجيل الخروج.",
+    "signedInAs": "{{email}} · {{role}}",
+    "unknownError": "حدث خطأ."
+  },
+  "portal": {
+    "workspace": "مساحة العمل",
+    "navAria": "الرئيسية"
+  },
+  "nav": {
+    "cases": "الملفات",
+    "customers": "العملاء",
+    "catalog": "الكتالوج",
+    "audit": "سجل التدقيق"
+  },
+  "categories": {
+    "education": "تعليم",
+    "medical": "طبي",
+    "tourism": "سياحة"
+  },
+  "cases": {
+    "title": "الملفات",
+    "loading": "جارٍ تحميل الملفات…",
+    "loadError": "تعذر تحميل الملفات.",
+    "empty": "لم يتم العثور على ملفات.",
+    "refresh": "تحديث",
+    "filters": {
+      "status": "الحالة",
+      "category": "الفئة",
+      "all": "الكل"
+    },
+    "status": {
+      "open": "مفتوح",
+      "closed": "مغلق"
+    },
+    "columns": {
+      "offering": "الخدمة",
+      "category": "الفئة",
+      "status": "الحالة",
+      "created": "تاريخ الإنشاء"
+    },
+    "prev": "السابق",
+    "next": "التالي",
+    "pageInfo": "صفحة {{page}} من {{totalPages}} · الإجمالي {{total}}",
+    "openCase": "فتح الملف: {{title}}"
+  },
+  "customers": {
+    "title": "العملاء",
+    "loading": "جارٍ تحميل العملاء…",
+    "loadError": "تعذّر تحميل العملاء.",
+    "empty": "لم يتم العثور على عملاء.",
+    "refresh": "تحديث",
+    "search": "بحث",
+    "searchPlaceholder": "الاسم أو البريد الإلكتروني",
+    "apply": "تطبيق",
+    "prev": "السابق",
+    "next": "التالي",
+    "pageInfo": "صفحة {{page}} من {{totalPages}} · الإجمالي {{total}}",
+    "create": {
+      "fullName": "الاسم الكامل",
+      "email": "البريد الإلكتروني (اختياري)",
+      "phone": "الهاتف (اختياري)",
+      "country": "رمز الدولة",
+      "submit": "إنشاء عميل",
+      "saving": "جارٍ الإنشاء…",
+      "error": "تعذّر إنشاء العميل."
+    },
+    "columns": {
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف",
+      "country": "الدولة",
+      "assignment": "الإسناد",
+      "created": "أُنشئ",
+      "actions": "إجراءات"
+    },
+    "assignment": {
+      "unassigned": "غير مُسند",
+      "assigned": "مُسند",
+      "exception": "استثناء"
+    },
+    "invite": {
+      "action": "دعوة",
+      "emailLabel": "بريد الدعوة",
+      "send": "إرسال الدعوة",
+      "sending": "جارٍ الإرسال…",
+      "cancel": "إلغاء",
+      "error": "تعذّر إنشاء الدعوة.",
+      "created": "تم إنشاء دعوة إلى {{email}}.",
+      "tokenHint": "شارك هذا الرمز مع العميل. يُعرض مرة واحدة فقط.",
+      "expiresAt": "ينتهي في {{date}}",
+      "dismiss": "إغلاق"
+    },
+    "reassign": {
+      "action": "إعادة الإسناد",
+      "title": "إعادة إسناد {{name}}",
+      "manager": "المسؤول",
+      "managerPlaceholder": "اختر مسؤولاً",
+      "reason": "السبب",
+      "submit": "إعادة الإسناد",
+      "saving": "جارٍ الحفظ…",
+      "cancel": "إلغاء",
+      "error": "تعذّرت إعادة إسناد العميل.",
+      "success": "تمت إعادة إسناد {{name}}."
+    }
+  },
+  "catalog": {
+    "title": "الكتالوج",
+    "loading": "جارٍ تحميل الكتالوج…",
+    "loadError": "تعذر تحميل بيانات الكتالوج.",
+    "empty": "لا توجد عناصر بعد.",
+    "refresh": "تحديث",
+    "showInactive": "إظهار غير النشط",
+    "create": "إنشاء",
+    "save": "حفظ التغييرات",
+    "cancel": "إلغاء",
+    "edit": "تعديل",
+    "saveError": "تعذر حفظ التغييرات.",
+    "state": {
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "verified": "موثّق",
+      "unverified": "غير موثّق"
+    },
+    "tabs": {
+      "cities": "المدن",
+      "providers": "المزوّدون",
+      "offerings": "الخدمات"
+    },
+    "columns": {
+      "name": "الاسم",
+      "slug": "المعرّف",
+      "country": "الدولة",
+      "category": "الفئة",
+      "city": "المدينة",
+      "provider": "المزوّد",
+      "title": "العنوان",
+      "verified": "التوثيق",
+      "active": "الحالة",
+      "actions": "الإجراءات"
+    },
+    "cities": {
+      "name": "اسم المدينة",
+      "slug": "المعرّف",
+      "country": "رمز الدولة"
+    },
+    "providers": {
+      "name": "اسم المزوّد",
+      "category": "الفئة",
+      "city": "المدينة",
+      "website": "الموقع الإلكتروني",
+      "verified": "الشراكة موثّقة"
+    },
+    "offerings": {
+      "title": "العنوان",
+      "slug": "المعرّف",
+      "summary": "الملخّص",
+      "requirements": "ملخّص المتطلبات",
+      "provider": "المزوّد"
+    }
+  },
+  "audit": {
+    "title": "سجل التدقيق",
+    "loading": "جارٍ تحميل سجل التدقيق…",
+    "loadError": "تعذر تحميل سجل التدقيق.",
+    "empty": "لا توجد سجلات تدقيق.",
+    "refresh": "تحديث",
+    "apply": "تطبيق",
+    "system": "النظام",
+    "filters": {
+      "action": "الإجراء",
+      "entityType": "نوع الكيان",
+      "actorUserId": "معرّف المستخدم المنفّذ",
+      "all": "الكل"
+    },
+    "columns": {
+      "created": "الوقت",
+      "action": "الإجراء",
+      "entityType": "الكيان",
+      "entityId": "معرّف الكيان",
+      "actor": "المنفّذ"
+    },
+    "prev": "السابق",
+    "next": "التالي",
+    "pageInfo": "الصفحة {{page}} من {{totalPages}} · الإجمالي {{total}}"
+  },
+  "caseDetail": {
+    "back": "→ العودة إلى الملفات",
+    "loading": "جارٍ تحميل الملف…",
+    "loadError": "تعذر تحميل هذا الملف.",
+    "createdAt": "أُنشئ في {{date}}",
+    "workflow": "مسار العمل",
+    "workflowVersion": "إصدار القالب {{version}}",
+    "optional": "اختياري",
+    "documents": "المستندات",
+    "noDocuments": "لا توجد مستندات مرفقة بعد.",
+    "docKind": {
+      "identity": "هوية",
+      "medical": "طبي",
+      "supporting": "داعمة"
+    },
+    "quotation": "العرض السعري",
+    "noQuotation": "لم يُصدر عرض سعري بعد.",
+    "quoAmount": "المبلغ",
+    "quoOffering": "الخدمة",
+    "quoCategory": "الفئة",
+    "quoIssuedAt": "تاريخ الإصدار",
+    "paymentEvidence": "إثبات الدفع",
+    "noPaymentEvidence": "لا يوجد إثبات دفع مُرسل بعد.",
+    "messages": {
+      "title": "الرسائل",
+      "loading": "جارٍ تحميل الرسائل…",
+      "loadError": "تعذر تحميل الرسائل.",
+      "sendError": "تعذر إرسال الرسالة.",
+      "empty": "لا توجد رسائل بعد. أرسل الرسالة الأولى.",
+      "you": "أنت",
+      "placeholder": "اكتب رسالة…",
+      "send": "إرسال",
+      "sending": "جارٍ الإرسال…"
+    }
+  },
+  "roles": {
+    "customer": "عميل",
+    "staff": "موظف",
+    "admin": "مسؤول",
+    "super_admin": "مسؤول أعلى"
+  },
+  "notifications": {
+    "title": "الإشعارات",
+    "loading": "جارٍ تحميل الإشعارات…",
+    "loadError": "تعذر تحميل الإشعارات.",
+    "empty": "لا توجد إشعارات بعد.",
+    "markAllRead": "تعليم الكل كمقروء",
+    "types": {
+      "messageCreated": "رسالة جديدة على ملفك",
+      "stageTransitioned": "تم تحديث إحدى مراحل الملف",
+      "caseClosed": "تم إغلاق ملفك",
+      "paymentSubmitted": "تم إرسال إثبات دفع جديد",
+      "paymentApproved": "تمت الموافقة على إثبات الدفع",
+      "paymentRejected": "تم رفض إثبات الدفع"
+    }
+  },
+  "workflow": {
+    "status": {
+      "pending": "قيد الانتظار",
+      "in_progress": "قيد التنفيذ",
+      "done": "مكتمل",
+      "skipped": "تم تخطيه"
+    }
+  },
+  "payment": {
+    "status": {
+      "submitted": "مُرسل",
+      "approved": "معتمد",
+      "rejected": "مرفوض"
+    }
+  }
+}

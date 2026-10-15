@@ -1,0 +1,332 @@
+{
+  "meta": {
+    "title": "MEDBOURSE"
+  },
+  "brand": {
+    "name": "MEDBOURSE",
+    "eyebrow": "Türkiye · Études · Santé · Voyage",
+    "lead": "Conseil pour les admissions universitaires, la coordination médicale et le voyage en Türkiye. Environnement de développement : les interfaces publiques et opérationnelles partagent la même identité."
+  },
+  "language": {
+    "label": "Langue",
+    "en": "English",
+    "tr": "Türkçe",
+    "fr": "Français",
+    "ar": "العربية"
+  },
+  "publicSite": {
+    "navAria": "Site public",
+    "nav": {
+      "services": "Domaines",
+      "offerings": "Prestations",
+      "contact": "Contact"
+    },
+    "services": {
+      "title": "Trois domaines coordonnés",
+      "lead": "Admissions, coordination médicale et accompagnement au voyage en Türkiye — assurés par une seule équipe dans un même dossier.",
+      "education": {
+        "body": "Conseils sur le choix des universités et des programmes, les calendriers de candidature et les documents attendus par chaque établissement."
+      },
+      "medical": {
+        "body": "Coordination avec des cliniques partenaires pour les consultations et la planification des soins, vos dossiers restant confidentiels."
+      },
+      "tourism": {
+        "body": "Organisation pratique des déplacements autour des rendez-vous et des visites de campus, pour que chaque voyage ait un objectif clair."
+      }
+    },
+    "offerings": {
+      "title": "Prestations actuelles",
+      "lead": "Services actifs publiés par des prestataires vérifiés.",
+      "loading": "Chargement des prestations…",
+      "error": "Impossible de charger les prestations.",
+      "empty": "Aucune prestation publiée pour le moment.",
+      "requirements": "Conditions",
+      "from": "Proposé par"
+    },
+    "contact": {
+      "title": "Commencez dans votre espace",
+      "body": "Chaque demande passe par votre propre dossier : documents et messages restent au même endroit privé. Créez un compte ci-dessous pour commencer, ou connectez-vous si vous en avez déjà un.",
+      "cta": "Créer un compte"
+    }
+  },
+  "health": {
+    "title": "État du système",
+    "loading": "Vérification de l’API…",
+    "error": "L’API est injoignable ({{message}}). Démarrez-la avec npm run dev.",
+    "service": "Service",
+    "version": "Version",
+    "status": "Statut",
+    "database": "Base de données",
+    "connected": "Connectée",
+    "disconnected": "Déconnectée"
+  },
+  "auth": {
+    "title": "Compte",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "passwordHint": "Au moins 10 caractères.",
+    "displayName": "Nom affiché (facultatif)",
+    "login": "Connexion",
+    "register": "Créer un compte",
+    "logout": "Déconnexion",
+    "needAccount": "Pas de compte ? Inscrivez-vous",
+    "haveAccount": "Déjà inscrit ? Connectez-vous",
+    "signedIn": "Connexion réussie.",
+    "registered": "Compte créé.",
+    "signedOut": "Déconnexion effectuée.",
+    "signedInAs": "{{email}} · {{role}}",
+    "unknownError": "Une erreur s’est produite."
+  },
+  "portal": {
+    "workspace": "Espace de travail",
+    "navAria": "Principal"
+  },
+  "nav": {
+    "cases": "Dossiers",
+    "customers": "Clients",
+    "catalog": "Catalogue",
+    "audit": "Journal d'audit"
+  },
+  "categories": {
+    "education": "Éducation",
+    "medical": "Médical",
+    "tourism": "Tourisme"
+  },
+  "cases": {
+    "title": "Dossiers",
+    "loading": "Chargement des dossiers…",
+    "loadError": "Impossible de charger les dossiers.",
+    "empty": "Aucun dossier trouvé.",
+    "refresh": "Actualiser",
+    "filters": {
+      "status": "Statut",
+      "category": "Catégorie",
+      "all": "Tous"
+    },
+    "status": {
+      "open": "Ouvert",
+      "closed": "Fermé"
+    },
+    "columns": {
+      "offering": "Prestation",
+      "category": "Catégorie",
+      "status": "Statut",
+      "created": "Créé"
+    },
+    "prev": "Précédent",
+    "next": "Suivant",
+    "pageInfo": "Page {{page}} sur {{totalPages}} · {{total}} au total",
+    "openCase": "Ouvrir le dossier : {{title}}"
+  },
+  "customers": {
+    "title": "Clients",
+    "loading": "Chargement des clients…",
+    "loadError": "Impossible de charger les clients.",
+    "empty": "Aucun client trouvé.",
+    "refresh": "Actualiser",
+    "search": "Rechercher",
+    "searchPlaceholder": "Nom ou e-mail",
+    "apply": "Appliquer",
+    "prev": "Précédent",
+    "next": "Suivant",
+    "pageInfo": "Page {{page}} sur {{totalPages}} · {{total}} au total",
+    "create": {
+      "fullName": "Nom complet",
+      "email": "E-mail (facultatif)",
+      "phone": "Téléphone (facultatif)",
+      "country": "Code pays",
+      "submit": "Créer le client",
+      "saving": "Création…",
+      "error": "Impossible de créer le client."
+    },
+    "columns": {
+      "name": "Nom",
+      "email": "E-mail",
+      "phone": "Téléphone",
+      "country": "Pays",
+      "assignment": "Affectation",
+      "created": "Créé",
+      "actions": "Actions"
+    },
+    "assignment": {
+      "unassigned": "Non affecté",
+      "assigned": "Affecté",
+      "exception": "Exception"
+    },
+    "invite": {
+      "action": "Inviter",
+      "emailLabel": "E-mail d'invitation",
+      "send": "Envoyer l'invitation",
+      "sending": "Envoi…",
+      "cancel": "Annuler",
+      "error": "Impossible de créer l'invitation.",
+      "created": "Invitation créée pour {{email}}.",
+      "tokenHint": "Partagez ce jeton avec le client. Il n'est affiché qu'une seule fois.",
+      "expiresAt": "Expire le {{date}}",
+      "dismiss": "Fermer"
+    },
+    "reassign": {
+      "action": "Réaffecter",
+      "title": "Réaffecter {{name}}",
+      "manager": "Gestionnaire",
+      "managerPlaceholder": "Sélectionner un gestionnaire",
+      "reason": "Motif",
+      "submit": "Réaffecter",
+      "saving": "Enregistrement…",
+      "cancel": "Annuler",
+      "error": "Impossible de réaffecter le client.",
+      "success": "{{name}} a été réaffecté."
+    }
+  },
+  "catalog": {
+    "title": "Catalogue",
+    "loading": "Chargement du catalogue…",
+    "loadError": "Impossible de charger les données du catalogue.",
+    "empty": "Aucun élément pour le moment.",
+    "refresh": "Actualiser",
+    "showInactive": "Afficher les inactifs",
+    "create": "Créer",
+    "save": "Enregistrer les modifications",
+    "cancel": "Annuler",
+    "edit": "Modifier",
+    "saveError": "Impossible d’enregistrer les modifications.",
+    "state": {
+      "active": "Actif",
+      "inactive": "Inactif",
+      "verified": "Vérifié",
+      "unverified": "Non vérifié"
+    },
+    "tabs": {
+      "cities": "Villes",
+      "providers": "Prestataires",
+      "offerings": "Prestations"
+    },
+    "columns": {
+      "name": "Nom",
+      "slug": "Identifiant",
+      "country": "Pays",
+      "category": "Catégorie",
+      "city": "Ville",
+      "provider": "Prestataire",
+      "title": "Titre",
+      "verified": "Vérification",
+      "active": "Statut",
+      "actions": "Actions"
+    },
+    "cities": {
+      "name": "Nom de la ville",
+      "slug": "Identifiant",
+      "country": "Code pays"
+    },
+    "providers": {
+      "name": "Nom du prestataire",
+      "category": "Catégorie",
+      "city": "Ville",
+      "website": "Site web",
+      "verified": "Partenariat vérifié"
+    },
+    "offerings": {
+      "title": "Titre",
+      "slug": "Identifiant",
+      "summary": "Résumé",
+      "requirements": "Résumé des conditions",
+      "provider": "Prestataire"
+    }
+  },
+  "audit": {
+    "title": "Journal d’audit",
+    "loading": "Chargement du journal d’audit…",
+    "loadError": "Impossible de charger le journal d’audit.",
+    "empty": "Aucune entrée d’audit trouvée.",
+    "refresh": "Actualiser",
+    "apply": "Appliquer",
+    "system": "Système",
+    "filters": {
+      "action": "Action",
+      "entityType": "Type d’entité",
+      "actorUserId": "Identifiant de l’auteur",
+      "all": "Tous"
+    },
+    "columns": {
+      "created": "Date",
+      "action": "Action",
+      "entityType": "Entité",
+      "entityId": "Identifiant d’entité",
+      "actor": "Auteur"
+    },
+    "prev": "Précédent",
+    "next": "Suivant",
+    "pageInfo": "Page {{page}} sur {{totalPages}} · {{total}} au total"
+  },
+  "caseDetail": {
+    "back": "← Retour aux dossiers",
+    "loading": "Chargement du dossier…",
+    "loadError": "Impossible de charger ce dossier.",
+    "createdAt": "Créé le {{date}}",
+    "workflow": "Workflow",
+    "workflowVersion": "Version du modèle {{version}}",
+    "optional": "Optionnel",
+    "documents": "Documents",
+    "noDocuments": "Aucun document téléversé.",
+    "docKind": {
+      "identity": "Identité",
+      "medical": "Médical",
+      "supporting": "Justificatif"
+    },
+    "quotation": "Devis",
+    "noQuotation": "Aucun devis émis pour le moment.",
+    "quoAmount": "Montant",
+    "quoOffering": "Prestation",
+    "quoCategory": "Catégorie",
+    "quoIssuedAt": "Émis le",
+    "paymentEvidence": "Preuve de paiement",
+    "noPaymentEvidence": "Aucune preuve de paiement soumise.",
+    "messages": {
+      "title": "Messages",
+      "loading": "Chargement des messages…",
+      "loadError": "Impossible de charger les messages.",
+      "sendError": "Impossible d’envoyer le message.",
+      "empty": "Aucun message pour le moment. Envoyez le premier.",
+      "you": "Vous",
+      "placeholder": "Écrire un message…",
+      "send": "Envoyer",
+      "sending": "Envoi…"
+    }
+  },
+  "roles": {
+    "customer": "Client",
+    "staff": "Personnel",
+    "admin": "Administrateur",
+    "super_admin": "Super administrateur"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "loading": "Chargement des notifications…",
+    "loadError": "Impossible de charger les notifications.",
+    "empty": "Aucune notification pour le moment.",
+    "markAllRead": "Tout marquer comme lu",
+    "types": {
+      "messageCreated": "Nouveau message sur votre dossier",
+      "stageTransitioned": "Une étape du dossier a été mise à jour",
+      "caseClosed": "Votre dossier a été clôturé",
+      "paymentSubmitted": "Nouvelle preuve de paiement soumise",
+      "paymentApproved": "Preuve de paiement approuvée",
+      "paymentRejected": "Preuve de paiement rejetée"
+    }
+  },
+  "workflow": {
+    "status": {
+      "pending": "En attente",
+      "in_progress": "En cours",
+      "done": "Terminé",
+      "skipped": "Ignoré"
+    }
+  },
+  "payment": {
+    "status": {
+      "submitted": "Soumis",
+      "approved": "Approuvé",
+      "rejected": "Rejeté"
+    }
+  }
+}

@@ -1,0 +1,332 @@
+{
+  "meta": {
+    "title": "MEDBOURSE"
+  },
+  "brand": {
+    "name": "MEDBOURSE",
+    "eyebrow": "Türkiye · Eğitim · Sağlık · Seyahat",
+    "lead": "Türkiye’de üniversite kabulleri, sağlık koordinasyonu ve seyahat danışmanlığı. Bu geliştirme ortamıdır; kamuya açık ve operasyon arayüzleri aynı markayı paylaşır."
+  },
+  "language": {
+    "label": "Dil",
+    "en": "English",
+    "tr": "Türkçe",
+    "fr": "Français",
+    "ar": "العربية"
+  },
+  "publicSite": {
+    "navAria": "Tanıtım sitesi",
+    "nav": {
+      "services": "Hizmet alanları",
+      "offerings": "Hizmetler",
+      "contact": "İletişim"
+    },
+    "services": {
+      "title": "Üç koordineli hizmet alanı",
+      "lead": "Türkiye’de üniversite kabulleri, sağlık koordinasyonu ve seyahat desteği — tek bir vakada tek ekip tarafından yürütülür.",
+      "education": {
+        "body": "Üniversite ve program seçimi, başvuru takvimleri ve kurumların beklediği belgeler konusunda rehberlik."
+      },
+      "medical": {
+        "body": "Ortak kliniklerle konsültasyon ve tedavi planlaması için koordinasyon; kayıtlarınız gizli tutulur."
+      },
+      "tourism": {
+        "body": "Randevular ve kampüs ziyaretleri çevresinde pratik seyahat düzenlemeleri; her seyahatin net bir amacı olur."
+      }
+    },
+    "offerings": {
+      "title": "Güncel hizmetler",
+      "lead": "Doğrulanmış sağlayıcıların yayımladığı aktif hizmetler.",
+      "loading": "Hizmetler yükleniyor…",
+      "error": "Hizmetler yüklenemedi.",
+      "empty": "Henüz hizmet yayımlanmadı.",
+      "requirements": "Gereksinimler",
+      "from": "Sağlayıcı:"
+    },
+    "contact": {
+      "title": "Çalışma alanınızda başlayın",
+      "body": "Her başvuru kendi vakanız üzerinden yürür; böylece belgeler ve mesajlar tek bir özel yerde kalır. Başlamak için aşağıdan bir hesap oluşturun veya zaten varsa giriş yapın.",
+      "cta": "Hesap oluştur"
+    }
+  },
+  "health": {
+    "title": "Sistem durumu",
+    "loading": "API kontrol ediliyor…",
+    "error": "API’ye ulaşılamıyor ({{message}}). npm run dev ile başlatın.",
+    "service": "Servis",
+    "version": "Sürüm",
+    "status": "Durum",
+    "database": "Veritabanı",
+    "connected": "Bağlı",
+    "disconnected": "Bağlı değil"
+  },
+  "auth": {
+    "title": "Hesap",
+    "email": "E-posta",
+    "password": "Şifre",
+    "passwordHint": "En az 10 karakter.",
+    "displayName": "Görünen ad (isteğe bağlı)",
+    "login": "Giriş yap",
+    "register": "Hesap oluştur",
+    "logout": "Çıkış yap",
+    "needAccount": "Hesabınız yok mu? Kayıt olun",
+    "haveAccount": "Zaten kayıtlı mısınız? Giriş yapın",
+    "signedIn": "Giriş yapıldı.",
+    "registered": "Hesap oluşturuldu.",
+    "signedOut": "Çıkış yapıldı.",
+    "signedInAs": "{{email}} · {{role}}",
+    "unknownError": "Bir sorun oluştu."
+  },
+  "portal": {
+    "workspace": "Çalışma Alanı",
+    "navAria": "Ana"
+  },
+  "nav": {
+    "cases": "Vakalar",
+    "customers": "Müşteriler",
+    "catalog": "Katalog",
+    "audit": "Denetim Günlüğü"
+  },
+  "categories": {
+    "education": "Eğitim",
+    "medical": "Sağlık",
+    "tourism": "Turizm"
+  },
+  "cases": {
+    "title": "Vakalar",
+    "loading": "Vakalar yükleniyor…",
+    "loadError": "Vakalar yüklenemedi.",
+    "empty": "Vaka bulunamadı.",
+    "refresh": "Yenile",
+    "filters": {
+      "status": "Durum",
+      "category": "Kategori",
+      "all": "Tümü"
+    },
+    "status": {
+      "open": "Açık",
+      "closed": "Kapalı"
+    },
+    "columns": {
+      "offering": "Hizmet",
+      "category": "Kategori",
+      "status": "Durum",
+      "created": "Oluşturuldu"
+    },
+    "prev": "Önceki",
+    "next": "Sonraki",
+    "pageInfo": "Sayfa {{page}} / {{totalPages}} · Toplam {{total}}",
+    "openCase": "Vakayı aç: {{title}}"
+  },
+  "customers": {
+    "title": "Müşteriler",
+    "loading": "Müşteriler yükleniyor…",
+    "loadError": "Müşteriler yüklenemedi.",
+    "empty": "Müşteri bulunamadı.",
+    "refresh": "Yenile",
+    "search": "Ara",
+    "searchPlaceholder": "Ad veya e-posta",
+    "apply": "Uygula",
+    "prev": "Önceki",
+    "next": "Sonraki",
+    "pageInfo": "Sayfa {{page}} / {{totalPages}} · Toplam {{total}}",
+    "create": {
+      "fullName": "Ad soyad",
+      "email": "E-posta (isteğe bağlı)",
+      "phone": "Telefon (isteğe bağlı)",
+      "country": "Ülke kodu",
+      "submit": "Müşteri oluştur",
+      "saving": "Oluşturuluyor…",
+      "error": "Müşteri oluşturulamadı."
+    },
+    "columns": {
+      "name": "Ad",
+      "email": "E-posta",
+      "phone": "Telefon",
+      "country": "Ülke",
+      "assignment": "Atama",
+      "created": "Oluşturuldu",
+      "actions": "İşlemler"
+    },
+    "assignment": {
+      "unassigned": "Atanmadı",
+      "assigned": "Atandı",
+      "exception": "İstisna"
+    },
+    "invite": {
+      "action": "Davet et",
+      "emailLabel": "Davet e-postası",
+      "send": "Davet gönder",
+      "sending": "Gönderiliyor…",
+      "cancel": "İptal",
+      "error": "Davet oluşturulamadı.",
+      "created": "{{email}} için davet oluşturuldu.",
+      "tokenHint": "Bu jetonu müşteriyle paylaşın. Yalnızca bir kez gösterilir.",
+      "expiresAt": "Sona erme: {{date}}",
+      "dismiss": "Kapat"
+    },
+    "reassign": {
+      "action": "Yeniden ata",
+      "title": "{{name}} yeniden ata",
+      "manager": "Yönetici",
+      "managerPlaceholder": "Bir yönetici seçin",
+      "reason": "Gerekçe",
+      "submit": "Yeniden ata",
+      "saving": "Kaydediliyor…",
+      "cancel": "İptal",
+      "error": "Müşteri yeniden atanamadı.",
+      "success": "{{name}} yeniden atandı."
+    }
+  },
+  "catalog": {
+    "title": "Katalog",
+    "loading": "Katalog yükleniyor…",
+    "loadError": "Katalog verileri yüklenemedi.",
+    "empty": "Henüz kayıt yok.",
+    "refresh": "Yenile",
+    "showInactive": "Pasifleri göster",
+    "create": "Oluştur",
+    "save": "Değişiklikleri kaydet",
+    "cancel": "İptal",
+    "edit": "Düzenle",
+    "saveError": "Değişiklikler kaydedilemedi.",
+    "state": {
+      "active": "Aktif",
+      "inactive": "Pasif",
+      "verified": "Doğrulandı",
+      "unverified": "Doğrulanmadı"
+    },
+    "tabs": {
+      "cities": "Şehirler",
+      "providers": "Sağlayıcılar",
+      "offerings": "Hizmetler"
+    },
+    "columns": {
+      "name": "Ad",
+      "slug": "Kısa ad",
+      "country": "Ülke",
+      "category": "Kategori",
+      "city": "Şehir",
+      "provider": "Sağlayıcı",
+      "title": "Başlık",
+      "verified": "Doğrulama",
+      "active": "Durum",
+      "actions": "İşlemler"
+    },
+    "cities": {
+      "name": "Şehir adı",
+      "slug": "Kısa ad",
+      "country": "Ülke kodu"
+    },
+    "providers": {
+      "name": "Sağlayıcı adı",
+      "category": "Kategori",
+      "city": "Şehir",
+      "website": "Web sitesi",
+      "verified": "Ortaklık doğrulandı"
+    },
+    "offerings": {
+      "title": "Başlık",
+      "slug": "Kısa ad",
+      "summary": "Özet",
+      "requirements": "Gereksinim özeti",
+      "provider": "Sağlayıcı"
+    }
+  },
+  "audit": {
+    "title": "Denetim kaydı",
+    "loading": "Denetim kaydı yükleniyor…",
+    "loadError": "Denetim kaydı yüklenemedi.",
+    "empty": "Denetim kaydı bulunamadı.",
+    "refresh": "Yenile",
+    "apply": "Uygula",
+    "system": "Sistem",
+    "filters": {
+      "action": "İşlem",
+      "entityType": "Varlık türü",
+      "actorUserId": "İşlemi yapan kullanıcı kimliği",
+      "all": "Tümü"
+    },
+    "columns": {
+      "created": "Zaman",
+      "action": "İşlem",
+      "entityType": "Varlık",
+      "entityId": "Varlık kimliği",
+      "actor": "İşlemi yapan"
+    },
+    "prev": "Önceki",
+    "next": "Sonraki",
+    "pageInfo": "Sayfa {{page}} / {{totalPages}} · toplam {{total}}"
+  },
+  "caseDetail": {
+    "back": "← Vakalara dön",
+    "loading": "Vaka yükleniyor…",
+    "loadError": "Bu vaka yüklenemedi.",
+    "createdAt": "Oluşturuldu: {{date}}",
+    "workflow": "İş akışı",
+    "workflowVersion": "Şablon sürümü {{version}}",
+    "optional": "İsteğe bağlı",
+    "documents": "Belgeler",
+    "noDocuments": "Henüz belge yüklenmedi.",
+    "docKind": {
+      "identity": "Kimlik",
+      "medical": "Tıbbi",
+      "supporting": "Destekleyici"
+    },
+    "quotation": "Teklif",
+    "noQuotation": "Henüz teklif oluşturulmadı.",
+    "quoAmount": "Tutar",
+    "quoOffering": "Hizmet",
+    "quoCategory": "Kategori",
+    "quoIssuedAt": "Düzenlendi",
+    "paymentEvidence": "Ödeme kanıtı",
+    "noPaymentEvidence": "Henüz ödeme kanıtı gönderilmedi.",
+    "messages": {
+      "title": "Mesajlar",
+      "loading": "Mesajlar yükleniyor…",
+      "loadError": "Mesajlar yüklenemedi.",
+      "sendError": "Mesaj gönderilemedi.",
+      "empty": "Henüz mesaj yok. İlk mesajı siz gönderin.",
+      "you": "Siz",
+      "placeholder": "Bir mesaj yazın…",
+      "send": "Gönder",
+      "sending": "Gönderiliyor…"
+    }
+  },
+  "roles": {
+    "customer": "Müşteri",
+    "staff": "Personel",
+    "admin": "Yönetici",
+    "super_admin": "Süper Yönetici"
+  },
+  "notifications": {
+    "title": "Bildirimler",
+    "loading": "Bildirimler yükleniyor…",
+    "loadError": "Bildirimler yüklenemedi.",
+    "empty": "Henüz bildirim yok.",
+    "markAllRead": "Tümünü okundu işaretle",
+    "types": {
+      "messageCreated": "Vakanızda yeni mesaj",
+      "stageTransitioned": "Bir vaka aşaması güncellendi",
+      "caseClosed": "Vakanız kapatıldı",
+      "paymentSubmitted": "Yeni ödeme kanıtı gönderildi",
+      "paymentApproved": "Ödeme kanıtı onaylandı",
+      "paymentRejected": "Ödeme kanıtı reddedildi"
+    }
+  },
+  "workflow": {
+    "status": {
+      "pending": "Beklemede",
+      "in_progress": "Devam ediyor",
+      "done": "Tamamlandı",
+      "skipped": "Atlandı"
+    }
+  },
+  "payment": {
+    "status": {
+      "submitted": "Gönderildi",
+      "approved": "Onaylandı",
+      "rejected": "Reddedildi"
+    }
+  }
+}
