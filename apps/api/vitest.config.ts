@@ -6,6 +6,9 @@ export default defineConfig({
     fileParallelism: false,
     env: {
       STORAGE_DRIVER: 'memory',
+      // Tests must not depend on the gitignored `.env`; provide deterministic secrets.
+      JWT_SECRET: 'test-jwt-secret',
+      COOKIE_SECRET: 'test-cookie-secret',
     },
   },
 });
