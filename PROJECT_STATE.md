@@ -7,7 +7,7 @@
 | Field | Value |
 |-------|--------|
 | Repository | Local `master` — `9784426` baseline (161 files), `c32d3c8` CI pipeline |
-| Remote | `origin` → https://github.com/usameeee/medbourse.git (`master` pushed, tracking set; CI green — Actions run #4 `394746a`) |
+| Remote | `origin` → https://github.com/usameeee/medbourse.git (`master` pushed, tracking set; CI green — Actions run #6 `e1eaa79`) |
 
 ## Phase & milestone
 
@@ -15,7 +15,7 @@
 |-------|--------|
 | **Current phase** | Phase 10 — Release readiness (**complete**) — **all roadmap phases done** |
 | **Last completed** | **P10-T01/T02/T03** OpenAPI spec + deployment guide + operations/backup notes; production build green (Phase 10 exit met) |
-| **Next task** | None scheduled — roadmap complete. Optional follow-ups: a manual **browser** pass over the web surfaces, and bumping the CI actions off the deprecated Node-20 action versions (warning only, CI green) |
+| **Next task** | None scheduled — roadmap complete. Optional follow-ups: a manual **browser** pass over the web surfaces (dev servers running locally), and pinning CI to `ubuntu-24.04` before `ubuntu-latest` migrates to Ubuntu 26 (2026-10-19, GitHub `notice` only) |
 
 ## Progress
 
