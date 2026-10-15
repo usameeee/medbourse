@@ -53,6 +53,7 @@ All notable changes to MEDBOURSE are documented here with verification notes whe
 
 ### Fixed
 
+- CI tests failed on a clean checkout with `AUTH_MISCONFIGURED` (500) from `requireJwtSecret`: `JWT_SECRET`/`COOKIE_SECRET` came only from the gitignored `.env`, so token-signing helpers threw on CI (locally the `.env` masked it). Added test-only `JWT_SECRET` and `COOKIE_SECRET` to `apps/api/vitest.config.ts` (`env`) so the suite is self-contained. Verified with `.env` renamed away: `npm test` 81 passed (20 files).
 - CI lint failed on a clean checkout: `@medbourse/shared` resolves types/runtime from `packages/shared/dist`, which is gitignored, so `apps/api` lint (`tsc --noEmit`) and `apps/api` tests could not resolve `@medbourse/shared` without a prior build (locally it passed only because `packages/shared/dist` already existed). Added root `prelint` and `pretest` scripts that build `@medbourse/shared` first, mirroring the existing `predev`/`prebuild` pattern. Verified from a clean state (`packages/shared/dist` removed): `npm run lint`, `npm test` (81 passed), and `npm run build` all pass.
 - Web build emitted compiled `.js` files into `apps/web/src` (Vite resolves `.js` before `.tsx`, so stale outputs could shadow sources and ignore recent edits in `npm run dev`). Added `"noEmit": true` to `apps/web/tsconfig.app.json` and `tsconfig.node.json` and removed the 14 stray generated `.js` files. `npm run build` (tsc -b && vite build) and `npm run lint` still pass and no `.js` is emitted.
 
