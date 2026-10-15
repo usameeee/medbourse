@@ -6,8 +6,8 @@
 
 | Field | Value |
 |-------|--------|
-| Repository | Local `master` — `9784426` baseline (161 files), `1d48b0f` CI pipeline |
-| Remote | None (CI workflow added but needs a GitHub remote to run) |
+| Repository | Local `master` — `9784426` baseline (161 files), `c32d3c8` CI pipeline |
+| Remote | `origin` → https://github.com/usameeee/medbourse.git (`master` pushed, tracking set) |
 
 ## Phase & milestone
 
