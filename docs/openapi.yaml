@@ -1,0 +1,3453 @@
+openapi: 3.1.0
+info:
+  title: MEDBOURSE API
+  version: 0.0.1
+  description: |
+    Machine-readable specification for the MEDBOURSE REST API (Express 5).
+    All routes are mounted under `/api/v1`. Authentication is accepted either via
+    the HTTP-only `mb_access` cookie (`cookieAuth`) or an `Authorization: Bearer <token>`
+    header (`bearerAuth`).
+servers:
+  - url: http://localhost:4000/api/v1
+    description: development
+security:
+  - cookieAuth: []
+  - bearerAuth: []
+tags:
+  - name: Health
+  - name: Auth
+  - name: Customers
+  - name: Users
+  - name: Country assignments
+  - name: Invitations
+  - name: Catalog
+  - name: Pricing rules
+  - name: Payment accounts
+  - name: Quotations
+  - name: Payment evidence
+  - name: Cases
+  - name: Documents
+  - name: Workflow templates
+  - name: Audit
+  - name: Notifications
+paths:
+  /health:
+    get:
+      tags: [Health]
+      operationId: getHealth
+      summary: Service health and version
+      security: []
+      responses:
+        '200':
+          description: Service is up
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+  /auth/register:
+    post:
+      tags: [Auth]
+      operationId: register
+      summary: Create a customer account and set the access cookie
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterBody'
+      responses:
+        '201':
+          description: Account created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '409':
+          description: Email already in use
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                EMAIL_IN_USE:
+                  value:
+                    error:
+                      code: EMAIL_IN_USE
+                      message: An account with this email already exists
+  /auth/login:
+    post:
+      tags: [Auth]
+      operationId: login
+      summary: Sign in and set the access cookie
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginBody'
+      responses:
+        '200':
+          description: Signed in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                INVALID_CREDENTIALS:
+                  value:
+                    error:
+                      code: INVALID_CREDENTIALS
+                      message: Invalid email or password
+  /auth/logout:
+    post:
+      tags: [Auth]
+      operationId: logout
+      summary: Clear the access cookie
+      security: []
+      responses:
+        '204':
+          description: Cookie cleared
+  /auth/me:
+    get:
+      tags: [Auth]
+      operationId: getMe
+      summary: Current authenticated user (no password hash)
+      responses:
+        '200':
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserEnvelope'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /auth/staff-check:
+    get:
+      tags: [Auth]
+      operationId: staffCheck
+      summary: RBAC probe for `case:create:staff` (staff and above)
+      responses:
+        '200':
+          description: Caller has the required permission
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [ok]
+                properties:
+                  ok:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /customers:
+    post:
+      tags: [Customers]
+      operationId: createCustomer
+      summary: Office-created customer record (no login). Requires `customer:create:staff`
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomerBody'
+      responses:
+        '201':
+          description: Customer created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          description: Duplicate customer email
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                CUSTOMER_EMAIL_IN_USE:
+                  value:
+                    error:
+                      code: CUSTOMER_EMAIL_IN_USE
+                      message: A customer with this email already exists
+                      details:
+                        customerId: 64b7f0c2e1a2b3c4d5e6f7a8
+    get:
+      tags: [Customers]
+      operationId: listCustomers
+      summary: Paginated customer list. Requires `customer:read:staff`
+      parameters:
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - name: q
+          in: query
+          required: false
+          description: Case-insensitive search on full name and email
+          schema:
+            type: string
+            maxLength: 80
+      responses:
+        '200':
+          description: Paginated customers
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/PageMetaEnvelope'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/PublicCustomer'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /customers/queue/unassigned:
+    get:
+      tags: [Customers]
+      operationId: listUnassignedCustomers
+      summary: Unassigned and exception customers. Requires `customer:read:staff`
+      parameters:
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
+      responses:
+        '200':
+          description: Paginated unassigned/exception customers
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/PageMetaEnvelope'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/PublicCustomer'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /customers/{id}:
+    get:
+      tags: [Customers]
+      operationId: getCustomer
+      summary: One customer record (staff reader or the linked customer)
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+      responses:
+        '200':
+          description: Customer record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /customers/{id}/assignment:
+    post:
+      tags: [Customers]
+      operationId: reassignCustomer
+      summary: Manual reassignment with reason (audited). Requires `assignment:manage:admin`
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReassignBody'
+      responses:
+        '200':
+          description: Customer reassigned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerEnvelope'
+        '400':
+          description: Validation failure or invalid manager
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                INVALID_MANAGER:
+                  value:
+                    error:
+                      code: INVALID_MANAGER
+                      message: Manager must be an active staff, admin, or super_admin account
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /customers/{id}/invitations:
+    post:
+      tags: [Customers]
+      operationId: issueInvitation
+      summary: Issue an invitation; returns `{ invitation, token }` once. Requires `customer:create:staff`
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InviteBody'
+      responses:
+        '201':
+          description: Invitation issued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvitationWithTokenEnvelope'
+        '400':
+          description: Email missing or mismatched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                EMAIL_REQUIRED:
+                  value:
+                    error:
+                      code: EMAIL_REQUIRED
+                      message: Provide an email for this invitation
+                EMAIL_MISMATCH:
+                  value:
+                    error:
+                      code: EMAIL_MISMATCH
+                      message: Invitation email must match the customer record email
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: Customer is already linked to an account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                CUSTOMER_ALREADY_LINKED:
+                  value:
+                    error:
+                      code: CUSTOMER_ALREADY_LINKED
+                      message: This customer record is already linked to an account
+  /customers/{id}/invitations/{invitationId}/revoke:
+    post:
+      tags: [Customers]
+      operationId: revokeInvitation
+      summary: Revoke an unused invitation. Requires `customer:create:staff`
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+        - name: invitationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Invitation state (revoked if it was usable)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvitationEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /users/managers:
+    get:
+      tags: [Users]
+      operationId: listAssignableManagers
+      summary: Active assignable managers (staff/admin/super_admin). Requires `assignment:manage:admin`
+      responses:
+        '200':
+          description: Assignable managers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserListEnvelope'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /country-assignments:
+    get:
+      tags: [Country assignments]
+      operationId: listCountryAssignments
+      summary: Country to manager maps. Requires `assignment:manage:admin`
+      responses:
+        '200':
+          description: Country assignments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountryAssignmentListEnvelope'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    put:
+      tags: [Country assignments]
+      operationId: upsertCountryAssignment
+      summary: Upsert a country map. Requires `assignment:manage:admin`
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpsertCountryAssignmentBody'
+      responses:
+        '200':
+          description: Existing map updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountryAssignmentEnvelope'
+        '201':
+          description: New map created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountryAssignmentEnvelope'
+        '400':
+          description: Validation failure or invalid manager
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                INVALID_MANAGER:
+                  value:
+                    error:
+                      code: INVALID_MANAGER
+                      message: Each manager must be an active staff, admin, or super_admin account
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /invitations/accept:
+    post:
+      tags: [Invitations]
+      operationId: acceptInvitation
+      summary: Consume an invitation token and link the session user to the customer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AcceptInvitationBody'
+      responses:
+        '200':
+          description: Account linked to the customer record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserEnvelope'
+        '400':
+          description: Invitation invalid or expired
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                INVALID_INVITATION:
+                  value:
+                    error:
+                      code: INVALID_INVITATION
+                      message: Invitation is invalid or expired
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Only a customer account can accept this invitation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                FORBIDDEN:
+                  value:
+                    error:
+                      code: FORBIDDEN
+                      message: Only a customer account can accept this invitation
+        '409':
+          description: Account or customer record already linked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                ALREADY_LINKED:
+                  value:
+                    error:
+                      code: ALREADY_LINKED
+                      message: This account is already linked to a customer record
+                CUSTOMER_ALREADY_LINKED:
+                  value:
+                    error:
+                      code: CUSTOMER_ALREADY_LINKED
+                      message: This customer record is already linked to an account
+  /catalog/cities:
+    get:
+      tags: [Catalog]
+      operationId: listCities
+      summary: Public city list (active only unless a super admin requests inactive)
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/IncludeInactiveParam'
+        - $ref: '#/components/parameters/CategoryFilterParam'
+        - $ref: '#/components/parameters/ProviderIdFilterParam'
+        - $ref: '#/components/parameters/CityIdFilterParam'
+      responses:
+        '200':
+          description: Cities
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CityListEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      tags: [Catalog]
+      operationId: createCity
+      summary: Create a city. Requires `catalog:manage:super_admin`
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CityBody'
+      responses:
+        '201':
+          description: City created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CityEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          description: Slug already in use
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                CITY_SLUG_IN_USE:
+                  value:
+                    error:
+                      code: CITY_SLUG_IN_USE
+                      message: A city with this slug already exists
+  /catalog/cities/{id}:
+    patch:
+      tags: [Catalog]
+      operationId: updateCity
+      summary: Update a city. Requires `catalog:manage:super_admin`
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CityPatchBody'
+      responses:
+        '200':
+          description: City updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CityEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: Slug already in use
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                CITY_SLUG_IN_USE:
+                  value:
+                    error:
+                      code: CITY_SLUG_IN_USE
+                      message: A city with this slug already exists
+  /catalog/providers:
+    get:
+      tags: [Catalog]
+      operationId: listProviders
+      summary: Public provider list (active only unless a super admin requests inactive)
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/IncludeInactiveParam'
+        - $ref: '#/components/parameters/CategoryFilterParam'
+        - $ref: '#/components/parameters/ProviderIdFilterParam'
+        - $ref: '#/components/parameters/CityIdFilterParam'
+      responses:
+        '200':
+          description: Providers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderListEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      tags: [Catalog]
+      operationId: createProvider
+      summary: Create a provider (`partnershipVerified` defaults false). Requires `catalog:manage:super_admin`
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProviderBody'
+      responses:
+        '201':
+          description: Provider created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderEnvelope'
+        '400':
+          description: Validation failure or invalid city
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                INVALID_CITY:
+                  value:
+                    error:
+                      code: INVALID_CITY
+                      message: City does not exist
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /catalog/providers/{id}:
+    patch:
+      tags: [Catalog]
+      operationId: updateProvider
+      summary: Update a provider. Requires `catalog:manage:super_admin`
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProviderPatchBody'
+      responses:
+        '200':
+          description: Provider updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderEnvelope'
+        '400':
+          description: Validation failure or invalid city
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                INVALID_CITY:
+                  value:
+                    error:
+                      code: INVALID_CITY
+                      message: City does not exist
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /catalog/offerings:
+    get:
+      tags: [Catalog]
+      operationId: listOfferings
+      summary: Public offering list (active only unless a super admin requests inactive)
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/IncludeInactiveParam'
+        - $ref: '#/components/parameters/CategoryFilterParam'
+        - $ref: '#/components/parameters/ProviderIdFilterParam'
+        - $ref: '#/components/parameters/CityIdFilterParam'
+      responses:
+        '200':
+          description: Offerings
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferingListEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      tags: [Catalog]
+      operationId: createOffering
+      summary: Create an offering (disclaimer is server-set). Requires `catalog:manage:super_admin`
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OfferingBody'
+      responses:
+        '201':
+          description: Offering created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferingEnvelope'
+        '400':
+          description: Validation failure, invalid provider, or guarantee language
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                INVALID_PROVIDER:
+                  value:
+                    error:
+                      code: INVALID_PROVIDER
+                      message: Provider does not exist or is inactive
+                GUARANTEE_LANGUAGE:
+                  value:
+                    error:
+                      code: GUARANTEE_LANGUAGE
+                      message: Offerings must not promise admission, visa, or clinical results
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          description: Slug already in use
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                OFFERING_SLUG_IN_USE:
+                  value:
+                    error:
+                      code: OFFERING_SLUG_IN_USE
+                      message: An offering with this slug already exists
+  /catalog/offerings/{id}:
+    patch:
+      tags: [Catalog]
+      operationId: updateOffering
+      summary: Update an offering. Requires `catalog:manage:super_admin`
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OfferingPatchBody'
+      responses:
+        '200':
+          description: Offering updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferingEnvelope'
+        '400':
+          description: Validation failure, invalid provider, or guarantee language
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                INVALID_PROVIDER:
+                  value:
+                    error:
+                      code: INVALID_PROVIDER
+                      message: Provider does not exist or is inactive
+                GUARANTEE_LANGUAGE:
+                  value:
+                    error:
+                      code: GUARANTEE_LANGUAGE
+                      message: Offerings must not promise admission, visa, or clinical results
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: Slug already in use
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                OFFERING_SLUG_IN_USE:
+                  value:
+                    error:
+                      code: OFFERING_SLUG_IN_USE
+                      message: An offering with this slug already exists
+  /pricing-rules:
+    get:
+      tags: [Pricing rules]
+      operationId: listPricingRules
+      summary: List pricing rules. Requires `catalog:manage:super_admin`
+      responses:
+        '200':
+          description: Pricing rules
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PricingRuleListEnvelope'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      tags: [Pricing rules]
+      operationId: createPricingRule
+      summary: Create a pricing rule (`amount` decimal string + ISO `currency`). Requires `catalog:manage:super_admin`
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PricingRuleBody'
+      responses:
+        '201':
+          description: Pricing rule created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PricingRuleEnvelope'
+        '400':
+          description: Validation failure or invalid offering
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                INVALID_OFFERING:
+                  value:
+                    error:
+                      code: INVALID_OFFERING
+                      message: Offering does not exist
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /payment-accounts:
+    get:
+      tags: [Payment accounts]
+      operationId: listPaymentAccounts
+      summary: List payment accounts. Requires `catalog:manage:super_admin`
+      responses:
+        '200':
+          description: Payment accounts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentAccountListEnvelope'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      tags: [Payment accounts]
+      operationId: createPaymentAccount
+      summary: Create bank-transfer instructions. Requires `catalog:manage:super_admin`
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentAccountBody'
+      responses:
+        '201':
+          description: Payment account created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentAccountEnvelope'
+        '400':
+          description: Validation failure or invalid IBAN/SWIFT
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                INVALID_IBAN:
+                  value:
+                    error:
+                      code: INVALID_IBAN
+                      message: IBAN must be a valid alphanumeric account identifier
+                INVALID_SWIFT:
+                  value:
+                    error:
+                      code: INVALID_SWIFT
+                      message: SWIFT/BIC must be 8 or 11 characters
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /payment-accounts/{id}:
+    patch:
+      tags: [Payment accounts]
+      operationId: updatePaymentAccount
+      summary: Update or deactivate a payment account. Requires `catalog:manage:super_admin`
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentAccountPatchBody'
+      responses:
+        '200':
+          description: Payment account updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentAccountEnvelope'
+        '400':
+          description: Validation failure or invalid IBAN/SWIFT
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                INVALID_IBAN:
+                  value:
+                    error:
+                      code: INVALID_IBAN
+                      message: IBAN must be a valid alphanumeric account identifier
+                INVALID_SWIFT:
+                  value:
+                    error:
+                      code: INVALID_SWIFT
+                      message: SWIFT/BIC must be 8 or 11 characters
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /quotations:
+    post:
+      tags: [Quotations]
+      operationId: createQuotation
+      summary: Issue an immutable quotation from customer country + offering. Requires `case:create:staff`
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IssueQuotationBody'
+      responses:
+        '201':
+          description: Quotation issued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuotationEnvelope'
+        '400':
+          description: Invalid offering
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                INVALID_OFFERING:
+                  value:
+                    error:
+                      code: INVALID_OFFERING
+                      message: Offering does not exist or is inactive
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          description: Customer not found or no pricing rule matches
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                NOT_FOUND:
+                  value:
+                    error:
+                      code: NOT_FOUND
+                      message: Customer not found
+                NO_PRICE:
+                  value:
+                    error:
+                      code: NO_PRICE
+                      message: No pricing rule matches this offering and country
+        '409':
+          description: Ambiguous pricing rules
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                AMBIGUOUS_PRICING:
+                  value:
+                    error:
+                      code: AMBIGUOUS_PRICING
+                      message: Multiple pricing rules have the same specificity
+                      details:
+                        ruleIds:
+                          - 64b7f0c2e1a2b3c4d5e6f7a8
+  /quotations/{id}:
+    get:
+      tags: [Quotations]
+      operationId: getQuotation
+      summary: Read a quotation snapshot (staff reader or the linked customer)
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+      responses:
+        '200':
+          description: Quotation snapshot
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuotationEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /quotations/{id}/payment-instructions:
+    get:
+      tags: [Quotations]
+      operationId: getQuotationPaymentInstructions
+      summary: Resolve live bank instructions for the quotation currency/country (staff reader or linked customer)
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+      responses:
+        '200':
+          description: Payment instructions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentInstructionsEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          description: Quotation not found or no payment account matches
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                NOT_FOUND:
+                  value:
+                    error:
+                      code: NOT_FOUND
+                      message: Quotation not found
+                NO_PAYMENT_ACCOUNT:
+                  value:
+                    error:
+                      code: NO_PAYMENT_ACCOUNT
+                      message: No payment account matches this quotation
+        '409':
+          description: Ambiguous payment accounts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                AMBIGUOUS_PAYMENT_ACCOUNT:
+                  value:
+                    error:
+                      code: AMBIGUOUS_PAYMENT_ACCOUNT
+                      message: Multiple payment accounts match with the same specificity
+  /quotations/{id}/payment-evidence:
+    post:
+      tags: [Payment evidence]
+      operationId: uploadPaymentEvidence
+      summary: Upload a receipt for a quotation (status `submitted`; quotation unchanged)
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file]
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: PDF/JPEG/PNG/WebP up to 10MB
+      responses:
+        '201':
+          description: Receipt uploaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentEvidenceWithQuotationEnvelope'
+        '400':
+          description: Upload error or file too large
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                FILE_TOO_LARGE:
+                  value:
+                    error:
+                      code: FILE_TOO_LARGE
+                      message: File exceeds the 10MB limit
+                UPLOAD_ERROR:
+                  value:
+                    error:
+                      code: UPLOAD_ERROR
+                      message: Upload failed
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    get:
+      tags: [Payment evidence]
+      operationId: listQuotationPaymentEvidence
+      summary: List receipts for a quotation (staff reader or linked customer)
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+      responses:
+        '200':
+          description: Quotation and its receipts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuotationPaymentEvidenceListEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /payment-evidence/{id}/content:
+    get:
+      tags: [Payment evidence]
+      operationId: getPaymentEvidenceContent
+      summary: Stream receipt bytes using a signed query (`exp`, `sig`) — local/memory driver only
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+        - $ref: '#/components/parameters/ExpParam'
+        - $ref: '#/components/parameters/SigParam'
+      responses:
+        '200':
+          description: Receipt bytes
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Invalid signature or Cloudinary-only receipt
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                SIGNED_URL_ONLY:
+                  value:
+                    error:
+                      code: SIGNED_URL_ONLY
+                      message: This receipt must be read from its Cloudinary signed URL
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /payment-evidence/{id}/review:
+    post:
+      tags: [Payment evidence]
+      operationId: reviewPaymentEvidence
+      summary: Approve or reject a receipt (reject requires a note). Requires `payment:verify:staff`
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewPaymentEvidenceBody'
+      responses:
+        '200':
+          description: Receipt reviewed
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [evidence]
+                properties:
+                  evidence:
+                    $ref: '#/components/schemas/PublicPaymentEvidence'
+                  quotation:
+                    oneOf:
+                      - $ref: '#/components/schemas/PublicQuotation'
+                      - type: 'null'
+        '400':
+          description: Validation failure or missing rejection note
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                REVIEW_NOTE_REQUIRED:
+                  value:
+                    error:
+                      code: REVIEW_NOTE_REQUIRED
+                      message: A note is required when rejecting payment evidence
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: Receipt already reviewed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                ALREADY_REVIEWED:
+                  value:
+                    error:
+                      code: ALREADY_REVIEWED
+                      message: This receipt has already been reviewed
+  /payment-evidence/{id}/signed-url:
+    get:
+      tags: [Payment evidence]
+      operationId: getPaymentEvidenceSignedUrl
+      summary: 60s download URL for a receipt (staff reader or linked customer)
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+      responses:
+        '200':
+          description: Signed download URL
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignedUrlEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /cases:
+    post:
+      tags: [Cases]
+      operationId: createCase
+      summary: Open a case for a customer + offering (optional matching quotation). Requires `case:create:staff`
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCaseBody'
+      responses:
+        '201':
+          description: Case opened
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseEnvelope'
+        '400':
+          description: Invalid offering/quotation or quotation mismatch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                INVALID_OFFERING:
+                  value:
+                    error:
+                      code: INVALID_OFFERING
+                      message: Offering is missing or inactive
+                INVALID_QUOTATION:
+                  value:
+                    error:
+                      code: INVALID_QUOTATION
+                      message: Quotation does not exist
+                QUOTATION_MISMATCH:
+                  value:
+                    error:
+                      code: QUOTATION_MISMATCH
+                      message: Quotation does not match this customer and offering
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    get:
+      tags: [Cases]
+      operationId: listCases
+      summary: Paginated cases (all for staff, own for linked customers). Requires `case:read:self`
+      parameters:
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - name: customerId
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: status
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/CaseStatus'
+        - name: category
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/ServiceCategory'
+      responses:
+        '200':
+          description: Paginated cases
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseListEnvelope'
+        '400':
+          description: Validation failure or invalid customer id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                INVALID_CUSTOMER:
+                  value:
+                    error:
+                      code: INVALID_CUSTOMER
+                      message: Customer id is not valid
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /cases/{id}:
+    get:
+      tags: [Cases]
+      operationId: getCase
+      summary: One case with documents, quotation and payment evidence (staff reader or linked customer)
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+      responses:
+        '200':
+          description: Case detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseDetailEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /cases/{id}/messages:
+    get:
+      tags: [Cases]
+      operationId: listCaseMessages
+      summary: List case messages oldest first. Requires `case:message:self`
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+      responses:
+        '200':
+          description: Case messages
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageListEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      tags: [Cases]
+      operationId: createCaseMessage
+      summary: Post a case message. Requires `case:message:self`
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMessageBody'
+      responses:
+        '201':
+          description: Message created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /cases/{id}/workflow/stages/{stageId}:
+    patch:
+      tags: [Cases]
+      operationId: transitionCaseStage
+      summary: Advance a workflow stage. Requires `case:workflow:staff`
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+        - name: stageId
+          in: path
+          required: true
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StageTransitionBody'
+      responses:
+        '200':
+          description: Stage transitioned
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [stage, previousStatus]
+                properties:
+                  stage:
+                    $ref: '#/components/schemas/CaseWorkflowStage'
+                  previousStatus:
+                    $ref: '#/components/schemas/WorkflowStageStatus'
+        '400':
+          description: Invalid transition or disallowed skip
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                NO_WORKFLOW:
+                  value:
+                    error:
+                      code: NO_WORKFLOW
+                      message: Case has no workflow snapshot
+                INVALID_TRANSITION:
+                  value:
+                    error:
+                      code: INVALID_TRANSITION
+                      message: "Cannot transition stage from 'done' to 'in_progress'"
+                STAGE_NOT_OPTIONAL:
+                  value:
+                    error:
+                      code: STAGE_NOT_OPTIONAL
+                      message: Only optional stages can be skipped
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          description: Case or stage not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                NOT_FOUND:
+                  value:
+                    error:
+                      code: NOT_FOUND
+                      message: Case not found
+                STAGE_NOT_FOUND:
+                  value:
+                    error:
+                      code: STAGE_NOT_FOUND
+                      message: Workflow stage not found on this case
+        '409':
+          description: Earlier required stages are not done
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                PREREQUISITE_NOT_DONE:
+                  value:
+                    error:
+                      code: PREREQUISITE_NOT_DONE
+                      message: "Cannot complete stage 'payment': required stages not done: intake"
+  /cases/{id}/close:
+    patch:
+      tags: [Cases]
+      operationId: closeCase
+      summary: Close a case (all non-optional stages must be `done`). Requires `case:workflow:staff`
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+      responses:
+        '200':
+          description: Case closed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseEnvelope'
+        '400':
+          description: Case has no workflow snapshot
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                NO_WORKFLOW:
+                  value:
+                    error:
+                      code: NO_WORKFLOW
+                      message: Case has no workflow snapshot
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: Case already closed or required stages not done
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                CASE_ALREADY_CLOSED:
+                  value:
+                    error:
+                      code: CASE_ALREADY_CLOSED
+                      message: Case is already closed
+                REQUIRED_STAGES_NOT_DONE:
+                  value:
+                    error:
+                      code: REQUIRED_STAGES_NOT_DONE
+                      message: 'Cannot close case: not all required workflow stages are done'
+  /cases/{id}/documents:
+    post:
+      tags: [Documents]
+      operationId: uploadCaseDocument
+      summary: Private upload (kind `identity`/`medical`/`supporting`). Requires `case:read:self`
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+        - name: kind
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/DocumentKind'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file]
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: PDF/JPEG/PNG/WebP up to 10MB
+      responses:
+        '201':
+          description: Document stored
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseDocumentEnvelope'
+        '400':
+          description: Validation failure, upload error, or file too large
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                FILE_TOO_LARGE:
+                  value:
+                    error:
+                      code: FILE_TOO_LARGE
+                      message: File exceeds the 10MB limit
+                UPLOAD_ERROR:
+                  value:
+                    error:
+                      code: UPLOAD_ERROR
+                      message: Upload failed
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    get:
+      tags: [Documents]
+      operationId: listCaseDocuments
+      summary: List document metadata (no storage keys). Requires `case:read:self`
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+      responses:
+        '200':
+          description: Document metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseDocumentListEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /cases/{id}/documents/{documentId}/signed-url:
+    get:
+      tags: [Documents]
+      operationId: getCaseDocumentSignedUrl
+      summary: 60s download URL for a case document. Requires `case:read:self`
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+        - name: documentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Signed download URL
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignedUrlEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /documents/{id}/content:
+    get:
+      tags: [Documents]
+      operationId: getDocumentContent
+      summary: Stream document bytes using a signed query (`exp`, `sig`) — local/memory driver only
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+        - $ref: '#/components/parameters/ExpParam'
+        - $ref: '#/components/parameters/SigParam'
+      responses:
+        '200':
+          description: Document bytes
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Invalid signature or Cloudinary-only document
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                SIGNED_URL_ONLY:
+                  value:
+                    error:
+                      code: SIGNED_URL_ONLY
+                      message: This document must be read from its Cloudinary signed URL
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /workflow-templates:
+    get:
+      tags: [Workflow templates]
+      operationId: listWorkflowTemplates
+      summary: List templates (optional `category` filter). Requires `workflow:manage:super_admin`
+      parameters:
+        - name: category
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/ServiceCategory'
+      responses:
+        '200':
+          description: Workflow templates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowTemplateListEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      tags: [Workflow templates]
+      operationId: createWorkflowTemplate
+      summary: Create a template plus its first version (stage graph). Requires `workflow:manage:super_admin`
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWorkflowTemplateBody'
+      responses:
+        '201':
+          description: Template and first version created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowTemplateWithVersionEnvelope'
+        '400':
+          description: Validation failure or duplicate stage id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                DUPLICATE_STAGE_ID:
+                  value:
+                    error:
+                      code: DUPLICATE_STAGE_ID
+                      message: 'Duplicate stage id: intake'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /workflow-templates/{id}:
+    get:
+      tags: [Workflow templates]
+      operationId: getWorkflowTemplate
+      summary: Template with its current version. Requires `workflow:manage:super_admin`
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+      responses:
+        '200':
+          description: Template and current version
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowTemplateWithNullableVersionEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      tags: [Workflow templates]
+      operationId: updateWorkflowTemplate
+      summary: Update template metadata (`name`, `description`, `isActive`). Requires `workflow:manage:super_admin`
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWorkflowTemplateBody'
+      responses:
+        '200':
+          description: Template updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowTemplateEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /workflow-templates/{id}/versions:
+    get:
+      tags: [Workflow templates]
+      operationId: listWorkflowTemplateVersions
+      summary: All versions newest first. Requires `workflow:manage:super_admin`
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+      responses:
+        '200':
+          description: Template versions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowTemplateVersionListEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      tags: [Workflow templates]
+      operationId: createWorkflowTemplateVersion
+      summary: Create a new version (stages replace the current one). Requires `workflow:manage:super_admin`
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWorkflowTemplateVersionBody'
+      responses:
+        '201':
+          description: New version created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowTemplateWithVersionEnvelope'
+        '400':
+          description: Validation failure or duplicate stage id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorBody'
+              examples:
+                DUPLICATE_STAGE_ID:
+                  value:
+                    error:
+                      code: DUPLICATE_STAGE_ID
+                      message: 'Duplicate stage id: intake'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /workflow-templates/{id}/versions/{versionNumber}:
+    get:
+      tags: [Workflow templates]
+      operationId: getWorkflowTemplateVersion
+      summary: Read a specific version. Requires `workflow:manage:super_admin`
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+        - name: versionNumber
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        '200':
+          description: Template version
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowTemplateVersionEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /audit:
+    get:
+      tags: [Audit]
+      operationId: listAuditLogs
+      summary: Paginated audit logs. Requires `audit:read:super_admin`
+      parameters:
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - name: action
+          in: query
+          required: false
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 120
+        - name: entityType
+          in: query
+          required: false
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 64
+        - name: actorUserId
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Paginated audit logs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditLogListEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /notifications:
+    get:
+      tags: [Notifications]
+      operationId: listNotifications
+      summary: Caller's notifications newest first (optional `unreadOnly`). Requires `notification:read:self`
+      parameters:
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - name: unreadOnly
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: ['true', 'false']
+      responses:
+        '200':
+          description: Notifications with unread count
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationListEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /notifications/read-all:
+    post:
+      tags: [Notifications]
+      operationId: markAllNotificationsRead
+      summary: Mark all of the caller's notifications read. Requires `notification:read:self`
+      responses:
+        '200':
+          description: Number of notifications updated
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [updated]
+                properties:
+                  updated:
+                    type: integer
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /notifications/{id}/read:
+    patch:
+      tags: [Notifications]
+      operationId: markNotificationRead
+      summary: Mark one of the caller's notifications read. Requires `notification:read:self`
+      parameters:
+        - $ref: '#/components/parameters/IdPathParam'
+      responses:
+        '200':
+          description: Notification updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationEnvelope'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: mb_access
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    IdPathParam:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    PageParam:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    LimitParam:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+    IncludeInactiveParam:
+      name: includeInactive
+      in: query
+      required: false
+      description: Only honored for super admins
+      schema:
+        type: string
+        enum: ['true', 'false']
+    CategoryFilterParam:
+      name: category
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/ServiceCategory'
+    ProviderIdFilterParam:
+      name: providerId
+      in: query
+      required: false
+      schema:
+        type: string
+    CityIdFilterParam:
+      name: cityId
+      in: query
+      required: false
+      schema:
+        type: string
+    ExpParam:
+      name: exp
+      in: query
+      required: true
+      schema:
+        type: string
+        minLength: 1
+    SigParam:
+      name: sig
+      in: query
+      required: true
+      schema:
+        type: string
+        minLength: 1
+  responses:
+    ValidationError:
+      description: Request validation failed (`VALIDATION_ERROR`, Zod `flatten()` in `details`)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorBody'
+          examples:
+            VALIDATION_ERROR:
+              value:
+                error:
+                  code: VALIDATION_ERROR
+                  message: Request validation failed
+    Unauthorized:
+      description: Authentication required (`UNAUTHENTICATED`)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorBody'
+          examples:
+            UNAUTHENTICATED:
+              value:
+                error:
+                  code: UNAUTHENTICATED
+                  message: Authentication required
+    Forbidden:
+      description: Insufficient permissions (`FORBIDDEN`)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorBody'
+          examples:
+            FORBIDDEN:
+              value:
+                error:
+                  code: FORBIDDEN
+                  message: Insufficient permissions
+    NotFound:
+      description: Resource not found (`NOT_FOUND`)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiErrorBody'
+          examples:
+            NOT_FOUND:
+              value:
+                error:
+                  code: NOT_FOUND
+                  message: Resource not found
+  schemas:
+    ApiErrorBody:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            details: {}
+    HealthResponse:
+      type: object
+      required: [status, service, version, timestamp, database]
+      properties:
+        status:
+          type: string
+          const: ok
+        service:
+          type: string
+        version:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        database:
+          type: string
+          enum: [connected, disconnected]
+    UserRole:
+      type: string
+      enum: [customer, staff, admin, super_admin]
+    ServiceCategory:
+      type: string
+      enum: [education, medical, tourism]
+    CaseStatus:
+      type: string
+      enum: [open, closed]
+    WorkflowStageStatus:
+      type: string
+      enum: [pending, in_progress, done, skipped]
+    DocumentKind:
+      type: string
+      enum: [identity, medical, supporting]
+    AssignmentStatus:
+      type: string
+      enum: [unassigned, assigned, exception]
+    PaymentMethod:
+      type: string
+      enum: [bank_transfer]
+    PaymentEvidenceStatus:
+      type: string
+      enum: [submitted, approved, rejected]
+    NotificationType:
+      type: string
+      enum:
+        - 'case.message_created'
+        - 'case.workflow_stage_transitioned'
+        - 'case.closed'
+        - 'payment_evidence.submitted'
+        - 'payment_evidence.approved'
+        - 'payment_evidence.rejected'
+    PageMeta:
+      type: object
+      required: [page, limit, total]
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        total:
+          type: integer
+    PageMetaEnvelope:
+      type: object
+      required: [data, meta]
+      properties:
+        data:
+          type: array
+          items: {}
+        meta:
+          $ref: '#/components/schemas/PageMeta'
+    PublicUser:
+      type: object
+      required: [id, email, role, displayName, customerId]
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        role:
+          $ref: '#/components/schemas/UserRole'
+        displayName:
+          type: ['string', 'null']
+        customerId:
+          type: ['string', 'null']
+    PublicCustomer:
+      type: object
+      required:
+        - id
+        - fullName
+        - email
+        - phone
+        - countryCode
+        - assignedManagerUserId
+        - assignmentStatus
+        - createdByUserId
+        - createdAt
+      properties:
+        id:
+          type: string
+        fullName:
+          type: string
+        email:
+          type: ['string', 'null']
+          format: email
+        phone:
+          type: ['string', 'null']
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2
+        assignedManagerUserId:
+          type: ['string', 'null']
+        assignmentStatus:
+          $ref: '#/components/schemas/AssignmentStatus'
+        createdByUserId:
+          type: ['string', 'null']
+        createdAt:
+          type: string
+          format: date-time
+    PublicInvitation:
+      type: object
+      required: [id, customerId, email, expiresAt, consumedAt, revokedAt, createdAt]
+      properties:
+        id:
+          type: string
+        customerId:
+          type: string
+        email:
+          type: string
+          format: email
+        expiresAt:
+          type: string
+          format: date-time
+        consumedAt:
+          type: ['string', 'null']
+          format: date-time
+        revokedAt:
+          type: ['string', 'null']
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+    PublicCountryAssignment:
+      type: object
+      required: [id, countryCode, managerUserIds, isActive]
+      properties:
+        id:
+          type: string
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2
+        managerUserIds:
+          type: array
+          items:
+            type: string
+        isActive:
+          type: boolean
+    PublicCity:
+      type: object
+      required: [id, slug, name, countryCode, isActive]
+      properties:
+        id:
+          type: string
+        slug:
+          type: string
+        name:
+          type: string
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2
+        isActive:
+          type: boolean
+    PublicProvider:
+      type: object
+      required:
+        - id
+        - name
+        - category
+        - cityId
+        - countryCode
+        - website
+        - isActive
+        - partnershipVerified
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        category:
+          $ref: '#/components/schemas/ServiceCategory'
+        cityId:
+          type: string
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2
+        website:
+          type: ['string', 'null']
+          format: uri
+        isActive:
+          type: boolean
+        partnershipVerified:
+          type: boolean
+    PublicOffering:
+      type: object
+      required:
+        - id
+        - slug
+        - title
+        - summary
+        - requirementsSummary
+        - category
+        - providerId
+        - cityId
+        - countryCode
+        - isActive
+        - disclaimer
+      properties:
+        id:
+          type: string
+        slug:
+          type: string
+        title:
+          type: string
+        summary:
+          type: string
+        requirementsSummary:
+          type: ['string', 'null']
+        category:
+          $ref: '#/components/schemas/ServiceCategory'
+        providerId:
+          type: string
+        cityId:
+          type: string
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2
+        isActive:
+          type: boolean
+        disclaimer:
+          type: string
+    PublicPricingRule:
+      type: object
+      required: [id, customerCountryCode, category, offeringId, amount, currency, isActive]
+      properties:
+        id:
+          type: string
+        customerCountryCode:
+          type: ['string', 'null']
+          description: ISO 3166-1 alpha-2
+        category:
+          oneOf:
+            - $ref: '#/components/schemas/ServiceCategory'
+            - type: 'null'
+        offeringId:
+          type: ['string', 'null']
+        amount:
+          type: string
+          description: Decimal string (2 places)
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+        isActive:
+          type: boolean
+    PublicPaymentAccount:
+      type: object
+      required:
+        - id
+        - customerCountryCode
+        - currency
+        - method
+        - label
+        - beneficiaryName
+        - bankName
+        - iban
+        - swiftBic
+        - referenceHint
+        - notes
+        - isActive
+      properties:
+        id:
+          type: string
+        customerCountryCode:
+          type: ['string', 'null']
+          description: ISO 3166-1 alpha-2
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+        method:
+          $ref: '#/components/schemas/PaymentMethod'
+        label:
+          type: string
+        beneficiaryName:
+          type: string
+        bankName:
+          type: string
+        iban:
+          type: string
+        swiftBic:
+          type: ['string', 'null']
+        referenceHint:
+          type: ['string', 'null']
+        notes:
+          type: ['string', 'null']
+        isActive:
+          type: boolean
+    PublicQuotation:
+      type: object
+      required: [id, customerId, offeringId, amount, currency, pricingRuleId, snapshot, issuedAt]
+      properties:
+        id:
+          type: string
+        customerId:
+          type: string
+        offeringId:
+          type: string
+        amount:
+          type: string
+          description: Decimal string (2 places)
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+        pricingRuleId:
+          type: string
+        snapshot:
+          type: object
+          required: [offeringTitle, offeringSlug, category, disclaimer, customerCountryCode]
+          properties:
+            offeringTitle:
+              type: string
+            offeringSlug:
+              type: string
+            category:
+              $ref: '#/components/schemas/ServiceCategory'
+            disclaimer:
+              type: string
+            customerCountryCode:
+              type: string
+              description: ISO 3166-1 alpha-2
+        issuedAt:
+          type: string
+          format: date-time
+    WorkflowStageDefinition:
+      type: object
+      required: [id, name, description, order, optional]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: ['string', 'null']
+        order:
+          type: integer
+        optional:
+          type: boolean
+    CaseWorkflowStage:
+      allOf:
+        - $ref: '#/components/schemas/WorkflowStageDefinition'
+        - type: object
+          required: [status]
+          properties:
+            status:
+              $ref: '#/components/schemas/WorkflowStageStatus'
+    CaseWorkflowSnapshot:
+      type: object
+      required: [templateId, versionNumber, stages]
+      properties:
+        templateId:
+          type: string
+        versionNumber:
+          type: integer
+        stages:
+          type: array
+          items:
+            $ref: '#/components/schemas/CaseWorkflowStage'
+    PublicCase:
+      type: object
+      required:
+        - id
+        - customerId
+        - offeringId
+        - quotationId
+        - status
+        - category
+        - offeringTitle
+        - workflow
+        - createdAt
+      properties:
+        id:
+          type: string
+        customerId:
+          type: string
+        offeringId:
+          type: string
+        quotationId:
+          type: ['string', 'null']
+        status:
+          $ref: '#/components/schemas/CaseStatus'
+        category:
+          $ref: '#/components/schemas/ServiceCategory'
+        offeringTitle:
+          type: string
+        workflow:
+          oneOf:
+            - $ref: '#/components/schemas/CaseWorkflowSnapshot'
+            - type: 'null'
+        createdAt:
+          type: string
+          format: date-time
+    PublicCaseDocument:
+      type: object
+      required: [id, caseId, customerId, kind, originalFilename, mimeType, sizeBytes, createdAt]
+      properties:
+        id:
+          type: string
+        caseId:
+          type: string
+        customerId:
+          type: string
+        kind:
+          $ref: '#/components/schemas/DocumentKind'
+        originalFilename:
+          type: string
+        mimeType:
+          type: string
+        sizeBytes:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+    PublicMessage:
+      type: object
+      required: [id, caseId, authorUserId, authorRole, body, createdAt]
+      properties:
+        id:
+          type: string
+        caseId:
+          type: string
+        authorUserId:
+          type: string
+        authorRole:
+          $ref: '#/components/schemas/UserRole'
+        body:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+    PublicNotification:
+      type: object
+      required: [id, type, caseId, metadata, readAt, createdAt]
+      properties:
+        id:
+          type: string
+        type:
+          $ref: '#/components/schemas/NotificationType'
+        caseId:
+          type: ['string', 'null']
+        metadata:
+          type: object
+          additionalProperties: true
+        readAt:
+          type: ['string', 'null']
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+    PublicPaymentEvidence:
+      type: object
+      required:
+        - id
+        - quotationId
+        - customerId
+        - status
+        - originalFilename
+        - mimeType
+        - sizeBytes
+        - reviewNote
+        - reviewedAt
+        - createdAt
+      properties:
+        id:
+          type: string
+        quotationId:
+          type: string
+        customerId:
+          type: string
+        status:
+          $ref: '#/components/schemas/PaymentEvidenceStatus'
+        originalFilename:
+          type: string
+        mimeType:
+          type: string
+        sizeBytes:
+          type: integer
+        reviewNote:
+          type: ['string', 'null']
+        reviewedAt:
+          type: ['string', 'null']
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+    PublicAuditLog:
+      type: object
+      required: [id, actorUserId, action, entityType, entityId, metadata, createdAt]
+      properties:
+        id:
+          type: string
+        actorUserId:
+          type: ['string', 'null']
+        action:
+          type: string
+        entityType:
+          type: string
+        entityId:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+        createdAt:
+          type: string
+          format: date-time
+    PublicWorkflowTemplate:
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - category
+        - isActive
+        - currentVersionNumber
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: ['string', 'null']
+        category:
+          $ref: '#/components/schemas/ServiceCategory'
+        isActive:
+          type: boolean
+        currentVersionNumber:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    PublicWorkflowTemplateVersion:
+      type: object
+      required: [id, templateId, versionNumber, stages, createdByUserId, createdAt]
+      properties:
+        id:
+          type: string
+        templateId:
+          type: string
+        versionNumber:
+          type: integer
+        stages:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowStageDefinition'
+        createdByUserId:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+    RegisterBody:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 10
+          maxLength: 200
+        displayName:
+          type: string
+          maxLength: 80
+        invitationToken:
+          type: string
+          minLength: 20
+          maxLength: 200
+    LoginBody:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 10
+          maxLength: 200
+    CreateCustomerBody:
+      type: object
+      required: [fullName, countryCode]
+      properties:
+        fullName:
+          type: string
+          minLength: 1
+          maxLength: 120
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+          maxLength: 32
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2
+    ReassignBody:
+      type: object
+      required: [managerUserId, reason]
+      properties:
+        managerUserId:
+          type: string
+          minLength: 1
+        reason:
+          type: string
+          minLength: 3
+          maxLength: 500
+    InviteBody:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+    AcceptInvitationBody:
+      type: object
+      required: [token]
+      properties:
+        token:
+          type: string
+          minLength: 20
+          maxLength: 200
+    UpsertCountryAssignmentBody:
+      type: object
+      required: [countryCode, managerUserIds]
+      properties:
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2
+        managerUserIds:
+          type: array
+          minItems: 1
+          maxItems: 20
+          items:
+            type: string
+            minLength: 1
+        isActive:
+          type: boolean
+          default: true
+    CityBody:
+      type: object
+      required: [slug, name, countryCode]
+      properties:
+        slug:
+          type: string
+          minLength: 2
+          maxLength: 60
+          pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+        name:
+          type: string
+          minLength: 1
+          maxLength: 80
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2
+        isActive:
+          type: boolean
+    CityPatchBody:
+      type: object
+      properties:
+        slug:
+          type: string
+          minLength: 2
+          maxLength: 60
+          pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+        name:
+          type: string
+          minLength: 1
+          maxLength: 80
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2
+        isActive:
+          type: boolean
+    ProviderBody:
+      type: object
+      required: [name, category, cityId]
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 160
+        category:
+          $ref: '#/components/schemas/ServiceCategory'
+        cityId:
+          type: string
+        website:
+          type: string
+          format: uri
+          maxLength: 300
+        isActive:
+          type: boolean
+        partnershipVerified:
+          type: boolean
+    ProviderPatchBody:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 160
+        category:
+          $ref: '#/components/schemas/ServiceCategory'
+        cityId:
+          type: string
+        website:
+          type: string
+          format: uri
+          maxLength: 300
+        isActive:
+          type: boolean
+        partnershipVerified:
+          type: boolean
+    OfferingBody:
+      type: object
+      required: [slug, title, summary, providerId]
+      properties:
+        slug:
+          type: string
+          minLength: 2
+          maxLength: 60
+          pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+        title:
+          type: string
+          minLength: 1
+          maxLength: 160
+        summary:
+          type: string
+          minLength: 1
+          maxLength: 800
+        requirementsSummary:
+          type: string
+          maxLength: 800
+        providerId:
+          type: string
+        isActive:
+          type: boolean
+    OfferingPatchBody:
+      type: object
+      properties:
+        slug:
+          type: string
+          minLength: 2
+          maxLength: 60
+          pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+        title:
+          type: string
+          minLength: 1
+          maxLength: 160
+        summary:
+          type: string
+          minLength: 1
+          maxLength: 800
+        requirementsSummary:
+          type: string
+          maxLength: 800
+        providerId:
+          type: string
+        isActive:
+          type: boolean
+    PricingRuleBody:
+      type: object
+      required: [amount, currency]
+      properties:
+        customerCountryCode:
+          type: string
+          description: ISO 3166-1 alpha-2
+        category:
+          $ref: '#/components/schemas/ServiceCategory'
+        offeringId:
+          type: string
+        amount:
+          type: string
+          description: Decimal string (2 places)
+        currency:
+          type: string
+          description: ISO 4217 currency code
+        isActive:
+          type: boolean
+    PaymentAccountBody:
+      type: object
+      required: [currency, label, beneficiaryName, bankName, iban]
+      properties:
+        customerCountryCode:
+          type: string
+          description: ISO 3166-1 alpha-2
+        currency:
+          type: string
+        method:
+          $ref: '#/components/schemas/PaymentMethod'
+        label:
+          type: string
+          minLength: 1
+          maxLength: 120
+        beneficiaryName:
+          type: string
+          minLength: 1
+          maxLength: 160
+        bankName:
+          type: string
+          minLength: 1
+          maxLength: 160
+        iban:
+          type: string
+        swiftBic:
+          type: string
+        referenceHint:
+          type: string
+          maxLength: 200
+        notes:
+          type: string
+          maxLength: 800
+        isActive:
+          type: boolean
+    PaymentAccountPatchBody:
+      type: object
+      properties:
+        customerCountryCode:
+          type: string
+          description: ISO 3166-1 alpha-2
+        currency:
+          type: string
+        method:
+          $ref: '#/components/schemas/PaymentMethod'
+        label:
+          type: string
+          minLength: 1
+          maxLength: 120
+        beneficiaryName:
+          type: string
+          minLength: 1
+          maxLength: 160
+        bankName:
+          type: string
+          minLength: 1
+          maxLength: 160
+        iban:
+          type: string
+        swiftBic:
+          type: string
+        referenceHint:
+          type: string
+          maxLength: 200
+        notes:
+          type: string
+          maxLength: 800
+        isActive:
+          type: boolean
+    IssueQuotationBody:
+      type: object
+      required: [customerId, offeringId]
+      properties:
+        customerId:
+          type: string
+        offeringId:
+          type: string
+    ReviewPaymentEvidenceBody:
+      type: object
+      required: [decision]
+      properties:
+        decision:
+          type: string
+          enum: [approved, rejected]
+        note:
+          type: string
+          minLength: 3
+          maxLength: 500
+    CreateCaseBody:
+      type: object
+      required: [customerId, offeringId]
+      properties:
+        customerId:
+          type: string
+        offeringId:
+          type: string
+        quotationId:
+          type: string
+    CreateMessageBody:
+      type: object
+      required: [body]
+      properties:
+        body:
+          type: string
+          minLength: 1
+          maxLength: 4000
+    StageTransitionBody:
+      type: object
+      required: [status]
+      properties:
+        status:
+          $ref: '#/components/schemas/WorkflowStageStatus'
+    CreateWorkflowTemplateBody:
+      type: object
+      required: [name, category, stages]
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 160
+        description:
+          type: string
+          maxLength: 800
+        category:
+          $ref: '#/components/schemas/ServiceCategory'
+        isActive:
+          type: boolean
+        stages:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/WorkflowStageInput'
+    UpdateWorkflowTemplateBody:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 160
+        description:
+          type: ['string', 'null']
+          maxLength: 800
+        isActive:
+          type: boolean
+    CreateWorkflowTemplateVersionBody:
+      type: object
+      required: [stages]
+      properties:
+        stages:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/WorkflowStageInput'
+    WorkflowStageInput:
+      type: object
+      required: [id, name, order]
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 64
+        name:
+          type: string
+          minLength: 1
+          maxLength: 120
+        description:
+          type: string
+          maxLength: 800
+        order:
+          type: integer
+          minimum: 0
+        optional:
+          type: boolean
+    UserEnvelope:
+      type: object
+      required: [user]
+      properties:
+        user:
+          $ref: '#/components/schemas/PublicUser'
+    UserListEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicUser'
+    CustomerEnvelope:
+      type: object
+      required: [customer]
+      properties:
+        customer:
+          $ref: '#/components/schemas/PublicCustomer'
+    InvitationEnvelope:
+      type: object
+      required: [invitation]
+      properties:
+        invitation:
+          $ref: '#/components/schemas/PublicInvitation'
+    InvitationWithTokenEnvelope:
+      type: object
+      required: [invitation, token]
+      properties:
+        invitation:
+          $ref: '#/components/schemas/PublicInvitation'
+        token:
+          type: string
+    CountryAssignmentEnvelope:
+      type: object
+      required: [assignment]
+      properties:
+        assignment:
+          $ref: '#/components/schemas/PublicCountryAssignment'
+    CountryAssignmentListEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicCountryAssignment'
+    CityEnvelope:
+      type: object
+      required: [city]
+      properties:
+        city:
+          $ref: '#/components/schemas/PublicCity'
+    CityListEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicCity'
+    ProviderEnvelope:
+      type: object
+      required: [provider]
+      properties:
+        provider:
+          $ref: '#/components/schemas/PublicProvider'
+    ProviderListEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicProvider'
+    OfferingEnvelope:
+      type: object
+      required: [offering]
+      properties:
+        offering:
+          $ref: '#/components/schemas/PublicOffering'
+    OfferingListEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicOffering'
+    PricingRuleEnvelope:
+      type: object
+      required: [rule]
+      properties:
+        rule:
+          $ref: '#/components/schemas/PublicPricingRule'
+    PricingRuleListEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicPricingRule'
+    PaymentAccountEnvelope:
+      type: object
+      required: [paymentAccount]
+      properties:
+        paymentAccount:
+          $ref: '#/components/schemas/PublicPaymentAccount'
+    PaymentAccountListEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicPaymentAccount'
+    QuotationEnvelope:
+      type: object
+      required: [quotation]
+      properties:
+        quotation:
+          $ref: '#/components/schemas/PublicQuotation'
+    PaymentInstructionsEnvelope:
+      type: object
+      required: [quotationId, amount, currency, paymentAccount]
+      properties:
+        quotationId:
+          type: string
+        amount:
+          type: string
+        currency:
+          type: string
+        paymentAccount:
+          $ref: '#/components/schemas/PublicPaymentAccount'
+    PaymentEvidenceWithQuotationEnvelope:
+      type: object
+      required: [evidence, quotation]
+      properties:
+        evidence:
+          $ref: '#/components/schemas/PublicPaymentEvidence'
+        quotation:
+          $ref: '#/components/schemas/PublicQuotation'
+    QuotationPaymentEvidenceListEnvelope:
+      type: object
+      required: [quotation, data]
+      properties:
+        quotation:
+          $ref: '#/components/schemas/PublicQuotation'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicPaymentEvidence'
+    SignedUrlEnvelope:
+      type: object
+      required: [url, expiresAt]
+      properties:
+        url:
+          type: string
+        expiresAt:
+          type: string
+          format: date-time
+    CaseEnvelope:
+      type: object
+      required: [case]
+      properties:
+        case:
+          $ref: '#/components/schemas/PublicCase'
+    CaseListEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/PageMetaEnvelope'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/PublicCase'
+    CaseDetailEnvelope:
+      type: object
+      required: [case, documents, quotation, paymentEvidence]
+      properties:
+        case:
+          $ref: '#/components/schemas/PublicCase'
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicCaseDocument'
+        quotation:
+          oneOf:
+            - $ref: '#/components/schemas/PublicQuotation'
+            - type: 'null'
+        paymentEvidence:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicPaymentEvidence'
+    MessageEnvelope:
+      type: object
+      required: [message]
+      properties:
+        message:
+          $ref: '#/components/schemas/PublicMessage'
+    MessageListEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicMessage'
+    CaseDocumentEnvelope:
+      type: object
+      required: [document]
+      properties:
+        document:
+          $ref: '#/components/schemas/PublicCaseDocument'
+    CaseDocumentListEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicCaseDocument'
+    WorkflowTemplateEnvelope:
+      type: object
+      required: [template]
+      properties:
+        template:
+          $ref: '#/components/schemas/PublicWorkflowTemplate'
+    WorkflowTemplateListEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicWorkflowTemplate'
+    WorkflowTemplateWithVersionEnvelope:
+      type: object
+      required: [template, version]
+      properties:
+        template:
+          $ref: '#/components/schemas/PublicWorkflowTemplate'
+        version:
+          $ref: '#/components/schemas/PublicWorkflowTemplateVersion'
+    WorkflowTemplateWithNullableVersionEnvelope:
+      type: object
+      required: [template, version]
+      properties:
+        template:
+          $ref: '#/components/schemas/PublicWorkflowTemplate'
+        version:
+          oneOf:
+            - $ref: '#/components/schemas/PublicWorkflowTemplateVersion'
+            - type: 'null'
+    WorkflowTemplateVersionEnvelope:
+      type: object
+      required: [version]
+      properties:
+        version:
+          $ref: '#/components/schemas/PublicWorkflowTemplateVersion'
+    WorkflowTemplateVersionListEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicWorkflowTemplateVersion'
+    AuditLogListEnvelope:
+      allOf:
+        - $ref: '#/components/schemas/PageMetaEnvelope'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/PublicAuditLog'
+    NotificationEnvelope:
+      type: object
+      required: [notification]
+      properties:
+        notification:
+          $ref: '#/components/schemas/PublicNotification'
+    NotificationListEnvelope:
+      type: object
+      required: [data, meta]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicNotification'
+        meta:
+          type: object
+          required: [page, limit, total, unread]
+          properties:
+            page:
+              type: integer
+            limit:
+              type: integer
+            total:
+              type: integer
+            unread:
+              type: integer

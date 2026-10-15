@@ -1,0 +1,16 @@
+---
+description: MEDBOURSE API and shared package engineering conventions
+globs: apps/api/**/*,packages/shared/**/*
+alwaysApply: false
+---
+
+# MEDBOURSE Engineering
+
+- REST under `/api/v1`; versioned, consistent error JSON.
+- Shared types and enums in `@medbourse/shared`; avoid duplicating domain types in web.
+- Validate input at API boundary (Zod when introduced).
+- No secrets in code; use `.env` via central config module.
+- Financial and workflow transitions: server-side validation + audit log hooks.
+- Document new endpoints in `docs/API.md` and eventual OpenAPI when implemented.
+
+See `docs/SECURITY.md` for authorization and document access requirements.

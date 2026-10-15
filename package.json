@@ -1,0 +1,24 @@
+{
+  "name": "medbourse",
+  "private": true,
+  "version": "0.0.1",
+  "description": "MEDBOURSE — education, medical tourism, and travel platform",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "predev": "npm run build -w @medbourse/shared",
+    "prebuild": "npm run build -w @medbourse/shared",
+    "dev": "concurrently -n api,web -c cyan,magenta \"npm run dev -w @medbourse/api\" \"npm run dev -w @medbourse/web\"",
+    "build": "npm run build -w @medbourse/shared && npm run build -w @medbourse/api && npm run build -w @medbourse/web",
+    "lint": "npm run lint -w @medbourse/api && npm run lint -w @medbourse/web",
+    "test": "npm run test -w @medbourse/api"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

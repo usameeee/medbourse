@@ -1,0 +1,18 @@
+---
+description: MEDBOURSE core project contract — read AGENTS.md and checkpoint docs first
+alwaysApply: true
+---
+
+# MEDBOURSE Core
+
+Before code changes: read `AGENTS.md`, `PROJECT_STATE.md`, and relevant `TASKS.md` entries.
+
+- Greenfield or existing: **audit the repo**; do not rebuild working features.
+- Backend must enforce RBAC; customer/staff/admin/super_admin.
+- Money: exact decimals + currency code; quotation snapshots immutable.
+- Sensitive documents: private storage, signed URLs, server authorization.
+- i18n: en, tr, fr, ar with real RTL (logical CSS).
+- Update `PROJECT_STATE.md` at meaningful checkpoints.
+- Never mark tests passed without running them.
+
+Canonical rules live in `AGENTS.md`; do not duplicate conflicting instructions elsewhere.

@@ -1,0 +1,332 @@
+{
+  "meta": {
+    "title": "MEDBOURSE"
+  },
+  "brand": {
+    "name": "MEDBOURSE",
+    "eyebrow": "Türkiye · Education · Healthcare · Travel",
+    "lead": "Consulting for university admissions, medical coordination, and travel in Türkiye. This is the development environment; public and operational interfaces share one brand."
+  },
+  "language": {
+    "label": "Language",
+    "en": "English",
+    "tr": "Türkçe",
+    "fr": "Français",
+    "ar": "العربية"
+  },
+  "publicSite": {
+    "navAria": "Public site",
+    "nav": {
+      "services": "Services",
+      "offerings": "Offerings",
+      "contact": "Contact"
+    },
+    "services": {
+      "title": "Three coordinated service lines",
+      "lead": "Admissions, medical coordination, and travel support in Türkiye — handled by one team inside a single case.",
+      "education": {
+        "body": "Guidance on university and programme selection, application timelines, and the documents each institution expects."
+      },
+      "medical": {
+        "body": "Coordination with partner clinics for consultations and treatment planning, with your records kept private."
+      },
+      "tourism": {
+        "body": "Practical travel arrangements around appointments and campus visits, so each trip has a clear purpose."
+      }
+    },
+    "offerings": {
+      "title": "Current offerings",
+      "lead": "Active services published by verified providers.",
+      "loading": "Loading offerings…",
+      "error": "Could not load offerings.",
+      "empty": "No offerings are published yet.",
+      "requirements": "Requirements",
+      "from": "Provided by"
+    },
+    "contact": {
+      "title": "Start in your workspace",
+      "body": "Every enquiry runs through your own case, so documents and messages stay in one private place. Create an account below to begin, or sign in if you already have one.",
+      "cta": "Create an account"
+    }
+  },
+  "health": {
+    "title": "System status",
+    "loading": "Checking the API…",
+    "error": "The API is unreachable ({{message}}). Start it with npm run dev.",
+    "service": "Service",
+    "version": "Version",
+    "status": "Status",
+    "database": "Database",
+    "connected": "Connected",
+    "disconnected": "Disconnected"
+  },
+  "auth": {
+    "title": "Account",
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "At least 10 characters.",
+    "displayName": "Display name (optional)",
+    "login": "Sign in",
+    "register": "Create account",
+    "logout": "Sign out",
+    "needAccount": "Need an account? Register",
+    "haveAccount": "Already registered? Sign in",
+    "signedIn": "Signed in.",
+    "registered": "Account created.",
+    "signedOut": "Signed out.",
+    "signedInAs": "{{email}} · {{role}}",
+    "unknownError": "Something went wrong."
+  },
+  "portal": {
+    "workspace": "Workspace",
+    "navAria": "Primary"
+  },
+  "nav": {
+    "cases": "Cases",
+    "customers": "Customers",
+    "catalog": "Catalog",
+    "audit": "Audit log"
+  },
+  "categories": {
+    "education": "Education",
+    "medical": "Medical",
+    "tourism": "Tourism"
+  },
+  "cases": {
+    "title": "Cases",
+    "loading": "Loading cases…",
+    "loadError": "Could not load cases.",
+    "empty": "No cases found.",
+    "refresh": "Refresh",
+    "filters": {
+      "status": "Status",
+      "category": "Category",
+      "all": "All"
+    },
+    "status": {
+      "open": "Open",
+      "closed": "Closed"
+    },
+    "columns": {
+      "offering": "Offering",
+      "category": "Category",
+      "status": "Status",
+      "created": "Created"
+    },
+    "prev": "Previous",
+    "next": "Next",
+    "pageInfo": "Page {{page}} of {{totalPages}} · {{total}} total",
+    "openCase": "Open case: {{title}}"
+  },
+  "customers": {
+    "title": "Customers",
+    "loading": "Loading customers…",
+    "loadError": "Could not load customers.",
+    "empty": "No customers found.",
+    "refresh": "Refresh",
+    "search": "Search",
+    "searchPlaceholder": "Name or email",
+    "apply": "Apply",
+    "prev": "Previous",
+    "next": "Next",
+    "pageInfo": "Page {{page}} of {{totalPages}} · {{total}} total",
+    "create": {
+      "fullName": "Full name",
+      "email": "Email (optional)",
+      "phone": "Phone (optional)",
+      "country": "Country code",
+      "submit": "Create customer",
+      "saving": "Creating…",
+      "error": "Could not create the customer."
+    },
+    "columns": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "country": "Country",
+      "assignment": "Assignment",
+      "created": "Created",
+      "actions": "Actions"
+    },
+    "assignment": {
+      "unassigned": "Unassigned",
+      "assigned": "Assigned",
+      "exception": "Exception"
+    },
+    "invite": {
+      "action": "Invite",
+      "emailLabel": "Invitation email",
+      "send": "Send invitation",
+      "sending": "Sending…",
+      "cancel": "Cancel",
+      "error": "Could not create the invitation.",
+      "created": "Invitation created for {{email}}.",
+      "tokenHint": "Share this token with the customer. It is shown only once.",
+      "expiresAt": "Expires {{date}}",
+      "dismiss": "Dismiss"
+    },
+    "reassign": {
+      "action": "Reassign",
+      "title": "Reassign {{name}}",
+      "manager": "Manager",
+      "managerPlaceholder": "Select a manager",
+      "reason": "Reason",
+      "submit": "Reassign",
+      "saving": "Saving…",
+      "cancel": "Cancel",
+      "error": "Could not reassign the customer.",
+      "success": "{{name}} was reassigned."
+    }
+  },
+  "catalog": {
+    "title": "Catalog",
+    "loading": "Loading catalog…",
+    "loadError": "Could not load catalog data.",
+    "empty": "Nothing here yet.",
+    "refresh": "Refresh",
+    "showInactive": "Show inactive",
+    "create": "Create",
+    "save": "Save changes",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "saveError": "Could not save changes.",
+    "state": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "verified": "Verified",
+      "unverified": "Unverified"
+    },
+    "tabs": {
+      "cities": "Cities",
+      "providers": "Providers",
+      "offerings": "Offerings"
+    },
+    "columns": {
+      "name": "Name",
+      "slug": "Slug",
+      "country": "Country",
+      "category": "Category",
+      "city": "City",
+      "provider": "Provider",
+      "title": "Title",
+      "verified": "Verified",
+      "active": "State",
+      "actions": "Actions"
+    },
+    "cities": {
+      "name": "City name",
+      "slug": "Slug",
+      "country": "Country code"
+    },
+    "providers": {
+      "name": "Provider name",
+      "category": "Category",
+      "city": "City",
+      "website": "Website",
+      "verified": "Partnership verified"
+    },
+    "offerings": {
+      "title": "Title",
+      "slug": "Slug",
+      "summary": "Summary",
+      "requirements": "Requirements summary",
+      "provider": "Provider"
+    }
+  },
+  "audit": {
+    "title": "Audit log",
+    "loading": "Loading audit log…",
+    "loadError": "Could not load the audit log.",
+    "empty": "No audit entries found.",
+    "refresh": "Refresh",
+    "apply": "Apply",
+    "system": "System",
+    "filters": {
+      "action": "Action",
+      "entityType": "Entity type",
+      "actorUserId": "Actor user id",
+      "all": "All"
+    },
+    "columns": {
+      "created": "When",
+      "action": "Action",
+      "entityType": "Entity",
+      "entityId": "Entity id",
+      "actor": "Actor"
+    },
+    "prev": "Previous",
+    "next": "Next",
+    "pageInfo": "Page {{page}} of {{totalPages}} · {{total}} total"
+  },
+  "caseDetail": {
+    "back": "← Back to cases",
+    "loading": "Loading case…",
+    "loadError": "Could not load this case.",
+    "createdAt": "Created {{date}}",
+    "workflow": "Workflow",
+    "workflowVersion": "Template version {{version}}",
+    "optional": "Optional",
+    "documents": "Documents",
+    "noDocuments": "No documents uploaded yet.",
+    "docKind": {
+      "identity": "Identity",
+      "medical": "Medical",
+      "supporting": "Supporting"
+    },
+    "quotation": "Quotation",
+    "noQuotation": "No quotation issued yet.",
+    "quoAmount": "Amount",
+    "quoOffering": "Offering",
+    "quoCategory": "Category",
+    "quoIssuedAt": "Issued",
+    "paymentEvidence": "Payment evidence",
+    "noPaymentEvidence": "No payment evidence submitted yet.",
+    "messages": {
+      "title": "Messages",
+      "loading": "Loading messages…",
+      "loadError": "Could not load messages.",
+      "sendError": "Could not send the message.",
+      "empty": "No messages yet. Send the first one.",
+      "you": "You",
+      "placeholder": "Write a message…",
+      "send": "Send",
+      "sending": "Sending…"
+    }
+  },
+  "roles": {
+    "customer": "Customer",
+    "staff": "Staff",
+    "admin": "Admin",
+    "super_admin": "Super admin"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "loading": "Loading notifications…",
+    "loadError": "Could not load notifications.",
+    "empty": "No notifications yet.",
+    "markAllRead": "Mark all as read",
+    "types": {
+      "messageCreated": "New message on your case",
+      "stageTransitioned": "A case stage was updated",
+      "caseClosed": "Your case was closed",
+      "paymentSubmitted": "New payment evidence submitted",
+      "paymentApproved": "Payment evidence approved",
+      "paymentRejected": "Payment evidence rejected"
+    }
+  },
+  "workflow": {
+    "status": {
+      "pending": "Pending",
+      "in_progress": "In progress",
+      "done": "Done",
+      "skipped": "Skipped"
+    }
+  },
+  "payment": {
+    "status": {
+      "submitted": "Submitted",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    }
+  }
+}

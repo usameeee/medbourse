@@ -1,0 +1,16 @@
+---
+description: MEDBOURSE visual identity and UX standards
+globs: apps/web/**/*
+alwaysApply: false
+---
+
+# MEDBOURSE Design
+
+Follow `DESIGN_SYSTEM.md` tokens and components.
+
+- Use CSS variables from `apps/web/src/styles/tokens.css`; no arbitrary hex in components.
+- Avoid generic AI-dashboard aesthetics (purple gradients, glassmorphism stacks, decorative blobs).
+- Operational screens: tables, filters, clear status badges — not empty charts.
+- Required states: loading, empty, error, success; keyboard focus visible.
+- Arabic: `dir="rtl"` and logical properties; test layout per locale.
+- No fake testimonials, partners, or live-looking placeholder metrics.
