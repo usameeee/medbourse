@@ -6,8 +6,8 @@
 
 | Field | Value |
 |-------|--------|
-| Repository | Local `master`, **no commits yet** |
-| Remote | None |
+| Repository | Local `master` — `9784426` baseline (161 files), `1d48b0f` CI pipeline |
+| Remote | None (CI workflow added but needs a GitHub remote to run) |
 
 ## Phase & milestone
 
@@ -15,7 +15,7 @@
 |-------|--------|
 | **Current phase** | Phase 10 — Release readiness (**complete**) — **all roadmap phases done** |
 | **Last completed** | **P10-T01/T02/T03** OpenAPI spec + deployment guide + operations/backup notes; production build green (Phase 10 exit met) |
-| **Next task** | None scheduled — roadmap complete. Optional follow-ups: first git commit, a manual/automated **browser** pass over the web surfaces, and a CI pipeline running `lint` + `test` + `build` |
+| **Next task** | None scheduled — roadmap complete. Optional follow-ups: add a **GitHub remote** so the CI workflow (`lint` + `test` + `build`) can actually run, and a manual **browser** pass over the web surfaces |
 
 ## Progress
 
