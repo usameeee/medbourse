@@ -12,7 +12,9 @@
     "prebuild": "npm run build -w @medbourse/shared",
     "dev": "concurrently -n api,web -c cyan,magenta \"npm run dev -w @medbourse/api\" \"npm run dev -w @medbourse/web\"",
     "build": "npm run build -w @medbourse/shared && npm run build -w @medbourse/api && npm run build -w @medbourse/web",
+    "prelint": "npm run build -w @medbourse/shared",
     "lint": "npm run lint -w @medbourse/api && npm run lint -w @medbourse/web",
+    "pretest": "npm run build -w @medbourse/shared",
     "test": "npm run test -w @medbourse/api"
   },
   "engines": {
