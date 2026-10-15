@@ -7,7 +7,7 @@
 | Field | Value |
 |-------|--------|
 | Repository | Local `master` — `9784426` baseline (161 files), `c32d3c8` CI pipeline |
-| Remote | `origin` → https://github.com/usameeee/medbourse.git (`master` pushed, tracking set) |
+| Remote | `origin` → https://github.com/usameeee/medbourse.git (`master` pushed, tracking set; CI green — Actions run #4 `394746a`) |
 
 ## Phase & milestone
 
@@ -15,7 +15,7 @@
 |-------|--------|
 | **Current phase** | Phase 10 — Release readiness (**complete**) — **all roadmap phases done** |
 | **Last completed** | **P10-T01/T02/T03** OpenAPI spec + deployment guide + operations/backup notes; production build green (Phase 10 exit met) |
-| **Next task** | None scheduled — roadmap complete. Optional follow-ups: add a **GitHub remote** so the CI workflow (`lint` + `test` + `build`) can actually run, and a manual **browser** pass over the web surfaces |
+| **Next task** | None scheduled — roadmap complete. Optional follow-ups: a manual **browser** pass over the web surfaces, and bumping the CI actions off the deprecated Node-20 action versions (warning only, CI green) |
 
 ## Progress
 
