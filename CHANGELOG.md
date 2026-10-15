@@ -51,6 +51,10 @@ All notable changes to MEDBOURSE are documented here with verification notes whe
 - Repository baseline commit: created the first git commit on `master` (`9784426`, 161 files) so the milestone is fixed in history. `.env`, `dist/`, and `.data/` stay ignored; also removed a leftover compiled `apps/web/vite.config.js` (a stray pre-`noEmit` artifact) so no generated `.js` is tracked. Pushed to `origin` (`https://github.com/usameeee/medbourse.git`).
 - CI pipeline: New `.github/workflows/ci.yml` (GitHub Actions) runs `npm ci` → `npm run lint` → `npm test` → `npm run build` on Node 20 for pushes to `master`/`main` and all pull requests, with concurrency cancellation for superseded runs. `package-lock.json` and the workflow are tracked; `origin` set and `master` pushed, so the workflow triggers on the push.
 
+### Changed
+
+- CI actions upgraded off the deprecated Node-20 action runtime: `actions/checkout@v4` → `@v5` and `actions/setup-node@v4` → `@v5` (both `@v5` run on Node 24). The job still runs the project on Node 20 via `node-version: '20'`. Removes the "Node.js 20 is deprecated" run annotation.
+
 ### Fixed
 
 - CI tests failed on a clean checkout with `AUTH_MISCONFIGURED` (500) from `requireJwtSecret`: `JWT_SECRET`/`COOKIE_SECRET` came only from the gitignored `.env`, so token-signing helpers threw on CI (locally the `.env` masked it). Added test-only `JWT_SECRET` and `COOKIE_SECRET` to `apps/api/vitest.config.ts` (`env`) so the suite is self-contained. Verified with `.env` renamed away: `npm test` 81 passed (20 files).
