@@ -17,13 +17,18 @@ tmp/
 
 # --- Local-only working files: kept on disk, never published to the repo ---
 # Internal workflow docs (agent/process memory)
+AGENTS.md
+PROJECT_CONTEXT.md
 PROJECT_STATE.md
 TASKS.md
 ROADMAP.md
 CHANGELOG.md
 ARCHITECTURE_DECISIONS.md
 DESIGN_SYSTEM.md
-docs/*.md
+docs/
+# Local tooling (IDE rules, CI)
+.cursor/
+.github/
 # Local test suites + helpers (run locally; not shipped)
 apps/api/src/**/*.test.ts
 apps/api/src/testSupport/
