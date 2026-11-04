@@ -8,7 +8,7 @@ function baseCookieOptions(): Pick<
 > {
   return {
     httpOnly: true,
-    sameSite: 'lax',
+    sameSite: config.cookieSameSite,
     secure: config.nodeEnv === 'production',
     signed: false,
   };

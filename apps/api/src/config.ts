@@ -7,12 +7,19 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 
 function readPort(): number {
-  const raw = process.env.API_PORT ?? '4000';
+  // Hosting platforms (Render, Railway, Heroku) inject `PORT`; an explicit API_PORT wins.
+  const raw = process.env.API_PORT ?? process.env.PORT ?? '4000';
   const port = Number.parseInt(raw, 10);
   if (!Number.isFinite(port) || port <= 0) {
     return 4000;
   }
   return port;
+}
+
+/** Cookie SameSite policy. Pass `none` when web and API live on different registrable domains. */
+function readSameSite(): 'lax' | 'strict' | 'none' {
+  const raw = (process.env.COOKIE_SAMESITE ?? 'lax').trim().toLowerCase();
+  return raw === 'strict' || raw === 'none' ? raw : 'lax';
 }
 
 function readSmtpPort(): number {
@@ -60,6 +67,7 @@ export const config = {
   accessCookieMaxAgeMs: readDurationMs(process.env.JWT_ACCESS_EXPIRES, '15m'),
   refreshCookieMaxAgeMs: readDurationMs(process.env.JWT_REFRESH_EXPIRES, '7d'),
   cookieSecret: process.env.COOKIE_SECRET ?? '',
+  cookieSameSite: readSameSite(),
   bcryptRounds: process.env.VITEST === 'true' ? 4 : 12,
   storageDriver: (process.env.VITEST === 'true'
     ? 'memory'
