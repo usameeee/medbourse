@@ -25,14 +25,14 @@ export interface NotifyCaseEventInput {
   customerId: mongoose.Types.ObjectId | string;
   createdByUserId: mongoose.Types.ObjectId | string;
   actorUserId: string;
-  target: 'customer' | 'staff';
+  target: 'customer' | 'admin';
   type: NotificationType;
   metadata?: Record<string, unknown>;
 }
 
 /**
  * Notifies the stakeholders of a case for a given event: the linked customer
- * user (`target: 'customer'`) or the case's assigned staff (`target: 'staff'`).
+ * user (`target: 'customer'`) or the case's assigned admin (`target: 'admin'`).
  * The actor is always excluded so nobody is notified of their own action.
  */
 export async function notifyCaseEvent(input: NotifyCaseEventInput): Promise<void> {

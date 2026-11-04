@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, unlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { AppError } from '../errors/AppError.js';
@@ -22,6 +22,13 @@ export const localStorage: ObjectStorage = {
       return { key, bytes, mimeType: 'application/octet-stream' };
     } catch {
       throw new AppError(404, 'NOT_FOUND', 'Stored object not found');
+    }
+  },
+  async delete(key) {
+    try {
+      await unlink(resolveKey(key));
+    } catch {
+      /* already gone */
     }
   },
 };

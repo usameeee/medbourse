@@ -9,7 +9,7 @@ import { validate } from '../middleware/validate.js';
 import { toPublicPaymentAccount } from '../models/PaymentAccount.js';
 import { Quotation, toPublicQuotation } from '../models/Quotation.js';
 import { writeAudit } from '../services/assignment.js';
-import { resolvePaymentAccountForQuotation } from '../services/paymentAccounts.js';
+import { resolvePaymentAccountsForQuotation } from '../services/paymentAccounts.js';
 import { issueQuotation } from '../services/pricing.js';
 
 const issueBody = z.object({
@@ -26,7 +26,7 @@ export const quotationsRouter = Router();
 quotationsRouter.post(
   '/',
   requireAuth,
-  requirePermission('case:create:staff'),
+  requirePermission('case:create:admin'),
   validate({ body: issueBody }),
   async (req, res, next) => {
     try {
@@ -65,17 +65,17 @@ quotationsRouter.get(
       if (!quotation) {
         throw new AppError(404, 'NOT_FOUND', 'Quotation not found');
       }
-      const staffRead = roleHasPermission(req.auth!.role, 'customer:read:staff');
+      const managerRead = roleHasPermission(req.auth!.role, 'customer:read:admin');
       const selfRead = req.auth!.customerId === quotation.customerId.toString();
-      if (!staffRead && !selfRead) {
+      if (!managerRead && !selfRead) {
         throw new AppError(403, 'FORBIDDEN', 'Insufficient permissions');
       }
-      const account = await resolvePaymentAccountForQuotation(quotation);
+      const accounts = await resolvePaymentAccountsForQuotation(quotation);
       res.json({
         quotationId: quotation._id.toString(),
         amount: quotation.amount,
         currency: quotation.currency,
-        paymentAccount: toPublicPaymentAccount(account),
+        paymentAccounts: accounts.map(toPublicPaymentAccount),
       });
     } catch (err) {
       next(err);
@@ -94,9 +94,9 @@ quotationsRouter.get(
       if (!quotation) {
         throw new AppError(404, 'NOT_FOUND', 'Quotation not found');
       }
-      const staffRead = roleHasPermission(req.auth!.role, 'customer:read:staff');
+      const managerRead = roleHasPermission(req.auth!.role, 'customer:read:admin');
       const selfRead = req.auth!.customerId === quotation.customerId.toString();
-      if (!staffRead && !selfRead) {
+      if (!managerRead && !selfRead) {
         throw new AppError(403, 'FORBIDDEN', 'Insufficient permissions');
       }
       res.json({ quotation: toPublicQuotation(quotation) });

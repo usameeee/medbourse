@@ -4,7 +4,7 @@ import { AuditLog } from '../models/AuditLog.js';
 import { CountryAssignment } from '../models/CountryAssignment.js';
 import { User } from '../models/User.js';
 
-const MANAGER_ROLES: readonly UserRole[] = ['staff', 'admin', 'super_admin'];
+const MANAGER_ROLES: readonly UserRole[] = ['admin', 'super_admin'];
 
 export interface ResolvedAssignment {
   assignedManagerUserId: mongoose.Types.ObjectId | null;
@@ -55,11 +55,20 @@ export async function assertAssignableManager(userId: string) {
   return manager;
 }
 
-/** Active accounts that may be assigned as customer managers (staff, admin, super_admin). */
+/** Active accounts that may be assigned as customer managers (admin, super_admin). */
 export async function listAssignableManagers() {
   return User.find({ isActive: true, role: { $in: MANAGER_ROLES } })
     .sort({ email: 1 })
     .exec();
+}
+
+/** Country codes whose active assignment includes this user. Drives the assigned-scope payment rules. */
+export async function listAssignedCountryCodes(userId: string): Promise<string[]> {
+  const rows = await CountryAssignment.find({
+    isActive: true,
+    managerUserIds: new mongoose.Types.ObjectId(userId),
+  }).exec();
+  return rows.map((row) => row.countryCode);
 }
 
 export async function writeAudit(input: {

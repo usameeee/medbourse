@@ -9,7 +9,7 @@ export type AccessibleCustomerScope =
   | { type: 'all' }
   | { type: 'ids'; customerIds: mongoose.Types.ObjectId[] };
 
-async function staffScopeCustomerIds(userId: string): Promise<mongoose.Types.ObjectId[]> {
+async function managerScopeCustomerIds(userId: string): Promise<mongoose.Types.ObjectId[]> {
   const managerId = new mongoose.Types.ObjectId(userId);
   const assignments = await CountryAssignment.find({
     managerUserIds: managerId,
@@ -28,7 +28,7 @@ async function staffScopeCustomerIds(userId: string): Promise<mongoose.Types.Obj
   return customers.map((c) => c._id);
 }
 
-async function isCustomerInStaffScope(userId: string, customerId: string): Promise<boolean> {
+async function isCustomerInManagerScope(userId: string, customerId: string): Promise<boolean> {
   const customer = await Customer.findById(customerId).exec();
   if (!customer) {
     return false;
@@ -47,7 +47,7 @@ async function isCustomerInStaffScope(userId: string, customerId: string): Promi
 
 export async function getAccessibleCustomerScope(
   auth: { userId: string; role: UserRole; customerId: string | null },
-  permission: 'customer:read:staff' | 'document:review:staff' = 'customer:read:staff',
+  permission: 'customer:read:admin' | 'document:review:admin' = 'customer:read:admin',
 ): Promise<AccessibleCustomerScope> {
   if (auth.role === 'super_admin') {
     return { type: 'all' };
@@ -58,7 +58,7 @@ export async function getAccessibleCustomerScope(
       customerIds: auth.customerId ? [new mongoose.Types.ObjectId(auth.customerId)] : [],
     };
   }
-  return { type: 'ids', customerIds: await staffScopeCustomerIds(auth.userId) };
+  return { type: 'ids', customerIds: await managerScopeCustomerIds(auth.userId) };
 }
 
 export async function canReadCase(
@@ -68,10 +68,10 @@ export async function canReadCase(
   if (auth.role === 'super_admin') {
     return true;
   }
-  if (!roleHasPermission(auth.role, 'customer:read:staff')) {
+  if (!roleHasPermission(auth.role, 'customer:read:admin')) {
     return auth.customerId === customerId;
   }
-  return isCustomerInStaffScope(auth.userId, customerId);
+  return isCustomerInManagerScope(auth.userId, customerId);
 }
 
 export async function canManageCaseDocuments(
@@ -81,10 +81,10 @@ export async function canManageCaseDocuments(
   if (auth.role === 'super_admin') {
     return true;
   }
-  if (!roleHasPermission(auth.role, 'document:review:staff')) {
+  if (!roleHasPermission(auth.role, 'document:review:admin')) {
     return auth.customerId === customerId;
   }
-  return isCustomerInStaffScope(auth.userId, customerId);
+  return isCustomerInManagerScope(auth.userId, customerId);
 }
 
 export async function loadAuthorizedCase(

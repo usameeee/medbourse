@@ -1,0 +1,520 @@
+/* ── Category banner (the category's own mood) ── */
+.banner {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-surface-ink);
+  color: var(--color-text-inverse);
+}
+
+.auraEducation {
+  --aura-accent: #ff8a80;
+  background: linear-gradient(120deg, #2a0e12 0%, #6e1c26 55%, #a83a40 100%);
+}
+
+.auraMedical {
+  --aura-accent: #ff4d4d;
+  background: linear-gradient(120deg, #280a0d 0%, #7c1220 55%, #c22b34 100%);
+}
+
+.auraTourism {
+  --aura-accent: #cf3f2b;
+  background: linear-gradient(120deg, #2a100a 0%, #7a2c16 55%, #b04f2a 100%);
+}
+
+/*
+ * The red aura is a stand-in for a *missing* photo, not a layer underneath a real one. When the
+ * category has an image, that image becomes the banner background and the aura's gradient is
+ * dropped (the tint still supplies `--aura-accent` for the eyebrow). Declared after the aura
+ * rules so it wins on equal specificity.
+ */
+.bannerHasPhoto {
+  background: var(--color-surface-ink);
+}
+
+.bannerPhoto {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.bannerPhotoImg {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  transform: scale(1.08);
+  filter: blur(10px) saturate(1.05);
+}
+
+/* Darkens the photo just enough for the white banner copy to stay legible. */
+.bannerPhoto::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(8 6 8 / 0.32) 0%, rgb(8 6 8 / 0.74) 100%);
+}
+
+.bannerInner {
+  position: relative;
+  z-index: 1;
+  max-inline-size: var(--layout-max);
+  margin-inline: auto;
+  padding: clamp(var(--space-12), 10vh, var(--space-20)) var(--space-6);
+  display: grid;
+  justify-items: start;
+  gap: var(--space-5);
+}
+
+/* Eyebrow, headline and lead are three stickers pasted over the ambient photo. */
+.eyebrow {
+  margin: 0;
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-xs);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--color-surface-ink);
+  color: var(--color-text-inverse);
+  border: 3px solid #fff;
+  box-shadow: 6px 6px 15px rgb(0 0 0 / 0.4);
+  transform: rotate(-2.5deg) translateX(-10px);
+  clip-path: polygon(2% 0%, 98% 2%, 100% 95%, 5% 100%, 0% 50%);
+}
+
+.title {
+  position: relative;
+  margin: 0;
+  margin-block-start: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  font-size: clamp(var(--text-3xl), 5vw, var(--text-6xl));
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  background: var(--color-brand-primary-strong);
+  color: var(--color-text-inverse);
+  text-wrap: balance;
+  border: 4px solid #fff;
+  box-shadow: 10px 10px 20px rgb(0 0 0 / 0.5);
+  transform: rotate(1.5deg) translateX(10px);
+  clip-path: polygon(0% 5%, 95% 0%, 100% 90%, 2% 100%);
+}
+
+/* Washi tape holding the headline down. */
+.title::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  inset-inline-end: 20px;
+  inline-size: 60px;
+  block-size: 20px;
+  background: rgb(255 255 255 / 0.2);
+  backdrop-filter: blur(2px);
+  transform: rotate(45deg);
+  z-index: 10;
+}
+
+.lead {
+  position: relative;
+  margin: 0;
+  margin-block-start: var(--space-6);
+  padding: var(--space-5);
+  max-inline-size: 44rem;
+  font-size: clamp(var(--text-base), 1.4vw, var(--text-xl));
+  line-height: 1.5;
+  background: #fdfaf5;
+  color: #1a1a1a;
+  border: 2px solid #ddd;
+  box-shadow: 15px 15px 35px rgb(0 0 0 / 0.3);
+  transform: rotate(-1deg) translateX(-5px);
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.lead::after {
+  content: '';
+  position: absolute;
+  inset-block-end: -5px;
+  inset-inline-start: 20%;
+  inline-size: 40px;
+  block-size: 15px;
+  background: rgb(207 63 43 / 0.3);
+  transform: rotate(-5deg);
+}
+
+/* ── Body ── */
+.body {
+  max-inline-size: var(--layout-max);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+  padding-block: var(--space-16);
+  display: grid;
+  gap: var(--space-16);
+}
+
+/* Section headings are cut-out labels, not plain text. */
+.sectionTitle {
+  display: inline-block;
+  margin: 0 0 var(--space-8);
+  padding: var(--space-2) var(--space-5);
+  font-size: clamp(var(--text-2xl), 3vw, var(--text-4xl));
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #000;
+  background: #fff;
+  border: 3px solid #000;
+  box-shadow: 8px 8px 0 var(--aura-accent, var(--color-brand-secondary));
+  transform: rotate(-1deg);
+  clip-path: polygon(0% 0%, 100% 2%, 98% 100%, 2% 98%);
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-10);
+  margin: 0;
+  padding: var(--space-8) 0;
+  list-style: none;
+}
+
+.card {
+  position: relative;
+  display: grid;
+  grid-template-areas: 'stack';
+  overflow: visible;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card:hover {
+  transform: scale(1.05) rotate(0deg);
+  z-index: 10;
+}
+
+/*
+ * The card is the click target: a stretched link sits above the photo and the caption note,
+ * so anywhere on the collage opens the provider's site. It only exists when the record has
+ * a website; cards without one stay inert.
+ */
+.cardLinkOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+.cardLinkOverlay:focus-visible {
+  outline: 3px solid var(--color-brand-primary);
+  outline-offset: 4px;
+}
+
+.cardCover {
+  grid-area: stack;
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: #fff;
+  padding: var(--space-2) var(--space-2) var(--space-12); /* Polaroid feel */
+  border: 1px solid #ddd;
+  box-shadow: 15px 15px 35px rgb(0 0 0 / 0.2);
+  transform: rotate(-1.5deg);
+  clip-path: polygon(0% 0%, 100% 0%, 98% 98%, 2% 100%);
+}
+
+.cardCoverImg {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+  border: 1px solid #eee;
+}
+
+.cardContent {
+  grid-area: stack;
+  z-index: 2;
+  align-self: end;
+  justify-self: stretch;
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  margin: var(--space-2);
+  background: #fff;
+  color: #1a1a1a;
+  border: 2px solid #000;
+  box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.8);
+  transform: rotate(2deg) translateY(var(--space-6));
+  pointer-events: none;
+}
+
+.cardLogo {
+  position: absolute;
+  top: -15px;
+  right: -10px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 54px;
+  block-size: 54px;
+  padding: var(--space-2);
+  background: #fff;
+  border: 3px solid #000;
+  border-radius: 50%;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  transform: rotate(10deg);
+}
+
+.cardLogoImg {
+  max-block-size: 30px;
+  max-inline-size: 100%;
+  object-fit: contain;
+}
+
+.cardLogoMark {
+  display: block;
+  flex: none;
+}
+
+.cardHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: var(--text-base);
+  font-weight: 800;
+  color: #000;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.cardBody {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.cardMeta {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 700;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.metaLabel {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.cardLink {
+  justify-self: start;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-brand-primary);
+  text-decoration: none;
+  border-block-end: 2px solid var(--color-brand-secondary);
+  padding-block-end: 2px;
+}
+
+.chipVerified,
+.chipUnverified {
+  justify-self: start;
+  padding-inline: var(--space-3);
+  padding-block: 0.15rem;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.chipVerified {
+  background: rgb(45 106 79 / 0.12);
+  color: var(--color-success);
+}
+
+.chipUnverified {
+  background: rgb(138 134 128 / 0.16);
+  color: var(--color-text-secondary);
+}
+
+.disclaimer {
+  margin: 0;
+  padding-inline-start: var(--space-3);
+  border-inline-start: 2px solid var(--color-border-default);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+/* ── Offerings: numbered collage scraps (matches the services page) ── */
+.rows {
+  display: grid;
+  gap: var(--space-10);
+  margin: 0;
+  padding: var(--space-8) 0;
+  list-style: none;
+  border: 0;
+}
+
+.row {
+  position: relative;
+  padding: var(--space-10);
+  background: #f8f9fa;
+  border: 2px solid #fff;
+  box-shadow: 15px 15px 40px rgb(0 0 0 / 0.12);
+  transition: box-shadow 0.3s ease;
+}
+
+/* Washi tape holding the scrap down. */
+.row::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  inset-inline-start: 30%;
+  inline-size: 50px;
+  block-size: 20px;
+  background: rgb(0 0 0 / 0.05);
+  transform: rotate(-10deg);
+  z-index: 2;
+}
+
+.row:hover {
+  box-shadow: 25px 25px 60px rgb(0 0 0 / 0.2);
+}
+
+/* The number is a scrap cut from another page and pasted behind. */
+.rowNumber {
+  position: absolute;
+  top: -20px;
+  inset-inline-start: -20px;
+  z-index: 0;
+  font-size: clamp(var(--text-6xl), 10vw, var(--text-9xl));
+  font-weight: 900;
+  line-height: 0.8;
+  font-variant-numeric: tabular-nums;
+  font-family: 'Arial Black', Gadget, sans-serif;
+  color: var(--aura-accent, var(--color-brand-secondary));
+  opacity: 0.15;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.row:hover .rowNumber {
+  opacity: 0.3;
+  transform: scale(1.15) rotate(5deg);
+}
+
+.rowMain {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--space-3);
+  max-inline-size: 52rem;
+}
+
+.rowTitle {
+  display: inline-block;
+  margin: 0;
+  padding: var(--space-2) var(--space-4);
+  font-size: clamp(var(--text-xl), 2.5vw, var(--text-3xl));
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #000;
+  background: #fff;
+  box-shadow: 5px 5px 0 var(--aura-accent, var(--color-brand-secondary));
+  transform: rotate(-0.8deg);
+  clip-path: polygon(0% 0%, 100% 2%, 98% 100%, 2% 98%);
+}
+
+.rowBody {
+  margin: 0;
+  font-size: var(--text-lg);
+  line-height: 1.6;
+  color: #333;
+}
+
+.rowMeta {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: #555;
+}
+
+/* ── Call to action ── */
+.ctaBand {
+  padding: 0 var(--space-6) var(--space-16);
+}
+
+/* The closing band is a dark card pasted onto the page, not a floating panel. */
+.ctaInner {
+  max-inline-size: var(--layout-max);
+  margin-inline: auto;
+  padding: clamp(var(--space-8), 6vw, var(--space-16));
+  background: var(--color-surface-ink);
+  border: 4px solid #fff;
+  box-shadow: 16px 16px 0 var(--color-brand-primary-strong), 0 30px 60px rgb(0 0 0 / 0.25);
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+  transform: rotate(-0.6deg);
+}
+
+.ctaTitle {
+  margin: 0;
+  font-size: clamp(var(--text-2xl), 3vw, var(--text-4xl));
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--color-text-inverse);
+}
+
+.ctaBody {
+  margin: 0;
+  max-inline-size: 44rem;
+  font-size: var(--text-lg);
+  line-height: 1.6;
+  color: var(--color-text-inverse-muted);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 3rem;
+  margin-block-start: var(--space-2);
+  padding-inline: var(--space-6);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-primary);
+  color: var(--color-text-inverse);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.cta:hover,
+.cta:focus-visible {
+  background: var(--color-brand-primary-strong);
+}
+
+.muted {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.error {
+  margin: 0;
+  color: var(--color-danger);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

@@ -56,6 +56,7 @@ export function toPublicPaymentEvidence(doc: PaymentEvidenceDocument): PublicPay
     sizeBytes: doc.sizeBytes,
     reviewNote: doc.reviewNote,
     reviewedAt: doc.reviewedAt ? doc.reviewedAt.toISOString() : null,
+    reviewedByName: null,
     createdAt: doc.createdAt.toISOString(),
   };
 }

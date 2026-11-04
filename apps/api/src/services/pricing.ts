@@ -50,6 +50,8 @@ export async function issueQuotation(input: {
   customerId: string;
   offeringId: string;
   actorUserId: string;
+  /** Overrides the customer's stored country, e.g. when the applicant picks one on the form. */
+  countryCode?: string;
 }) {
   const customer = await Customer.findById(input.customerId).exec();
   if (!customer) {
@@ -59,8 +61,9 @@ export async function issueQuotation(input: {
   if (!offering || !offering.isActive) {
     throw new AppError(400, 'INVALID_OFFERING', 'Offering does not exist or is inactive');
   }
+  const countryCode = input.countryCode ?? customer.countryCode;
   const rule = await resolvePricingRule({
-    countryCode: customer.countryCode,
+    countryCode,
     category: offering.category,
     offeringId: offering._id.toString(),
   });
@@ -72,11 +75,11 @@ export async function issueQuotation(input: {
     currency: rule.currency,
     pricingRuleId: rule._id,
     snapshot: {
-      offeringTitle: publicOffering.title,
+      offeringTitle: publicOffering.title.en,
       offeringSlug: publicOffering.slug,
       category: publicOffering.category,
       disclaimer: OFFERING_DISCLAIMERS[publicOffering.category],
-      customerCountryCode: customer.countryCode,
+      customerCountryCode: countryCode,
     },
     issuedByUserId: new mongoose.Types.ObjectId(input.actorUserId),
   });

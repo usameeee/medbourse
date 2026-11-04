@@ -12,6 +12,7 @@ const listQuery = z.object({
   limit: z.coerce.number().int().min(1).max(100).default(20),
   action: z.string().trim().min(1).max(120).optional(),
   entityType: z.string().trim().min(1).max(64).optional(),
+  entityId: z.string().trim().min(1).max(64).optional(),
   actorUserId: z
     .string()
     .refine((value) => mongoose.Types.ObjectId.isValid(value), 'Invalid actor')
@@ -27,11 +28,12 @@ auditRouter.get(
   validate({ query: listQuery }),
   async (req, res, next) => {
     try {
-      const { page, limit, action, entityType, actorUserId } =
+      const { page, limit, action, entityType, entityId, actorUserId } =
         req.query as unknown as z.infer<typeof listQuery>;
       const filter: Record<string, unknown> = {};
       if (action) filter.action = action;
       if (entityType) filter.entityType = entityType;
+      if (entityId) filter.entityId = entityId;
       if (actorUserId) filter.actorUserId = actorUserId;
       const [total, items] = await Promise.all([
         AuditLog.countDocuments(filter),

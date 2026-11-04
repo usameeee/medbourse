@@ -1,20 +1,20 @@
-import { useCallback, useEffect, useState, type FormEvent } from 'react';
+import { useCallback, useEffect, useMemo, useState, type FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import type {
   AssignmentStatus,
+  PublicCountryAssignment,
   PublicCustomer,
-  PublicInvitation,
   PublicUser,
 } from '@medbourse/shared';
 import {
   createCustomer,
-  inviteCustomer,
+  listCountryAssignments,
   listCustomers,
-  listManagers,
-  reassignCustomer,
   type CustomerInput,
   type Paginated,
 } from '../api';
+import { listCountries } from '../lib/countries';
+import CustomerDetailView from './CustomerDetailView';
 import styles from './CustomersView.module.css';
 
 const PAGE_SIZE = 20;
@@ -40,21 +40,17 @@ interface CustomerForm {
 
 const emptyForm = (): CustomerForm => ({ fullName: '', email: '', phone: '', countryCode: '' });
 
-interface IssuedInvitation {
-  customerName: string;
-  invitation: PublicInvitation;
-  token: string;
-}
-
-interface ReassignTarget {
-  customer: PublicCustomer;
-  managerUserId: string;
-  reason: string;
-}
-
 interface CustomersViewProps {
-  /** Admin-only capability (assignment:manage:admin). Enables the reassign control. */
+  /** The signed-in admin: a country admin is scoped to their assigned countries. */
+  user: PublicUser;
+  /** Super Admin only (assignment:manage:super_admin). Enables the reassign control. */
   canReassign?: boolean;
+  /** Super Admin only (audit:read:super_admin). Shows the customer's activity history. */
+  canViewActivity?: boolean;
+  /** Admin+ (case:create:admin). Enables creating a login account and applying on the customer's behalf. */
+  canApplyForCustomer?: boolean;
+  /** Opens a case from the customer's detail page. */
+  onOpenCase?: (caseId: string) => void;
 }
 
 function formatDate(value: string): string {
@@ -63,31 +59,26 @@ function formatDate(value: string): string {
   );
 }
 
-export default function CustomersView({ canReassign = false }: CustomersViewProps) {
-  const { t } = useTranslation();
+export default function CustomersView({
+  user,
+  canReassign = false,
+  canViewActivity = false,
+  canApplyForCustomer = false,
+  onOpenCase,
+}: CustomersViewProps) {
+  const { t, i18n } = useTranslation();
   const [page, setPage] = useState(1);
   const [searchInput, setSearchInput] = useState('');
   const [query, setQuery] = useState('');
   const [result, setResult] = useState<Paginated<PublicCustomer> | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [selectedCustomerId, setSelectedCustomerId] = useState<string | null>(null);
 
   const [form, setForm] = useState<CustomerForm>(emptyForm);
   const [saving, setSaving] = useState(false);
   const [createError, setCreateError] = useState<string | null>(null);
-
-  const [pendingInvite, setPendingInvite] = useState<{ customer: PublicCustomer; email: string } | null>(
-    null,
-  );
-  const [inviting, setInviting] = useState(false);
-  const [inviteError, setInviteError] = useState<string | null>(null);
-  const [issued, setIssued] = useState<IssuedInvitation | null>(null);
-
-  const [managers, setManagers] = useState<PublicUser[]>([]);
-  const [reassignTarget, setReassignTarget] = useState<ReassignTarget | null>(null);
-  const [reassigning, setReassigning] = useState(false);
-  const [reassignError, setReassignError] = useState<string | null>(null);
-  const [reassignedName, setReassignedName] = useState<string | null>(null);
+  const [assignments, setAssignments] = useState<PublicCountryAssignment[]>([]);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -110,19 +101,45 @@ export default function CustomersView({ canReassign = false }: CustomersViewProp
   }, [load]);
 
   useEffect(() => {
-    if (!canReassign) return;
-    let active = true;
-    listManagers()
+    let cancelled = false;
+    listCountryAssignments()
       .then((res) => {
-        if (active) setManagers(res.data);
+        if (!cancelled) setAssignments(res.data);
       })
       .catch(() => {
-        if (active) setManagers([]);
+        if (!cancelled) setAssignments([]);
       });
     return () => {
-      active = false;
+      cancelled = true;
     };
-  }, [canReassign]);
+  }, []);
+
+  /** A country admin may only open customers in the countries assigned to them; super admins see every country. */
+  const isCountryScoped = user.role === 'admin';
+
+  const countryOptions = useMemo(() => {
+    const all = listCountries(i18n.language);
+    if (!isCountryScoped) {
+      return all;
+    }
+    const mine = new Set(
+      assignments
+        .filter((assignment) => assignment.isActive && assignment.managerUserIds.includes(user.id))
+        .map((assignment) => assignment.countryCode),
+    );
+    return all.filter((country) => mine.has(country.code));
+  }, [isCountryScoped, assignments, user.id, i18n.language]);
+
+  /** Keep the visible country selection inside the allowed set as it loads or changes. */
+  useEffect(() => {
+    if (!isCountryScoped) return;
+    const allowed = new Set(countryOptions.map((country) => country.code));
+    setForm((value) =>
+      allowed.has(value.countryCode)
+        ? value
+        : { ...value, countryCode: countryOptions[0]?.code ?? '' },
+    );
+  }, [isCountryScoped, countryOptions]);
 
   function submitSearch(event: FormEvent) {
     event.preventDefault();
@@ -154,58 +171,19 @@ export default function CustomersView({ canReassign = false }: CustomersViewProp
     }
   }
 
-  function startInvite(customer: PublicCustomer) {
-    setIssued(null);
-    setInviteError(null);
-    if (customer.email) {
-      void issueInvite(customer, undefined);
-    } else {
-      setPendingInvite({ customer, email: '' });
-    }
+  if (selectedCustomerId) {
+    return (
+      <CustomerDetailView
+        customerId={selectedCustomerId}
+        canReassign={canReassign}
+        canViewActivity={canViewActivity}
+        canApplyForCustomer={canApplyForCustomer}
+        onOpenCase={onOpenCase}
+        onBack={() => setSelectedCustomerId(null)}
+      />
+    );
   }
 
-  async function issueInvite(customer: PublicCustomer, email?: string) {
-    setInviting(true);
-    setInviteError(null);
-    try {
-      const data = await inviteCustomer(customer.id, email);
-      setIssued({ customerName: customer.fullName, invitation: data.invitation, token: data.token });
-      setPendingInvite(null);
-    } catch (err) {
-      setInviteError(err instanceof Error ? err.message : t('customers.invite.error'));
-    } finally {
-      setInviting(false);
-    }
-  }
-
-  function startReassign(customer: PublicCustomer) {
-    setReassignedName(null);
-    setReassignError(null);
-    setReassignTarget({ customer, managerUserId: '', reason: '' });
-  }
-
-  async function submitReassign(event: FormEvent) {
-    event.preventDefault();
-    if (!reassignTarget) return;
-    setReassigning(true);
-    setReassignError(null);
-    try {
-      await reassignCustomer(
-        reassignTarget.customer.id,
-        reassignTarget.managerUserId,
-        reassignTarget.reason.trim(),
-      );
-      setReassignedName(reassignTarget.customer.fullName);
-      setReassignTarget(null);
-      await load();
-    } catch (err) {
-      setReassignError(err instanceof Error ? err.message : t('customers.reassign.error'));
-    } finally {
-      setReassigning(false);
-    }
-  }
-
-  const showReassign = canReassign && managers.length > 0;
   const totalPages = result ? Math.max(1, Math.ceil(result.meta.total / PAGE_SIZE)) : 1;
 
   return (
@@ -248,42 +226,41 @@ export default function CustomersView({ canReassign = false }: CustomersViewProp
         </label>
         <label className={styles.field}>
           <span>{t('customers.create.country')}</span>
-          <input
-            type="text"
+          <select
             value={form.countryCode}
             required
-            maxLength={2}
-            pattern="[A-Za-z]{2}"
+            disabled={countryOptions.length === 0}
             onChange={(e) => setForm({ ...form, countryCode: e.target.value })}
-          />
+          >
+            <option value="" disabled>
+              {t('customers.create.countryPlaceholder')}
+            </option>
+            {countryOptions.map((country) => (
+              <option key={country.code} value={country.code}>
+                {`${country.flag} ${country.name}`}
+              </option>
+            ))}
+          </select>
         </label>
         <div className={styles.formActions}>
-          <button type="submit" className={styles.primaryButton} disabled={saving}>
+          <button
+            type="submit"
+            className={styles.primaryButton}
+            disabled={saving || countryOptions.length === 0}
+          >
             {saving ? t('customers.create.saving') : t('customers.create.submit')}
           </button>
         </div>
       </form>
 
+      {isCountryScoped && countryOptions.length === 0 && (
+        <p className={styles.hint}>{t('customers.create.noCountries')}</p>
+      )}
+
       {createError && (
         <p className={styles.error} role="alert">
           {createError}
         </p>
-      )}
-
-      {issued && (
-        <div className={styles.tokenPanel} role="status">
-          <p className={styles.tokenTitle}>
-            {t('customers.invite.created', { email: issued.invitation.email })}
-          </p>
-          <p className={styles.tokenHint}>{t('customers.invite.tokenHint')}</p>
-          <code className={styles.token}>{issued.token}</code>
-          <p className={styles.tokenMeta}>
-            {t('customers.invite.expiresAt', { date: formatDate(issued.invitation.expiresAt) })}
-          </p>
-          <button type="button" className={styles.ghostButton} onClick={() => setIssued(null)}>
-            {t('customers.invite.dismiss')}
-          </button>
-        </div>
       )}
 
       <form className={styles.filters} onSubmit={submitSearch}>
@@ -302,81 +279,10 @@ export default function CustomersView({ canReassign = false }: CustomersViewProp
         </button>
       </form>
 
-      {inviteError && (
-        <p className={styles.error} role="alert">
-          {inviteError}
-        </p>
-      )}
-
       {error && (
         <p className={styles.error} role="alert">
           {error}
         </p>
-      )}
-
-      {reassignError && (
-        <p className={styles.error} role="alert">
-          {reassignError}
-        </p>
-      )}
-
-      {reassignedName && (
-        <p className={styles.notice} role="status">
-          {t('customers.reassign.success', { name: reassignedName })}
-        </p>
-      )}
-
-      {reassignTarget && (
-        <form className={styles.reassignPanel} onSubmit={submitReassign}>
-          <p className={styles.tokenTitle}>
-            {t('customers.reassign.title', { name: reassignTarget.customer.fullName })}
-          </p>
-          <div className={styles.reassignFields}>
-            <label className={styles.field}>
-              <span>{t('customers.reassign.manager')}</span>
-              <select
-                value={reassignTarget.managerUserId}
-                required
-                onChange={(e) =>
-                  setReassignTarget({ ...reassignTarget, managerUserId: e.target.value })
-                }
-              >
-                <option value="" disabled>
-                  {t('customers.reassign.managerPlaceholder')}
-                </option>
-                {managers.map((manager) => (
-                  <option key={manager.id} value={manager.id}>
-                    {`${manager.displayName ?? manager.email} · ${t(`roles.${manager.role}`)}`}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className={styles.field}>
-              <span>{t('customers.reassign.reason')}</span>
-              <input
-                type="text"
-                value={reassignTarget.reason}
-                required
-                minLength={3}
-                maxLength={500}
-                onChange={(e) => setReassignTarget({ ...reassignTarget, reason: e.target.value })}
-              />
-            </label>
-          </div>
-          <div className={styles.formActions}>
-            <button type="submit" className={styles.primaryButton} disabled={reassigning}>
-              {reassigning ? t('customers.reassign.saving') : t('customers.reassign.submit')}
-            </button>
-            <button
-              type="button"
-              className={styles.ghostButton}
-              onClick={() => setReassignTarget(null)}
-              disabled={reassigning}
-            >
-              {t('customers.reassign.cancel')}
-            </button>
-          </div>
-        </form>
       )}
 
       {loading && <p className={styles.muted}>{t('customers.loading')}</p>}
@@ -397,12 +303,24 @@ export default function CustomersView({ canReassign = false }: CustomersViewProp
                   <th scope="col">{t('customers.columns.country')}</th>
                   <th scope="col">{t('customers.columns.assignment')}</th>
                   <th scope="col">{t('customers.columns.created')}</th>
-                  <th scope="col">{t('customers.columns.actions')}</th>
                 </tr>
               </thead>
               <tbody>
                 {result.data.map((customer) => (
-                  <tr key={customer.id}>
+                  <tr
+                    key={customer.id}
+                    className={styles.row}
+                    onClick={() => setSelectedCustomerId(customer.id)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setSelectedCustomerId(customer.id);
+                      }
+                    }}
+                    tabIndex={0}
+                    role="button"
+                    aria-label={t('customers.openCustomer', { name: customer.fullName })}
+                  >
                     <td className={styles.titleCell}>{customer.fullName}</td>
                     <td>{customer.email ?? <span className={styles.mutedInline}>—</span>}</td>
                     <td>{customer.phone ?? <span className={styles.mutedInline}>—</span>}</td>
@@ -413,61 +331,6 @@ export default function CustomersView({ canReassign = false }: CustomersViewProp
                       </span>
                     </td>
                     <td className={styles.dateCell}>{formatDate(customer.createdAt)}</td>
-                    <td>
-                      <div className={styles.rowActions}>
-                        {pendingInvite?.customer.id === customer.id ? (
-                          <form
-                            className={styles.inlineInvite}
-                            onSubmit={(e) => {
-                              e.preventDefault();
-                              void issueInvite(customer, pendingInvite.email);
-                            }}
-                          >
-                            <input
-                              type="email"
-                              className={styles.inlineField}
-                              value={pendingInvite.email}
-                              required
-                              maxLength={160}
-                              placeholder={t('customers.invite.emailLabel')}
-                              onChange={(e) =>
-                                setPendingInvite({ customer, email: e.target.value })
-                              }
-                            />
-                            <button type="submit" className={styles.linkButton} disabled={inviting}>
-                              {inviting ? t('customers.invite.sending') : t('customers.invite.send')}
-                            </button>
-                            <button
-                              type="button"
-                              className={styles.linkButton}
-                              onClick={() => setPendingInvite(null)}
-                              disabled={inviting}
-                            >
-                              {t('customers.invite.cancel')}
-                            </button>
-                          </form>
-                        ) : (
-                          <button
-                            type="button"
-                            className={styles.linkButton}
-                            onClick={() => startInvite(customer)}
-                            disabled={inviting}
-                          >
-                            {t('customers.invite.action')}
-                          </button>
-                        )}
-                        {showReassign && (
-                          <button
-                            type="button"
-                            className={styles.linkButton}
-                            onClick={() => startReassign(customer)}
-                            disabled={reassigning}
-                          >
-                            {t('customers.reassign.action')}
-                          </button>
-                        )}
-                      </div>
-                    </td>
                   </tr>
                 ))}
               </tbody>

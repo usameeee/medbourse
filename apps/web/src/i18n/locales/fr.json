@@ -5,6 +5,8 @@
   "brand": {
     "name": "MEDBOURSE",
     "eyebrow": "Türkiye · Études · Santé · Voyage",
+    "tagline": "Études · Santé · Voyage en Türkiye",
+    "leadTitle": "Une seule équipe pour étudier, se soigner et voyager en Türkiye",
     "lead": "Conseil pour les admissions universitaires, la coordination médicale et le voyage en Türkiye. Environnement de développement : les interfaces publiques et opérationnelles partagent la même identité."
   },
   "language": {
@@ -14,11 +16,146 @@
     "fr": "Français",
     "ar": "العربية"
   },
+  "theme": {
+    "switchToDark": "Passer au thème sombre",
+    "switchToLight": "Passer au thème clair"
+  },
+  "invitePage": {
+    "eyebrow": "Invitation",
+    "title": "Définissez votre mot de passe",
+    "lead": "Vous avez été invité par l'équipe MEDBOURSE. Choisissez un mot de passe pour activer votre compte et vous connecter.",
+    "newPassword": "Nouveau mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "hint": "Au moins 10 caractères.",
+    "submit": "Activer mon compte",
+    "saving": "Activation…",
+    "mismatch": "Les mots de passe ne correspondent pas.",
+    "error": "Impossible d'activer votre compte. Le lien a peut-être expiré.",
+    "missingToken": "Ce lien d'invitation n'est pas valide."
+  },
+  "footer": {
+    "navAria": "Pied de page",
+    "faq": "Questions fréquentes",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d’utilisation",
+    "social": {
+      "label": "Suivez-nous",
+      "instagram": "Instagram",
+      "x": "X",
+      "linkedin": "LinkedIn",
+      "youtube": "YouTube"
+    }
+  },
+  "faqPage": {
+    "eyebrow": "Assistance",
+    "title": "Questions fréquentes",
+    "lead": "Des réponses rapides sur les études, les soins et le voyage en Türkiye — et sur le fonctionnement de votre dossier.",
+    "items": {
+      "q1": "Que fait concrètement medbourse ?",
+      "a1": "Nous coordonnons trois services liés en Türkiye : les admissions universitaires, la consultation médicale et la planification des soins, ainsi que le voyage autour de vos rendez-vous. Tout passe par un dossier unique traité par une seule équipe.",
+      "q2": "Mes informations personnelles et médicales sont-elles protégées ?",
+      "a2": "Oui. Les documents d’identité et médicaux sont stockés dans un espace privé et ne sont accessibles qu’aux membres de l’équipe affectés à votre dossier. Nous ne vendons jamais vos données.",
+      "q3": "Faut-il un compte pour commencer ?",
+      "a3": "Un compte vous permet d’ouvrir un dossier et d’en suivre l’avancement. Vous pouvez le créer en une minute ; il conserve vos documents et messages au même endroit privé.",
+      "q4": "Comment les coûts sont-ils gérés ?",
+      "a4": "Une fois votre dossier examiné, vous recevez un devis écrit avec les montants exacts. Les devis sont des instantanés figés : le prix affiché est celui qui s’applique à cette offre.",
+      "q5": "Quelles langues puis-je utiliser ?",
+      "a5": "La plateforme est disponible en anglais, turc, français et arabe. Vous pouvez changer de langue à tout moment depuis le haut de la page.",
+      "q6": "Comment contacter l’équipe ?",
+      "a6": "Utilisez la page de contact pour nous joindre, ou connectez-vous à votre dossier pour envoyer un message directement à l’équipe qui le traite."
+    }
+  },
+  "privacyPage": {
+    "eyebrow": "Mentions légales",
+    "title": "Politique de confidentialité",
+    "lead": "Comment medbourse collecte, utilise et protège vos informations.",
+    "updated": "Dernière mise à jour : {{date}}",
+    "sections": {
+      "dataWeCollect": {
+        "title": "Informations collectées",
+        "body": "Nous collectons les informations que vous fournissez lorsque vous créez un compte ou ouvrez un dossier — telles que votre nom, vos coordonnées et les documents que vous téléversez. Nous enregistrons également les informations techniques nécessaires au bon fonctionnement sécurisé du service."
+      },
+      "howWeUse": {
+        "title": "Utilisation de vos informations",
+        "body": "Vos informations servent à évaluer et coordonner votre dossier, à communiquer avec vous et à conserver une trace des décisions. Elles ne sont pas utilisées à des fins sans lien avec les services demandés."
+      },
+      "sensitiveData": {
+        "title": "Documents sensibles",
+        "body": "Les documents d’identité et médicaux sont considérés comme sensibles. Ils sont stockés de manière privée, accessibles uniquement aux membres de l’équipe affectés à votre dossier et partagés avec des institutions partenaires seulement lorsque cela est nécessaire pour fournir le service demandé."
+      },
+      "dataSharing": {
+        "title": "Partage",
+        "body": "Nous ne partageons des informations qu’avec les partenaires nécessaires à la réalisation de votre dossier — par exemple une université, une clinique ou un prestataire de voyage — et uniquement les détails pertinents pour cette étape. Nous ne vendons pas de données personnelles."
+      },
+      "retention": {
+        "title": "Conservation",
+        "body": "Nous conservons vos informations tant que votre dossier est actif, puis pendant la durée exigée par la loi ou par nos obligations d’archivage, après quoi elles sont supprimées ou anonymisées."
+      },
+      "rights": {
+        "title": "Vos droits",
+        "body": "Vous pouvez demander l’accès, la rectification ou la suppression de vos données personnelles, sous réserve des exigences légales. Pour exercer ces droits, contactez-nous via les coordonnées ci-dessous."
+      },
+      "cookies": {
+        "title": "Cookies et stockage local",
+        "body": "Nous utilisons le stockage local pour mémoriser vos préférences de langue et de thème. Celles-ci sont purement fonctionnelles et ne servent pas à la publicité."
+      },
+      "contact": {
+        "title": "Contact",
+        "body": "Pour toute question ou demande relative à la confidentialité, joignez-nous via la page de contact."
+      }
+    }
+  },
+  "termsPage": {
+    "eyebrow": "Mentions légales",
+    "title": "Conditions d’utilisation",
+    "lead": "Les conditions applicables lorsque vous utilisez medbourse.",
+    "updated": "Dernière mise à jour : {{date}}",
+    "sections": {
+      "acceptance": {
+        "title": "Acceptation des conditions",
+        "body": "En créant un compte ou en utilisant medbourse, vous acceptez ces conditions. Si vous ne les acceptez pas, veuillez ne pas utiliser le service."
+      },
+      "services": {
+        "title": "Le service",
+        "body": "medbourse assure la coordination des services d’études, médicaux et de voyage en Türkiye. Nous agissons comme intermédiaire et facilitateur ; les décisions finales d’admission, de traitement et de voyage appartiennent aux institutions et prestataires concernés."
+      },
+      "accounts": {
+        "title": "Comptes",
+        "body": "Vous êtes responsable de l’exactitude des informations que vous fournissez et de la sécurité de vos identifiants. Vous devez avoir la capacité juridique de conclure cet accord."
+      },
+      "quotations": {
+        "title": "Devis et paiements",
+        "body": "Lorsqu’un devis est émis, il reflète la portée décrite à ce moment-là et est valable tel qu’indiqué. Les prix sont affichés dans la devise précisée et reposent sur un instantané figé ; toute modification de la portée peut nécessiter un nouveau devis."
+      },
+      "acceptableUse": {
+        "title": "Utilisation acceptable",
+        "body": "Vous acceptez de ne pas faire un usage abusif du service, de ne pas téléverser de contenu illicite ou trompeur et de ne pas tenter d’accéder à des données qui ne vous appartiennent pas."
+      },
+      "liability": {
+        "title": "Limitation de responsabilité",
+        "body": "Nous apportons le plus grand soin à la coordination de votre dossier, mais nous ne sommes pas responsables des décisions des institutions ou prestataires tiers, ni des retards et résultats indépendants de notre volonté."
+      },
+      "changes": {
+        "title": "Modifications des conditions",
+        "body": "Nous pouvons mettre à jour ces conditions à mesure que le service évolue. Les changements importants seront reflétés par la date de mise à jour ci-dessus."
+      },
+      "contact": {
+        "title": "Contact",
+        "body": "Les questions relatives à ces conditions peuvent être envoyées via la page de contact."
+      }
+    }
+  },
   "publicSite": {
     "navAria": "Site public",
+    "showcaseLabel": "Vitrine MEDBOURSE",
+    "carousel": {
+      "scroll": "Découvrir"
+    },
     "nav": {
+      "universities": "Universités",
+      "hospitals": "Hôpitaux",
+      "tourism": "Tourisme",
       "services": "Domaines",
-      "offerings": "Prestations",
       "contact": "Contact"
     },
     "services": {
@@ -34,19 +171,36 @@
         "body": "Organisation pratique des déplacements autour des rendez-vous et des visites de campus, pour que chaque voyage ait un objectif clair."
       }
     },
-    "offerings": {
-      "title": "Prestations actuelles",
-      "lead": "Services actifs publiés par des prestataires vérifiés.",
-      "loading": "Chargement des prestations…",
-      "error": "Impossible de charger les prestations.",
-      "empty": "Aucune prestation publiée pour le moment.",
-      "requirements": "Conditions",
-      "from": "Proposé par"
-    },
     "contact": {
       "title": "Commencez dans votre espace",
       "body": "Chaque demande passe par votre propre dossier : documents et messages restent au même endroit privé. Créez un compte ci-dessous pour commencer, ou connectez-vous si vous en avez déjà un.",
       "cta": "Créer un compte"
+    }
+  },
+  "categoryCta": {
+    "education": "Découvrir les universités",
+    "medical": "Découvrir les cliniques",
+    "tourism": "Découvrir le voyage"
+  },
+  "categoryPage": {
+    "back": "Retour à l’accueil",
+    "eyebrow": "Domaine de service",
+    "loading": "Chargement…",
+    "loadError": "Impossible de charger cette page.",
+    "providers": {
+      "education": "Universités et établissements",
+      "medical": "Cliniques et hôpitaux",
+      "tourism": "Voyage et hébergement",
+      "empty": "Aucun prestataire publié pour le moment.",
+      "verified": "Partenaire vérifié",
+      "unverified": "Pas encore vérifié",
+      "website": "Visiter le site"
+    },
+    "offerings": {
+      "title": "Prestations",
+      "empty": "Aucune prestation publiée pour le moment.",
+      "requirements": "Conditions",
+      "from": "Proposé par"
     }
   },
   "health": {
@@ -62,6 +216,7 @@
   },
   "auth": {
     "title": "Compte",
+    "close": "Fermer",
     "email": "E-mail",
     "password": "Mot de passe",
     "passwordHint": "Au moins 10 caractères.",
@@ -75,7 +230,40 @@
     "registered": "Compte créé.",
     "signedOut": "Déconnexion effectuée.",
     "signedInAs": "{{email}} · {{role}}",
-    "unknownError": "Une erreur s’est produite."
+    "unknownError": "Une erreur s’est produite.",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "country": "Votre pays",
+    "countryPlaceholder": "Sélectionnez votre pays",
+    "newPassword": "Nouveau mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "code": "Code à six chiffres",
+    "verify": "Vérifier",
+    "verifyTitle": "Vérifiez votre e-mail",
+    "sendCode": "Envoyer le code",
+    "forgotTitle": "Récupérez votre mot de passe",
+    "forgotLink": "Mot de passe oublié ?",
+    "resetTitle": "Définir un nouveau mot de passe",
+    "resetPassword": "Réinitialiser le mot de passe",
+    "backToLogin": "Retour à la connexion",
+    "codeSent": "Nous vous avons envoyé un code à six chiffres.",
+    "codeSentTo": "Saisissez le code à six chiffres envoyé à {{email}}.",
+    "resetCodeSent": "Si cette adresse existe, un code de réinitialisation a été envoyé.",
+    "passwordReset": "Mot de passe mis à jour.",
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe",
+    "errors": {
+      "passwordTooShort": "Utilisez au moins 10 caractères.",
+      "passwordMismatch": "Les mots de passe ne correspondent pas.",
+      "emailInUse": "Un compte avec cet e-mail existe déjà.",
+      "invalidCredentials": "E-mail ou mot de passe incorrect.",
+      "codeInvalid": "Ce code est incorrect.",
+      "codeExpired": "Ce code a expiré. Demandez-en un nouveau.",
+      "codeNotFound": "Aucun code en attente pour cet e-mail.",
+      "codeTooManyAttempts": "Trop de tentatives. Demandez un nouveau code.",
+      "invalidInvitation": "Cette invitation n'est plus valide.",
+      "invalidPassword": "Le mot de passe actuel est incorrect."
+    }
   },
   "portal": {
     "workspace": "Espace de travail",
@@ -84,13 +272,362 @@
   "nav": {
     "cases": "Dossiers",
     "customers": "Clients",
+    "users": "Utilisateurs",
     "catalog": "Catalogue",
-    "audit": "Journal d'audit"
+    "documents": "Bibliothèque de documents",
+    "payments": "Paiements",
+    "showcase": "Vitrine",
+    "site": "Contenu du site",
+    "audit": "Journal d'audit",
+    "profile": "Mon profil",
+    "assignments": "Affectations par pays"
+  },
+  "profile": {
+    "title": "Mon profil",
+    "details": "Informations personnelles",
+    "displayName": "Nom affiché",
+    "country": "Pays",
+    "countryPlaceholder": "Sélectionnez votre pays",
+    "emailVerified": "Vérifié",
+    "changePhoto": "Changer la photo",
+    "removePhoto": "Supprimer",
+    "avatarUpdated": "Photo mise à jour.",
+    "avatarRemoved": "Photo supprimée.",
+    "saved": "Profil enregistré.",
+    "currentPassword": "Mot de passe actuel",
+    "changePassword": "Changer le mot de passe",
+    "passwordChanged": "Mot de passe modifié.",
+    "save": "Enregistrer",
+    "unknownError": "Une erreur s’est produite."
+  },
+  "countryAssignments": {
+    "title": "Affectations par pays",
+    "subtitle": "Associez un pays aux administrateurs qui le traitent. Les administrateurs ne voient que les pays qui leur sont affectés.",
+    "createTitle": "Nouvelle affectation",
+    "editTitle": "Modifier l'affectation",
+    "country": "Pays",
+    "searchCountries": "Rechercher un pays…",
+    "noCountry": "Aucun pays ne correspond à votre recherche.",
+    "assignedBadge": "Affecté",
+    "managers": "Gestionnaires affectés",
+    "noManagers": "Aucun compte administrateur actif disponible.",
+    "unavailable": "Plus affectable",
+    "active": "Actif",
+    "inactive": "Inactif",
+    "save": "Enregistrer l'affectation",
+    "saving": "Enregistrement…",
+    "clear": "Effacer",
+    "refresh": "Actualiser",
+    "loading": "Chargement des affectations…",
+    "loadError": "Impossible de charger les affectations par pays.",
+    "empty": "Aucune affectation par pays pour l'instant.",
+    "selectCountry": "Sélectionnez un pays.",
+    "noManager": "Sélectionnez au moins un gestionnaire.",
+    "saved": "Affectation par pays enregistrée.",
+    "edit": "Modifier",
+    "columns": {
+      "country": "Pays",
+      "managers": "Gestionnaires",
+      "status": "Statut",
+      "actions": "Actions"
+    }
+  },
+  "payments": {
+    "title": "Paiements",
+    "subtitleSuper": "Définissez le prix et le compte de réception par défaut au niveau global, puis remplacez-les par pays. Le paramètre global s'applique là où un pays n'a pas de règle propre.",
+    "subtitleAdmin": "Définissez le prix et le compte de réception pour chaque pays qui vous est affecté. Tant que vous n'en définissez pas, le paramètre global s'applique.",
+    "refresh": "Actualiser",
+    "globalScope": "Global",
+    "globalHint": "Valeur de repli utilisée lorsqu'un pays n'a pas de règle propre.",
+    "loading": "Chargement des paramètres de paiement…",
+    "loadError": "Impossible de charger les paramètres de paiement.",
+    "saveError": "Impossible d'enregistrer.",
+    "saved": "Enregistré.",
+    "tabs": {
+      "pricing": "Tarifs",
+      "accounts": "Comptes de réception"
+    },
+    "columns": {
+      "scope": "Portée",
+      "services": "Prestations",
+      "amount": "Montant",
+      "active": "État",
+      "actions": "Actions",
+      "label": "Libellé",
+      "method": "Méthode",
+      "provider": "Prestataire",
+      "currency": "Devise"
+    },
+    "emptyRules": "Aucun tarif défini pour l'instant.",
+    "emptyAccounts": "Aucun compte de réception défini pour l'instant.",
+    "allServices": "Toutes les prestations",
+    "anyCategory": "Toute catégorie",
+    "selectCountry": "Sélectionnez un pays.",
+    "noCountries": "Vous n'êtes affecté à aucun pays pour l'instant. Demandez à un administrateur de vous en affecter un.",
+    "offering": "Prestation",
+    "category": "Catégorie",
+    "amount": "Montant",
+    "currency": "Devise",
+    "active": "Actif",
+    "inactive": "Inactif",
+    "edit": "Modifier",
+    "newRule": "Nouveau tarif",
+    "editRule": "Modifier le tarif",
+    "newAccount": "Nouveau compte de réception",
+    "editAccount": "Modifier le compte de réception",
+    "save": "Enregistrer",
+    "create": "Créer",
+    "cancel": "Annuler",
+    "label": "Libellé du compte",
+    "beneficiary": "Nom du bénéficiaire",
+    "method": "Mode de paiement",
+    "profile": "Profil de paiement",
+    "provider": "Prestataire",
+    "priority": "Priorité",
+    "priorityHint": "Les numéros plus bas sont proposés en premier lorsque plusieurs canaux desservent le même pays et la même devise.",
+    "methods": {
+      "bank_transfer": "Virement bancaire",
+      "instant_payment": "Paiement instantané",
+      "mobile_money": "Mobile money",
+      "digital_wallet": "Portefeuille numérique",
+      "payment_gateway": "Lien de paiement",
+      "remittance_pickup": "Retrait en espèces",
+      "crypto": "Crypto",
+      "cash_office": "Espèces au bureau"
+    },
+    "profiles": {
+      "iban": "International (IBAN)",
+      "local": "Compte domestique",
+      "upi": "UPI",
+      "pix": "Pix",
+      "interac": "Interac e-Transfer",
+      "zelle": "Zelle",
+      "phone": "Numéro de téléphone",
+      "email": "Adresse e-mail",
+      "link": "Lien de paiement",
+      "agent": "Point agence",
+      "address": "Adresse du portefeuille",
+      "office": "Adresse du bureau"
+    },
+    "fields": {
+      "iban": "IBAN",
+      "swiftBic": "SWIFT / BIC",
+      "accountNumber": "Numéro de compte",
+      "bankCode": "Code banque / guichet",
+      "branch": "Agence",
+      "upiVpa": "Identifiant UPI",
+      "pixKey": "Clé Pix",
+      "email": "Adresse e-mail",
+      "zelleHandle": "Identifiant Zelle",
+      "phone": "Numéro de téléphone",
+      "handle": "Identifiant",
+      "url": "Lien de paiement",
+      "merchantId": "Identifiant marchand",
+      "city": "Ville de retrait",
+      "agentCode": "Code agence",
+      "address": "Adresse",
+      "network": "Réseau",
+      "memo": "Mémo / tag",
+      "contact": "Numéro de contact"
+    },
+    "fieldHints": {
+      "iban": "Par exemple TR33 0006 1005 1978 6457 8413 26",
+      "account_number": "Le numéro de compte domestique",
+      "bank_code": "Code de tri, de routage ou de guichet",
+      "swift_bic": "8 ou 11 caractères, par exemple TCZBTR2A",
+      "phone": "Au format international, par exemple +90 555 111 22 33",
+      "email": "L'adresse e-mail du portefeuille ou du pont",
+      "handle": "Par exemple nom@banque",
+      "url": "Un lien de paiement https://",
+      "crypto_address": "L'adresse du portefeuille, telle qu'émise",
+      "text": "Texte libre"
+    },
+    "referenceHint": "Référence à indiquer",
+    "notes": "Notes"
+  },
+  "documentLibrary": {
+    "title": "Bibliothèque de documents",
+    "subtitle": "Définissez une fois les documents que les clients doivent fournir, puis réutilisez-les pour vos prestations. Chaque dossier en conserve une copie figée : modifier ici ne change jamais ce qui a déjà été demandé au client.",
+    "refresh": "Actualiser",
+    "loading": "Chargement de la bibliothèque de documents…",
+    "loadError": "Impossible de charger la bibliothèque de documents.",
+    "saveError": "Impossible d'enregistrer le document.",
+    "saved": "Enregistré.",
+    "empty": "Aucun document pour l'instant.",
+    "edit": "Modifier",
+    "active": "Actif",
+    "inactive": "Inactif",
+    "key": "Identifiant",
+    "kindLabel": "Type de document",
+    "order": "Ordre",
+    "documentTitle": "Titre",
+    "description": "Description",
+    "createTitle": "Nouveau document",
+    "editTitle": "Modifier le document",
+    "save": "Enregistrer les modifications",
+    "create": "Créer",
+    "cancel": "Annuler",
+    "columns": {
+      "title": "Titre",
+      "key": "Identifiant",
+      "kind": "Type",
+      "order": "Ordre",
+      "active": "État",
+      "actions": "Actions"
+    },
+    "kind": {
+      "identity": "Identité",
+      "medical": "Médical",
+      "supporting": "Justificatif"
+    }
+  },
+  "usersAdmin": {
+    "title": "Utilisateurs",
+    "search": "Rechercher",
+    "searchPlaceholder": "Nom ou e-mail",
+    "roleFilter": "Rôle",
+    "allRoles": "Tous les rôles",
+    "statusFilter": "Statut",
+    "allStatuses": "Tous les statuts",
+    "active": "Actif",
+    "inactive": "Inactif",
+    "apply": "Appliquer",
+    "refresh": "Actualiser",
+    "loading": "Chargement des utilisateurs…",
+    "loadError": "Impossible de charger les utilisateurs.",
+    "empty": "Aucun utilisateur ne correspond à ces filtres.",
+    "columns": {
+      "user": "Utilisateur",
+      "role": "Rôle",
+      "status": "Statut",
+      "actions": "Actions"
+    },
+    "you": "Vous",
+    "activate": "Activer",
+    "deactivate": "Désactiver",
+    "pageInfo": "Page {{page}} sur {{totalPages}} · {{total}} utilisateurs",
+    "prev": "Précédent",
+    "next": "Suivant",
+    "createTitle": "Ajouter un compte administrateur",
+    "create": "Créer le compte",
+    "created": "Compte créé."
+  },
+  "showcase": {
+    "title": "Vitrine",
+    "lead": "Composez la une cinématique. Chaque scène associe une ou plusieurs photos à un titre, un court texte et un bouton facultatif, dans toutes les langues.",
+    "loading": "Chargement des diapositives…",
+    "loadError": "Impossible de charger les diapositives.",
+    "empty": "Aucune diapositive. Ajoutez la première.",
+    "refresh": "Actualiser",
+    "create": "Nouvelle diapositive",
+    "edit": "Modifier la diapositive",
+    "cancel": "Annuler",
+    "save": "Enregistrer la diapositive",
+    "saving": "Enregistrement…",
+    "saveError": "Impossible d’enregistrer la diapositive.",
+    "delete": "Supprimer",
+    "deleteConfirm": "Supprimer cette diapositive ? Action irréversible.",
+    "deleteError": "Impossible de supprimer la diapositive.",
+    "upload": "Téléverser une image",
+    "uploading": "Téléversement…",
+    "uploadError": "Impossible de téléverser l’image.",
+    "changePhoto": "Remplacer l’image",
+    "noPhoto": "Aucune image sélectionnée",
+    "hint": "Les images défilent comme un seul mouvement de caméra continu : ordonnez-les selon le trajet souhaité. Privilégiez des photos larges et contrastées avec de l’espace pour le texte.",
+    "framesTitle": "Images",
+    "framesHint": "Téléversez les photos ordonnées de cette scène. La caméra avance à travers elles.",
+    "frameCount": "{{count}} images",
+    "addFrame": "Ajouter une image",
+    "removeFrame": "Supprimer",
+    "noFrames": "Aucune image — ajoutez la première photo.",
+    "focalPoint": "Point focal",
+    "order": "Ordre",
+    "orderHint": "Unique au sein de sa catégorie",
+    "orderTaken": "Cet ordre est déjà utilisé dans cette catégorie.",
+    "category": "Catégorie",
+    "categoryNone": "Sans catégorie",
+    "state": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "fields": {
+      "name": "Libellé de navigation (facultatif)",
+      "eyebrow": "Sur-titre (facultatif)",
+      "headline": "Titre",
+      "narrative": "Texte",
+      "altText": "Texte alternatif (accessibilité)"
+    }
+  },
+  "site": {
+    "title": "Contenu du site",
+    "lead": "Gérez les textes des pages publiques et les comptes sociaux. L'enregistrement publie immédiatement.",
+    "refresh": "Actualiser",
+    "loading": "Chargement du contenu du site…",
+    "loadError": "Impossible de charger le contenu du site.",
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "saved": "Enregistré.",
+    "saveError": "Échec de l'enregistrement. Veuillez réessayer.",
+    "active": "Actif",
+    "order": "Ordre",
+    "tabs": {
+      "social": "Réseaux sociaux",
+      "pages": "Pages"
+    },
+    "pageNames": {
+      "faq": "FAQ",
+      "services": "Services",
+      "privacy": "Politique de confidentialité",
+      "terms": "Conditions d'utilisation"
+    },
+    "social": {
+      "heading": "Comptes sociaux",
+      "hint": "Affichés dans le pied de page et sur la page de contact.",
+      "add": "Ajouter un compte",
+      "empty": "Aucun compte pour l'instant — les liens intégrés sont affichés sur le site.",
+      "network": "Réseau",
+      "url": "URL du profil",
+      "remove": "Supprimer"
+    },
+    "pages": {
+      "heading": "Textes des pages",
+      "hint": "Laissez une page vide pour conserver son contenu intégré. Les blocs s'affichent de haut en bas.",
+      "active": "Publier cette version de la page",
+      "updated": "Dernière mise à jour",
+      "updatedHint": "Facultatif, ex. 2026-10-16",
+      "eyebrow": "Sur-titre",
+      "title": "Titre",
+      "lead": "Introduction",
+      "sections": "Blocs",
+      "addSection": "Ajouter un bloc",
+      "sectionTitle": "Titre du bloc",
+      "sectionBody": "Texte du bloc",
+      "removeSection": "Supprimer le bloc",
+      "emptySections": "Aucun bloc pour l'instant."
+    }
   },
   "categories": {
     "education": "Éducation",
     "medical": "Médical",
     "tourism": "Tourisme"
+  },
+  "applications": {
+    "title": "Démarrer une demande",
+    "subtitle": "Choisissez un service et votre pays. Cela ouvre un dossier brouillon où vous téléversez les documents requis et votre reçu de paiement, puis vous l'envoyez à votre équipe.",
+    "category": "Catégorie de service",
+    "offering": "Service",
+    "country": "Votre pays",
+    "countryPlaceholder": "Sélectionnez votre pays",
+    "phone": "Téléphone (facultatif)",
+    "message": "Message (facultatif)",
+    "messagePlaceholder": "Dites-nous brièvement ce dont vous avez besoin…",
+    "loadingOfferings": "Chargement des services…",
+    "noOfferings": "Aucun service n'est encore disponible dans cette catégorie.",
+    "loadError": "Impossible de charger les services.",
+    "submitError": "Impossible de créer votre demande.",
+    "submit": "Démarrer une demande",
+    "submitting": "Démarrage…",
+    "cancel": "Annuler"
   },
   "cases": {
     "title": "Dossiers",
@@ -105,7 +642,8 @@
     },
     "status": {
       "open": "Ouvert",
-      "closed": "Fermé"
+      "closed": "Fermé",
+      "draft": "Brouillon"
     },
     "columns": {
       "offering": "Prestation",
@@ -113,10 +651,17 @@
       "status": "Statut",
       "created": "Créé"
     },
+    "draftBadge": "Brouillon",
     "prev": "Précédent",
     "next": "Suivant",
     "pageInfo": "Page {{page}} sur {{totalPages}} · {{total}} au total",
-    "openCase": "Ouvrir le dossier : {{title}}"
+    "openCase": "Ouvrir le dossier : {{title}}",
+    "startApplication": "Démarrer une demande",
+    "welcomeTitle": "Bienvenue sur MEDBOURSE",
+    "welcomeBody": "Vous n'avez encore aucun dossier. Démarrez une demande et nous ouvrirons votre premier dossier.",
+    "welcomeStep1": "Choisissez le service qui vous intéresse.",
+    "welcomeStep2": "Indiquez votre pays pour que nous assignions la bonne équipe.",
+    "welcomeStep3": "Suivez l'avancement, les documents et les messages au même endroit."
   },
   "customers": {
     "title": "Clients",
@@ -130,11 +675,34 @@
     "prev": "Précédent",
     "next": "Suivant",
     "pageInfo": "Page {{page}} sur {{totalPages}} · {{total}} au total",
+    "openCustomer": "Ouvrir le client : {{name}}",
+    "detail": {
+      "back": "← Retour aux clients",
+      "loading": "Chargement du client…",
+      "loadError": "Impossible de charger ce client.",
+      "identity": "Profil",
+      "email": "E-mail",
+      "phone": "Téléphone",
+      "country": "Pays",
+      "manager": "Gestionnaire affecté",
+      "noManager": "Pas encore affecté",
+      "created": "Créé",
+      "actions": "Actions",
+      "cases": "Dossiers",
+      "casesEmpty": "Ce client n’a encore aucun dossier.",
+      "casesError": "Impossible de charger les dossiers de ce client.",
+      "activity": "Activité",
+      "activityEmpty": "Aucune activité enregistrée pour le moment.",
+      "activityError": "Impossible de charger l’historique d’activité.",
+      "activitySystem": "Système"
+    },
     "create": {
       "fullName": "Nom complet",
       "email": "E-mail (facultatif)",
       "phone": "Téléphone (facultatif)",
-      "country": "Code pays",
+      "country": "Pays",
+      "countryPlaceholder": "Sélectionnez un pays",
+      "noCountries": "Aucun pays ne vous est encore attribué. Demandez à un super admin de vous en attribuer un.",
       "submit": "Créer le client",
       "saving": "Création…",
       "error": "Impossible de créer le client."
@@ -153,6 +721,30 @@
       "assigned": "Affecté",
       "exception": "Exception"
     },
+    "account": {
+      "none": "Aucun compte",
+      "unclaimed": "Invitation en attente",
+      "active": "Compte actif",
+      "create": "Créer un compte de connexion",
+      "creating": "Création…",
+      "created": "Compte de connexion créé pour {{name}}. Envoyez l'invitation pour qu'il définisse un mot de passe.",
+      "error": "Impossible de créer le compte de connexion."
+    },
+    "applyOnBehalf": {
+      "action": "Postuler en son nom",
+      "title": "Ouvrir un dossier pour {{name}}",
+      "hint": "Vous serez redirigé vers le nouveau brouillon pour téléverser les documents du client, le reçu de paiement, et soumettre — exactement comme lui.",
+      "category": "Catégorie de service",
+      "offering": "Service",
+      "offeringPlaceholder": "Sélectionnez un service",
+      "noOfferings": "Aucun service actif dans cette catégorie.",
+      "offeringsError": "Impossible de charger les services.",
+      "submit": "Ouvrir le dossier",
+      "saving": "Ouverture…",
+      "cancel": "Annuler",
+      "success": "Dossier ouvert pour {{title}}.",
+      "error": "Impossible d'ouvrir le dossier."
+    },
     "invite": {
       "action": "Inviter",
       "emailLabel": "E-mail d'invitation",
@@ -162,6 +754,9 @@
       "error": "Impossible de créer l'invitation.",
       "created": "Invitation créée pour {{email}}.",
       "tokenHint": "Partagez ce jeton avec le client. Il n'est affiché qu'une seule fois.",
+      "linkHint": "Envoyez ce lien au client. Il l'ouvre pour définir son propre mot de passe.",
+      "copy": "Copier le lien",
+      "copied": "Copié",
       "expiresAt": "Expire le {{date}}",
       "dismiss": "Fermer"
     },
@@ -190,6 +785,12 @@
     "cancel": "Annuler",
     "edit": "Modifier",
     "saveError": "Impossible d’enregistrer les modifications.",
+    "noImage": "Aucune image",
+    "uploadImage": "Téléverser une image",
+    "changeImage": "Changer l’image",
+    "removeImage": "Supprimer",
+    "uploading": "Téléversement…",
+    "uploadError": "Impossible de téléverser l’image.",
     "state": {
       "active": "Actif",
       "inactive": "Inactif",
@@ -223,6 +824,8 @@
       "category": "Catégorie",
       "city": "Ville",
       "website": "Site web",
+      "logo": "Logo",
+      "cover": "Photo de couverture",
       "verified": "Partenariat vérifié"
     },
     "offerings": {
@@ -230,7 +833,18 @@
       "slug": "Identifiant",
       "summary": "Résumé",
       "requirements": "Résumé des conditions",
-      "provider": "Prestataire"
+      "requiredDocuments": "Documents requis",
+      "requiredDocumentsHint": "Sélectionnez les documents que le client doit fournir pour cette prestation.",
+      "noDocuments": "Aucun document dans la bibliothèque pour l'instant. Ajoutez-en dans la Bibliothèque de documents.",
+      "provider": "Prestataire",
+      "noProvider": "Aucun prestataire (autonome)",
+      "category": "Catégorie",
+      "city": "Ville",
+      "logo": "Logo",
+      "cover": "Photo de couverture",
+      "priceAmount": "Prix général",
+      "priceCurrency": "Devise",
+      "priceHint": "Chaque service doit avoir un prix général dans une devise ; il sert à chiffrer une demande en libre-service."
     }
   },
   "audit": {
@@ -263,11 +877,24 @@
     "loading": "Chargement du dossier…",
     "loadError": "Impossible de charger ce dossier.",
     "createdAt": "Créé le {{date}}",
+    "draft": "Brouillon",
+    "submittedAt": "Envoyé le {{date}}",
     "workflow": "Workflow",
     "workflowVersion": "Version du modèle {{version}}",
     "optional": "Optionnel",
+    "progressLabel": "Progression de l'examen",
+    "progressValue": "{{percent}}% terminé",
     "documents": "Documents",
     "noDocuments": "Aucun document téléversé.",
+    "requiredDocuments": "Documents requis",
+    "requiredDocumentsHint": "Téléversez chaque document demandé par l'équipe.",
+    "satisfied": "Fourni",
+    "pending": "En attente",
+    "notUploaded": "Pas encore téléversé.",
+    "upload": "Téléverser",
+    "reupload": "Retéléverser",
+    "uploading": "Téléversement…",
+    "uploadError": "Impossible de téléverser le document.",
     "docKind": {
       "identity": "Identité",
       "medical": "Médical",
@@ -281,6 +908,37 @@
     "quoIssuedAt": "Émis le",
     "paymentEvidence": "Preuve de paiement",
     "noPaymentEvidence": "Aucune preuve de paiement soumise.",
+    "submit": {
+      "title": "Envoyez votre demande",
+      "hint": "L'équipe ne voit ce dossier qu'après votre envoi. Téléversez d'abord tous les documents requis et votre reçu de paiement.",
+      "amountDue": "Montant dû",
+      "chooseMethod": "Choisissez votre mode de paiement",
+      "beneficiary": "Bénéficiaire",
+      "reference": "Référence",
+      "receipt": "Reçu de paiement",
+      "receiptHint": "Téléversez le reçu correspondant au paiement ci-dessus.",
+      "receiptNeedsMethod": "Choisissez votre moyen de paiement avant de téléverser le reçu.",
+      "uploadReceipt": "Téléverser le reçu",
+      "uploadingReceipt": "Téléversement…",
+      "reuploadReceipt": "Retéléverser le reçu",
+      "receiptReuploadHint": "Téléversez un nouveau reçu pour remplacer celui rejeté.",
+      "receiptUploadError": "Impossible de téléverser le reçu.",
+      "selectError": "Impossible d'enregistrer votre mode de paiement.",
+      "checklistDone": "Documents complets",
+      "checklistMissing": "Téléversez tous les documents requis",
+      "methodDone": "Mode de paiement sélectionné",
+      "methodMissing": "Choisissez votre mode de paiement",
+      "receiptDone": "Reçu joint",
+      "receiptMissing": "Joignez le reçu de paiement",
+      "ready": "Tout est prêt — vous pouvez envoyer maintenant.",
+      "missing": "Complétez les étapes ci-dessus avant d'envoyer.",
+      "submitButton": "Envoyer la demande",
+      "submitting": "Envoi…",
+      "submitError": "Impossible d'envoyer la demande.",
+      "submitted": "Demande envoyée. Votre équipe vous suivra ici.",
+      "noPrice": "Aucun prix n'est encore défini pour ce service. Veuillez contacter l'équipe.",
+      "noAccount": "Le compte bénéficiaire n'est pas encore configuré. Veuillez contacter l'équipe."
+    },
     "messages": {
       "title": "Messages",
       "loading": "Chargement des messages…",
@@ -291,11 +949,64 @@
       "placeholder": "Écrire un message…",
       "send": "Envoyer",
       "sending": "Envoi…"
+    },
+    "review": {
+      "title": "Vérification",
+      "current": "Décision actuelle",
+      "docsApproved": "Tous les documents requis sont approuvés",
+      "docsPending": "Certains documents ne sont pas encore approuvés",
+      "paymentApproved": "Paiement confirmé",
+      "paymentPending": "Paiement pas encore confirmé",
+      "approve": "Approuver",
+      "reject": "Rejeter",
+      "confirmReject": "Confirmer le rejet",
+      "cancel": "Annuler",
+      "saving": "Enregistrement…",
+      "accept": "Accepter le dossier",
+      "accepted": "Accepté",
+      "rejectCase": "Rejeter le dossier",
+      "rejectPlaceholder": "Indiquez au client ce qu’il doit corriger…",
+      "rejectCasePlaceholder": "Expliquez pourquoi ce dossier est rejeté…",
+      "blocked": "Tous les documents requis et le reçu de paiement doivent être approuvés avant d’accepter ce dossier.",
+      "actionError": "Impossible d’enregistrer la décision.",
+      "showPreview": "Voir le fichier",
+      "hidePreview": "Masquer le fichier",
+      "loadingPreview": "Ouverture du fichier…",
+      "previewError": "Impossible d’ouvrir ce fichier.",
+      "noPreview": "Ce type de fichier ne peut pas être prévisualisé.",
+      "openNewTab": "Ouvrir dans un nouvel onglet",
+      "rejectedBecause": "Rejeté : {{note}}"
+    },
+    "fileDetail": {
+      "open": "Détails",
+      "close": "Fermer",
+      "kind": "Type",
+      "status": "Vérification",
+      "uploadedAt": "Téléversé",
+      "reviewer": "Vérifié par",
+      "notReviewed": "Pas encore vérifié",
+      "reviewedAt": "Vérifié",
+      "note": "Note du vérificateur : {{note}}",
+      "history": "Historique des téléversements",
+      "historyHint": "Toutes les versions enregistrées pour ce fichier, de la plus récente à la plus ancienne.",
+      "current": "Affiché"
+    }
+  },
+  "review": {
+    "document": {
+      "pending": "En attente de vérification",
+      "approved": "Approuvé",
+      "rejected": "Rejeté"
+    },
+    "case": {
+      "awaiting": "En attente",
+      "in_review": "En cours de vérification",
+      "accepted": "Accepté",
+      "rejected": "Rejeté"
     }
   },
   "roles": {
     "customer": "Client",
-    "staff": "Personnel",
     "admin": "Administrateur",
     "super_admin": "Super administrateur"
   },
@@ -306,12 +1017,18 @@
     "empty": "Aucune notification pour le moment.",
     "markAllRead": "Tout marquer comme lu",
     "types": {
+      "caseCreated": "Votre dossier a été créé",
       "messageCreated": "Nouveau message sur votre dossier",
       "stageTransitioned": "Une étape du dossier a été mise à jour",
       "caseClosed": "Votre dossier a été clôturé",
       "paymentSubmitted": "Nouvelle preuve de paiement soumise",
       "paymentApproved": "Preuve de paiement approuvée",
-      "paymentRejected": "Preuve de paiement rejetée"
+      "paymentRejected": "Preuve de paiement rejetée",
+      "documentApproved": "Un document a été approuvé",
+      "documentRejected": "Un document doit être rechargé",
+      "documentReuploaded": "Le client a rechargé un document",
+      "caseAccepted": "Votre dossier a été accepté",
+      "caseRejected": "Votre dossier a été rejeté"
     }
   },
   "workflow": {

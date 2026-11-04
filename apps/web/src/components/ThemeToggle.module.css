@@ -1,0 +1,41 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 44px;
+  block-size: 44px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.button svg {
+  inline-size: 18px;
+  block-size: 18px;
+}
+
+/* On the page header: neutral ink that already adapts to the active theme. */
+.surface {
+  border-color: var(--color-border-default);
+  color: var(--color-text-secondary);
+}
+
+.surface:hover,
+.surface:focus-visible {
+  background: var(--color-surface-sunken);
+  color: var(--color-text-primary);
+}
+
+/* On the red portal header: the same inverse-ink treatment as the other controls. */
+.brand {
+  border-color: color-mix(in srgb, var(--color-text-inverse) 40%, transparent);
+  color: var(--color-text-inverse);
+}
+
+.brand:hover,
+.brand:focus-visible {
+  background: color-mix(in srgb, var(--color-text-inverse) 12%, transparent);
+}

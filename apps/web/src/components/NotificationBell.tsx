@@ -9,9 +9,15 @@ import {
 import styles from './NotificationBell.module.css';
 
 const TYPE_KEYS = {
+  'case.created': 'notifications.types.caseCreated',
   'case.message_created': 'notifications.types.messageCreated',
   'case.workflow_stage_transitioned': 'notifications.types.stageTransitioned',
   'case.closed': 'notifications.types.caseClosed',
+  'case.document_approved': 'notifications.types.documentApproved',
+  'case.document_rejected': 'notifications.types.documentRejected',
+  'case.document_reuploaded': 'notifications.types.documentReuploaded',
+  'case.accepted': 'notifications.types.caseAccepted',
+  'case.rejected': 'notifications.types.caseRejected',
   'payment_evidence.submitted': 'notifications.types.paymentSubmitted',
   'payment_evidence.approved': 'notifications.types.paymentApproved',
   'payment_evidence.rejected': 'notifications.types.paymentRejected',
@@ -37,7 +43,12 @@ function BellIcon() {
   );
 }
 
-export default function NotificationBell() {
+export default function NotificationBell({
+  onOpenCase,
+}: {
+  /** Called with the notification's case so the portal can open the related case. */
+  onOpenCase?: (caseId: string) => void;
+}) {
   const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState<PublicNotification[]>([]);
@@ -87,6 +98,11 @@ export default function NotificationBell() {
   }
 
   async function handleRead(item: PublicNotification) {
+    // Every notification points at its case; open it whether or not it was already read.
+    if (item.caseId && onOpenCase) {
+      onOpenCase(item.caseId);
+      setOpen(false);
+    }
     if (item.readAt) {
       return;
     }

@@ -5,6 +5,8 @@
   "brand": {
     "name": "MEDBOURSE",
     "eyebrow": "Türkiye · Eğitim · Sağlık · Seyahat",
+    "tagline": "Türkiye’de eğitim · sağlık · seyahat",
+    "leadTitle": "Türkiye’de okumak, tedavi ve seyahat için tek ekip",
     "lead": "Türkiye’de üniversite kabulleri, sağlık koordinasyonu ve seyahat danışmanlığı. Bu geliştirme ortamıdır; kamuya açık ve operasyon arayüzleri aynı markayı paylaşır."
   },
   "language": {
@@ -14,11 +16,146 @@
     "fr": "Français",
     "ar": "العربية"
   },
+  "theme": {
+    "switchToDark": "Koyu temaya geç",
+    "switchToLight": "Açık temaya geç"
+  },
+  "invitePage": {
+    "eyebrow": "Davet",
+    "title": "Şifrenizi belirleyin",
+    "lead": "MEDBOURSE ekibi sizi davet etti. Hesabınızı etkinleştirip giriş yapmak için bir şifre belirleyin.",
+    "newPassword": "Yeni şifre",
+    "confirmPassword": "Şifre tekrarı",
+    "hint": "En az 10 karakter.",
+    "submit": "Hesabımı etkinleştir",
+    "saving": "Etkinleştiriliyor…",
+    "mismatch": "Şifreler eşleşmiyor.",
+    "error": "Hesabınız etkinleştirilemedi. Bağlantının süresi dolmuş olabilir.",
+    "missingToken": "Bu davet bağlantısı geçerli değil."
+  },
+  "footer": {
+    "navAria": "Alt bilgi",
+    "faq": "Sıkça sorulan sorular",
+    "privacy": "Gizlilik politikası",
+    "terms": "Kullanım şartları",
+    "social": {
+      "label": "Bizi takip edin",
+      "instagram": "Instagram",
+      "x": "X",
+      "linkedin": "LinkedIn",
+      "youtube": "YouTube"
+    }
+  },
+  "faqPage": {
+    "eyebrow": "Destek",
+    "title": "Sıkça sorulan sorular",
+    "lead": "Türkiye'de eğitim, tedavi ve seyahat — ve vakanızın nasıl işlediği hakkında hızlı yanıtlar.",
+    "items": {
+      "q1": "medbourse tam olarak ne yapar?",
+      "a1": "Türkiye'de birbiriyle bağlantılı üç hizmeti koordine ediyoruz: üniversite kabulleri, sağlık danışmanlığı ve tedavi planlaması ile randevularınız çevresindeki seyahat. Her şey tek bir ekip tarafından yürütülen tek bir vaka üzerinden ilerler.",
+      "q2": "Kişisel ve tıbbi bilgilerim güvende mi?",
+      "a2": "Evet. Kimlik ve tıbbi belgeler özel bir depolamada saklanır ve yalnızca vakanıza atanmış ekip üyeleri erişebilir. Verilerinizi hiçbir zaman satmayız.",
+      "q3": "Başlamak için hesaba ihtiyacım var mı?",
+      "a3": "Bir hesap, vaka açmanıza ve ilerlemesini takip etmenize olanak tanır. Bir dakika içinde oluşturabilirsiniz; belgelerinizi ve mesajlarınızı tek bir özel yerde tutar.",
+      "q4": "Maliyetler nasıl yönetilir?",
+      "a4": "Vakanız incelendikten sonra tam tutarları içeren yazılı bir teklif alırsınız. Teklifler sabit anlık görüntülerdir; yani size gösterilen fiyat o teklif için geçerli olan fiyattır.",
+      "q5": "Hangi dilleri kullanabilirim?",
+      "a5": "Platform İngilizce, Türkçe, Fransızca ve Arapça olarak kullanılabilir. Dili sayfanın üst kısmından istediğiniz zaman değiştirebilirsiniz.",
+      "q6": "Ekiple nasıl iletişime geçerim?",
+      "a6": "Bize ulaşmak için iletişim sayfasını kullanın veya vakanıza giriş yaparak doğrudan ilgilenen ekibe mesaj gönderin."
+    }
+  },
+  "privacyPage": {
+    "eyebrow": "Hukuki",
+    "title": "Gizlilik politikası",
+    "lead": "medbourse bilgilerinizi nasıl toplar, kullanır ve korur.",
+    "updated": "Son güncelleme: {{date}}",
+    "sections": {
+      "dataWeCollect": {
+        "title": "Topladığımız bilgiler",
+        "body": "Hesap oluşturduğunuzda veya bir vaka açtığınızda sağladığınız bilgileri toplarız — adınız, iletişim bilgileriniz ve yüklediğiniz belgeler gibi. Ayrıca hizmeti güvenli biçimde işletmek için gereken teknik bilgileri kaydederiz."
+      },
+      "howWeUse": {
+        "title": "Bilgilerinizi nasıl kullanıyoruz",
+        "body": "Bilgileriniz vakanızı değerlendirmek ve koordine etmek, sizinle iletişim kurmak ve kararların kaydını tutmak için kullanılır. Talep ettiğiniz hizmetlerle ilgisiz amaçlarla kullanılmaz."
+      },
+      "sensitiveData": {
+        "title": "Hassas belgeler",
+        "body": "Kimlik ve tıbbi belgeler hassas kabul edilir. Gizli olarak saklanır, yalnızca vakanıza atanmış ekip üyeleri erişebilir ve yalnızca istediğiniz hizmeti sunmak için gerekli olduğunda ortak kurumlarla paylaşılır."
+      },
+      "dataSharing": {
+        "title": "Paylaşım",
+        "body": "Bilgileri yalnızca vakanızı yerine getirmek için gereken ortaklarla — örneğin bir üniversite, klinik veya seyahat sağlayıcısı — ve yalnızca o adımla ilgili ayrıntılarla paylaşırız. Kişisel verileri satmayız."
+      },
+      "retention": {
+        "title": "Saklama",
+        "body": "Bilgilerinizi vakanız aktif olduğu sürece ve sonrasında yasaların veya kayıt tutma yükümlülüklerimizin gerektirdiği süre boyunca saklarız; ardından silinir veya anonim hâle getirilir."
+      },
+      "rights": {
+        "title": "Haklarınız",
+        "body": "Yasal gereklilikler saklı kalmak kaydıyla, kişisel verilerinize erişim, düzeltme veya silme talep edebilirsiniz. Bu hakları kullanmak için aşağıdaki bilgilerden bize ulaşın."
+      },
+      "cookies": {
+        "title": "Çerezler ve yerel depolama",
+        "body": "Dil ve tema tercihlerinizi hatırlamak için yerel depolama kullanırız. Bunlar yalnızca işlevseldir ve reklam amaçlı kullanılmaz."
+      },
+      "contact": {
+        "title": "İletişim",
+        "body": "Gizlilikle ilgili her türlü soru veya talep için iletişim sayfasından bize ulaşın."
+      }
+    }
+  },
+  "termsPage": {
+    "eyebrow": "Hukuki",
+    "title": "Kullanım şartları",
+    "lead": "medbourse'u kullandığınızda geçerli olan şartlar.",
+    "updated": "Son güncelleme: {{date}}",
+    "sections": {
+      "acceptance": {
+        "title": "Bu şartların kabulü",
+        "body": "Bir hesap oluşturarak veya medbourse'u kullanarak bu şartları kabul etmiş olursunuz. Kabul etmiyorsanız lütfen hizmeti kullanmayın."
+      },
+      "services": {
+        "title": "Hizmet",
+        "body": "medbourse, Türkiye'de eğitim, sağlık ve seyahat hizmetleri için koordinasyon sağlar. Aracı ve kolaylaştırıcı olarak hareket ederiz; nihai kabul, tedavi ve seyahat kararları ilgili kurum ve sağlayıcılara aittir."
+      },
+      "accounts": {
+        "title": "Hesaplar",
+        "body": "Sağladığınız bilgilerin doğruluğundan ve hesap bilgilerinizin güvenliğinden siz sorumlusunuz. Bu sözleşmeyi yapmaya yasal olarak ehil olmalısınız."
+      },
+      "quotations": {
+        "title": "Teklifler ve ödemeler",
+        "body": "Bir teklif düzenlendiğinde, o an tanımlanan kapsamı yansıtır ve belirtildiği gibi geçerlidir. Fiyatlar belirtilen para biriminde gösterilir ve sabit bir anlık görüntüye dayanır; kapsam değişiklikleri yeni bir teklif gerektirebilir."
+      },
+      "acceptableUse": {
+        "title": "Kabul edilebilir kullanım",
+        "body": "Hizmeti kötüye kullanmamayı, yasa dışı veya yanıltıcı içerik yüklememeyi ve size ait olmayan verilere erişmeye çalışmamayı kabul edersiniz."
+      },
+      "liability": {
+        "title": "Sorumluluk sınırı",
+        "body": "Vakanızı koordine ederken özen gösteririz, ancak üçüncü taraf kurum veya sağlayıcıların kararlarından ya da kontrolümüz dışındaki gecikme ve sonuçlardan sorumlu değiliz."
+      },
+      "changes": {
+        "title": "Bu şartlardaki değişiklikler",
+        "body": "Hizmet geliştikçe bu şartları güncelleyebiliriz. Önemli değişiklikler yukarıdaki güncelleme tarihine yansıtılır."
+      },
+      "contact": {
+        "title": "İletişim",
+        "body": "Bu şartlarla ilgili sorularınızı iletişim sayfasından iletebilirsiniz."
+      }
+    }
+  },
   "publicSite": {
     "navAria": "Tanıtım sitesi",
+    "showcaseLabel": "MEDBOURSE vitrini",
+    "carousel": {
+      "scroll": "Keşfet"
+    },
     "nav": {
+      "universities": "Üniversiteler",
+      "hospitals": "Hastaneler",
+      "tourism": "Turizm",
       "services": "Hizmet alanları",
-      "offerings": "Hizmetler",
       "contact": "İletişim"
     },
     "services": {
@@ -34,19 +171,36 @@
         "body": "Randevular ve kampüs ziyaretleri çevresinde pratik seyahat düzenlemeleri; her seyahatin net bir amacı olur."
       }
     },
-    "offerings": {
-      "title": "Güncel hizmetler",
-      "lead": "Doğrulanmış sağlayıcıların yayımladığı aktif hizmetler.",
-      "loading": "Hizmetler yükleniyor…",
-      "error": "Hizmetler yüklenemedi.",
-      "empty": "Henüz hizmet yayımlanmadı.",
-      "requirements": "Gereksinimler",
-      "from": "Sağlayıcı:"
-    },
     "contact": {
       "title": "Çalışma alanınızda başlayın",
       "body": "Her başvuru kendi vakanız üzerinden yürür; böylece belgeler ve mesajlar tek bir özel yerde kalır. Başlamak için aşağıdan bir hesap oluşturun veya zaten varsa giriş yapın.",
       "cta": "Hesap oluştur"
+    }
+  },
+  "categoryCta": {
+    "education": "Üniversiteleri keşfedin",
+    "medical": "Klinikleri keşfedin",
+    "tourism": "Seyahati keşfedin"
+  },
+  "categoryPage": {
+    "back": "Ana sayfaya dön",
+    "eyebrow": "Hizmet alanı",
+    "loading": "Yükleniyor…",
+    "loadError": "Bu sayfa yüklenemedi.",
+    "providers": {
+      "education": "Üniversiteler ve kurumlar",
+      "medical": "Klinikler ve hastaneler",
+      "tourism": "Seyahat ve konaklama",
+      "empty": "Henüz sağlayıcı yayımlanmadı.",
+      "verified": "Doğrulanmış ortak",
+      "unverified": "Henüz doğrulanmadı",
+      "website": "Web sitesini ziyaret et"
+    },
+    "offerings": {
+      "title": "Hizmetler",
+      "empty": "Henüz hizmet yayımlanmadı.",
+      "requirements": "Gereksinimler",
+      "from": "Sağlayıcı:"
     }
   },
   "health": {
@@ -62,6 +216,7 @@
   },
   "auth": {
     "title": "Hesap",
+    "close": "Kapat",
     "email": "E-posta",
     "password": "Şifre",
     "passwordHint": "En az 10 karakter.",
@@ -75,7 +230,40 @@
     "registered": "Hesap oluşturuldu.",
     "signedOut": "Çıkış yapıldı.",
     "signedInAs": "{{email}} · {{role}}",
-    "unknownError": "Bir sorun oluştu."
+    "unknownError": "Bir sorun oluştu.",
+    "firstName": "Ad",
+    "lastName": "Soyad",
+    "country": "Ülkeniz",
+    "countryPlaceholder": "Ülkenizi seçin",
+    "newPassword": "Yeni şifre",
+    "confirmPassword": "Şifre tekrarı",
+    "code": "Altı haneli kod",
+    "verify": "Doğrula",
+    "verifyTitle": "E-postanızı doğrulayın",
+    "sendCode": "Kod gönder",
+    "forgotTitle": "Şifrenizi kurtarın",
+    "forgotLink": "Şifrenizi mi unuttunuz?",
+    "resetTitle": "Yeni şifre belirleyin",
+    "resetPassword": "Şifreyi sıfırla",
+    "backToLogin": "Girişe dön",
+    "codeSent": "Size altı haneli bir kod e-postaladık.",
+    "codeSentTo": "{{email}} adresine gönderdiğimiz altı haneli kodu girin.",
+    "resetCodeSent": "Bu adres kayıtlıysa sıfırlama kodu e-postalandı.",
+    "passwordReset": "Şifre güncellendi.",
+    "showPassword": "Şifreyi göster",
+    "hidePassword": "Şifreyi gizle",
+    "errors": {
+      "passwordTooShort": "En az 10 karakter kullanın.",
+      "passwordMismatch": "Şifreler eşleşmiyor.",
+      "emailInUse": "Bu e-posta ile bir hesap zaten var.",
+      "invalidCredentials": "E-posta veya şifre hatalı.",
+      "codeInvalid": "Kod doğru değil.",
+      "codeExpired": "Kodun süresi doldu. Yeni bir kod isteyin.",
+      "codeNotFound": "Bu e-posta için bekleyen kod yok.",
+      "codeTooManyAttempts": "Çok fazla deneme. Yeni bir kod isteyin.",
+      "invalidInvitation": "Bu davet artık geçerli değil.",
+      "invalidPassword": "Mevcut şifre hatalı."
+    }
   },
   "portal": {
     "workspace": "Çalışma Alanı",
@@ -84,13 +272,362 @@
   "nav": {
     "cases": "Vakalar",
     "customers": "Müşteriler",
+    "users": "Kullanıcılar",
     "catalog": "Katalog",
-    "audit": "Denetim Günlüğü"
+    "documents": "Belge kütüphanesi",
+    "payments": "Ödemeler",
+    "showcase": "Vitrin",
+    "site": "Site içeriği",
+    "audit": "Denetim kaydı",
+    "profile": "Profilim",
+    "assignments": "Ülke atamaları"
+  },
+  "profile": {
+    "title": "Profilim",
+    "details": "Kişisel bilgiler",
+    "displayName": "Görünen ad",
+    "country": "Ülke",
+    "countryPlaceholder": "Ülkenizi seçin",
+    "emailVerified": "Doğrulandı",
+    "changePhoto": "Fotoğrafı değiştir",
+    "removePhoto": "Kaldır",
+    "avatarUpdated": "Fotoğraf güncellendi.",
+    "avatarRemoved": "Fotoğraf kaldırıldı.",
+    "saved": "Profil kaydedildi.",
+    "currentPassword": "Mevcut şifre",
+    "changePassword": "Şifre değiştir",
+    "passwordChanged": "Şifre değiştirildi.",
+    "save": "Değişiklikleri kaydet",
+    "unknownError": "Bir sorun oluştu."
+  },
+  "countryAssignments": {
+    "title": "Ülke atamaları",
+    "subtitle": "Bir ülkeyi o ülkeye hizmet veren yöneticilere bağlayın. Yöneticiler yalnızca atandıkları ülkeleri görür.",
+    "createTitle": "Yeni atama",
+    "editTitle": "Atamayı düzenle",
+    "country": "Ülke",
+    "searchCountries": "Ülke ara…",
+    "noCountry": "Aramanızla eşleşen ülke yok.",
+    "assignedBadge": "Atandı",
+    "managers": "Atanan yöneticiler",
+    "noManagers": "Atanabilecek aktif yönetici yok.",
+    "unavailable": "Artık atanamaz",
+    "active": "Aktif",
+    "inactive": "Pasif",
+    "save": "Atamayı kaydet",
+    "saving": "Kaydediliyor…",
+    "clear": "Temizle",
+    "refresh": "Yenile",
+    "loading": "Atamalar yükleniyor…",
+    "loadError": "Ülke atamaları yüklenemedi.",
+    "empty": "Henüz ülke ataması yok.",
+    "selectCountry": "Bir ülke seçin.",
+    "noManager": "En az bir yönetici seçin.",
+    "saved": "Ülke ataması kaydedildi.",
+    "edit": "Düzenle",
+    "columns": {
+      "country": "Ülke",
+      "managers": "Yöneticiler",
+      "status": "Durum",
+      "actions": "İşlemler"
+    }
+  },
+  "payments": {
+    "title": "Ödemeler",
+    "subtitleSuper": "Genel varsayılan fiyatı ve ödeme hesabını belirleyin, ardından ülke bazında geçersiz kılın. Bir ülkenin kendi kuralı yoksa genel varsayılan geçerlidir.",
+    "subtitleAdmin": "Size atanmış her ülke için fiyatı ve ödeme hesabını girin. Siz bir kural girene kadar genel varsayılan geçerlidir.",
+    "refresh": "Yenile",
+    "globalScope": "Genel",
+    "globalHint": "Bir ülkenin kendi kuralı olmadığında kullanılan varsayılan.",
+    "loading": "Ödeme ayarları yükleniyor…",
+    "loadError": "Ödeme ayarları yüklenemedi.",
+    "saveError": "Kaydedilemedi.",
+    "saved": "Kaydedildi.",
+    "tabs": {
+      "pricing": "Fiyatlar",
+      "accounts": "Ödeme hesapları"
+    },
+    "columns": {
+      "scope": "Kapsam",
+      "services": "Hizmetler",
+      "amount": "Tutar",
+      "active": "Durum",
+      "actions": "İşlemler",
+      "label": "Etiket",
+      "method": "Yöntem",
+      "provider": "Sağlayıcı",
+      "currency": "Para birimi"
+    },
+    "emptyRules": "Henüz fiyat tanımlanmadı.",
+    "emptyAccounts": "Henüz ödeme hesabı tanımlanmadı.",
+    "allServices": "Tüm hizmetler",
+    "anyCategory": "Tüm kategoriler",
+    "selectCountry": "Bir ülke seçin.",
+    "noCountries": "Henüz bir ülkeye atanmadınız. Bir yöneticiden sizi atamasını isteyin.",
+    "offering": "Hizmet",
+    "category": "Kategori",
+    "amount": "Tutar",
+    "currency": "Para birimi",
+    "active": "Aktif",
+    "inactive": "Pasif",
+    "edit": "Düzenle",
+    "newRule": "Yeni fiyat",
+    "editRule": "Fiyatı düzenle",
+    "newAccount": "Yeni ödeme hesabı",
+    "editAccount": "Ödeme hesabını düzenle",
+    "save": "Kaydet",
+    "create": "Oluştur",
+    "cancel": "İptal",
+    "label": "Hesap etiketi",
+    "beneficiary": "Alıcı adı",
+    "method": "Ödeme yöntemi",
+    "profile": "Ödeme profili",
+    "provider": "Sağlayıcı",
+    "priority": "Öncelik",
+    "priorityHint": "Aynı ülke ve para birimine birden fazla ray hizmet ettiğinde önce küçük numaralı olan önerilir.",
+    "methods": {
+      "bank_transfer": "Banka havalesi",
+      "instant_payment": "Anlık ödeme",
+      "mobile_money": "Mobil para",
+      "digital_wallet": "Dijital cüzdan",
+      "payment_gateway": "Ödeme bağlantısı",
+      "remittance_pickup": "Nakit teslim",
+      "crypto": "Kripto",
+      "cash_office": "Ofiste nakit"
+    },
+    "profiles": {
+      "iban": "Uluslararası (IBAN)",
+      "local": "Yurt içi hesap",
+      "upi": "UPI",
+      "pix": "Pix",
+      "interac": "Interac e-Transfer",
+      "zelle": "Zelle",
+      "phone": "Telefon numarası",
+      "email": "E-posta adresi",
+      "link": "Ödeme bağlantısı",
+      "agent": "Acente konumu",
+      "address": "Cüzdan adresi",
+      "office": "Ofis adresi"
+    },
+    "fields": {
+      "iban": "IBAN",
+      "swiftBic": "SWIFT / BIC",
+      "accountNumber": "Hesap numarası",
+      "bankCode": "Banka / yönlendirme kodu",
+      "branch": "Şube",
+      "upiVpa": "UPI kimliği",
+      "pixKey": "Pix anahtarı",
+      "email": "E-posta adresi",
+      "zelleHandle": "Zelle adresi",
+      "phone": "Telefon numarası",
+      "handle": "Kullanıcı adı",
+      "url": "Ödeme bağlantısı",
+      "merchantId": "Üye işyeri numarası",
+      "city": "Teslim şehri",
+      "agentCode": "Acente kodu",
+      "address": "Adres",
+      "network": "Ağ",
+      "memo": "Açıklama / etiket",
+      "contact": "İletişim numarası"
+    },
+    "fieldHints": {
+      "iban": "Örneğin TR33 0006 1005 1978 6457 8413 26",
+      "account_number": "Yurt içi hesap numarası",
+      "bank_code": "Sıralama, yönlendirme veya şube kodu",
+      "swift_bic": "8 veya 11 karakter, örneğin TCZBTR2A",
+      "phone": "Uluslararası biçimde, örneğin +90 555 111 22 33",
+      "email": "Cüzdan veya köprü e-posta adresi",
+      "handle": "Örneğin ad@banka",
+      "url": "Bir https:// ödeme bağlantısı",
+      "crypto_address": "Cüzdan adresi, verildiği şekilde",
+      "text": "Serbest metin"
+    },
+    "referenceHint": "Açıklama ipucu",
+    "notes": "Notlar"
+  },
+  "documentLibrary": {
+    "title": "Belge kütüphanesi",
+    "subtitle": "Müşterilerin sağlaması gereken belgeleri bir kez tanımlayın, sonra tüm hizmetlerde yeniden kullanın. Vakalar donmuş bir kopya tutar; burada yapılan değişiklikler müşteriden hâlihazırda istenen belgeyi değiştirmez.",
+    "refresh": "Yenile",
+    "loading": "Belge kütüphanesi yükleniyor…",
+    "loadError": "Belge kütüphanesi yüklenemedi.",
+    "saveError": "Belge kaydedilemedi.",
+    "saved": "Kaydedildi.",
+    "empty": "Henüz belge yok.",
+    "edit": "Düzenle",
+    "active": "Aktif",
+    "inactive": "Pasif",
+    "key": "Anahtar",
+    "kindLabel": "Belge türü",
+    "order": "Sıra",
+    "documentTitle": "Başlık",
+    "description": "Açıklama",
+    "createTitle": "Yeni belge",
+    "editTitle": "Belgeyi düzenle",
+    "save": "Değişiklikleri kaydet",
+    "create": "Oluştur",
+    "cancel": "İptal",
+    "columns": {
+      "title": "Başlık",
+      "key": "Anahtar",
+      "kind": "Tür",
+      "order": "Sıra",
+      "active": "Durum",
+      "actions": "İşlemler"
+    },
+    "kind": {
+      "identity": "Kimlik",
+      "medical": "Tıbbi",
+      "supporting": "Destekleyici"
+    }
+  },
+  "usersAdmin": {
+    "title": "Kullanıcılar",
+    "search": "Ara",
+    "searchPlaceholder": "Ad veya e-posta",
+    "roleFilter": "Rol",
+    "allRoles": "Tüm roller",
+    "statusFilter": "Durum",
+    "allStatuses": "Tüm durumlar",
+    "active": "Aktif",
+    "inactive": "Pasif",
+    "apply": "Uygula",
+    "refresh": "Yenile",
+    "loading": "Kullanıcılar yükleniyor…",
+    "loadError": "Kullanıcılar yüklenemedi.",
+    "empty": "Bu filtrelerle eşleşen kullanıcı yok.",
+    "columns": {
+      "user": "Kullanıcı",
+      "role": "Rol",
+      "status": "Durum",
+      "actions": "İşlemler"
+    },
+    "you": "Siz",
+    "activate": "Aktifleştir",
+    "deactivate": "Pasifleştir",
+    "pageInfo": "Sayfa {{page}} / {{totalPages}} · {{total}} kullanıcı",
+    "prev": "Önceki",
+    "next": "Sonraki",
+    "createTitle": "Yönetici hesabı ekle",
+    "create": "Hesap oluştur",
+    "created": "Hesap oluşturuldu."
+  },
+  "showcase": {
+    "title": "Vitrin",
+    "lead": "Sinematik vitrini kurgulayın. Her sahne, her dilde bir veya daha fazla fotoğrafı bir başlık, kısa bir anlatım ve isteğe bağlı bir butonla eşler.",
+    "loading": "Slaytlar yükleniyor…",
+    "loadError": "Slaytlar yüklenemedi.",
+    "empty": "Henüz slayt yok. İlkini ekleyin.",
+    "refresh": "Yenile",
+    "create": "Yeni slayt",
+    "edit": "Slaytı düzenle",
+    "cancel": "İptal",
+    "save": "Slaytı kaydet",
+    "saving": "Kaydediliyor…",
+    "saveError": "Slayt kaydedilemedi.",
+    "delete": "Sil",
+    "deleteConfirm": "Bu slayt silinsin mi? Bu işlem geri alınamaz.",
+    "deleteError": "Slayt silinemedi.",
+    "upload": "Görsel yükle",
+    "uploading": "Yükleniyor…",
+    "uploadError": "Görsel yüklenemedi.",
+    "changePhoto": "Görseli değiştir",
+    "noPhoto": "Görsel seçilmedi",
+    "hint": "Kareler tek bir kesintisiz kamera hareketi olarak oynar; bu yüzden kameranın izlemesini istediğiniz sıraya göre düzenleyin. Metne yer bırakan geniş ve yüksek kontrastlı fotoğrafları tercih edin.",
+    "framesTitle": "Kareler",
+    "framesHint": "Bu sahnenin sıralı fotoğraflarını yükleyin. Kamera bunların içinden ileri doğru hareket eder.",
+    "frameCount": "{{count}} kare",
+    "addFrame": "Kare ekle",
+    "removeFrame": "Kaldır",
+    "noFrames": "Henüz kare yok — ilk fotoğrafı ekleyin.",
+    "focalPoint": "Odak noktası",
+    "order": "Sıra",
+    "orderHint": "Kendi kategorisinde tekil olmalı",
+    "orderTaken": "Bu sıra numarası bu kategoride zaten kullanılıyor.",
+    "category": "Kategori",
+    "categoryNone": "Kategori yok",
+    "state": {
+      "active": "Aktif",
+      "inactive": "Pasif"
+    },
+    "fields": {
+      "name": "Navigasyon etiketi (isteğe bağlı)",
+      "eyebrow": "Üst başlık (isteğe bağlı)",
+      "headline": "Başlık",
+      "narrative": "Anlatım",
+      "altText": "Alternatif metin (erişilebilirlik)"
+    }
+  },
+  "site": {
+    "title": "Site içeriği",
+    "lead": "Tanıtım sitesinin sayfa metinlerini ve sosyal hesaplarını yönetin. Kaydetmek anında yayımlar.",
+    "refresh": "Yenile",
+    "loading": "Site içeriği yükleniyor…",
+    "loadError": "Site içeriği yüklenemedi.",
+    "save": "Kaydet",
+    "saving": "Kaydediliyor…",
+    "saved": "Kaydedildi.",
+    "saveError": "Kaydedilemedi. Lütfen tekrar deneyin.",
+    "active": "Aktif",
+    "order": "Sıra",
+    "tabs": {
+      "social": "Sosyal",
+      "pages": "Sayfalar"
+    },
+    "pageNames": {
+      "faq": "SSS",
+      "services": "Hizmetler",
+      "privacy": "Gizlilik politikası",
+      "terms": "Kullanım şartları"
+    },
+    "social": {
+      "heading": "Sosyal hesaplar",
+      "hint": "Alt bilgide ve iletişim sayfasında gösterilir.",
+      "add": "Hesap ekle",
+      "empty": "Henüz hesap yok — sitede yerleşik bağlantılar gösterilir.",
+      "network": "Ağ",
+      "url": "Profil adresi",
+      "remove": "Kaldır"
+    },
+    "pages": {
+      "heading": "Sayfa metinleri",
+      "hint": "Bir sayfayı boş bırakırsanız yerleşik içeriği korunur. Bloklar yukarıdan aşağı sıralanır.",
+      "active": "Bu sayfa geçersiz kılmasını yayımla",
+      "updated": "Son güncelleme",
+      "updatedHint": "İsteğe bağlı, örn. 2026-10-16",
+      "eyebrow": "Üst başlık",
+      "title": "Başlık",
+      "lead": "Giriş metni",
+      "sections": "Bloklar",
+      "addSection": "Blok ekle",
+      "sectionTitle": "Blok başlığı",
+      "sectionBody": "Blok metni",
+      "removeSection": "Bloğu kaldır",
+      "emptySections": "Henüz blok yok."
+    }
   },
   "categories": {
     "education": "Eğitim",
     "medical": "Sağlık",
     "tourism": "Turizm"
+  },
+  "applications": {
+    "title": "Başvuru başlat",
+    "subtitle": "Bir hizmet ve ülkenizi seçin. Bu, gerekli belgeleri ve ödeme dekontunuzu yüklediğiniz bir taslak vaka açar; ardından ekibinize gönderirsiniz.",
+    "category": "Hizmet kategorisi",
+    "offering": "Hizmet",
+    "country": "Ülkeniz",
+    "countryPlaceholder": "Ülkenizi seçin",
+    "phone": "Telefon (isteğe bağlı)",
+    "message": "Mesaj (isteğe bağlı)",
+    "messagePlaceholder": "Kısaca neye ihtiyacınız olduğunu anlatın…",
+    "loadingOfferings": "Hizmetler yükleniyor…",
+    "noOfferings": "Bu kategoride henüz hizmet yok.",
+    "loadError": "Hizmetler yüklenemedi.",
+    "submitError": "Başvurunuz oluşturulamadı.",
+    "submit": "Başvuru başlat",
+    "submitting": "Başlatılıyor…",
+    "cancel": "İptal"
   },
   "cases": {
     "title": "Vakalar",
@@ -105,7 +642,8 @@
     },
     "status": {
       "open": "Açık",
-      "closed": "Kapalı"
+      "closed": "Kapalı",
+      "draft": "Taslak"
     },
     "columns": {
       "offering": "Hizmet",
@@ -113,10 +651,17 @@
       "status": "Durum",
       "created": "Oluşturuldu"
     },
+    "draftBadge": "Taslak",
     "prev": "Önceki",
     "next": "Sonraki",
     "pageInfo": "Sayfa {{page}} / {{totalPages}} · Toplam {{total}}",
-    "openCase": "Vakayı aç: {{title}}"
+    "openCase": "Vakayı aç: {{title}}",
+    "startApplication": "Başvuru başlat",
+    "welcomeTitle": "MEDBOURSE'e hoş geldiniz",
+    "welcomeBody": "Henüz bir vakanız yok. Bir başvuru başlatın, ilk vakanızı açalım.",
+    "welcomeStep1": "İlgilendiğiniz hizmeti seçin.",
+    "welcomeStep2": "Doğru ekibi atayabilmemiz için ülkenizi belirtin.",
+    "welcomeStep3": "İlerlemeyi, belgeleri ve mesajları tek yerden takip edin."
   },
   "customers": {
     "title": "Müşteriler",
@@ -130,11 +675,34 @@
     "prev": "Önceki",
     "next": "Sonraki",
     "pageInfo": "Sayfa {{page}} / {{totalPages}} · Toplam {{total}}",
+    "openCustomer": "Müşteriyi aç: {{name}}",
+    "detail": {
+      "back": "← Müşterilere dön",
+      "loading": "Müşteri yükleniyor…",
+      "loadError": "Bu müşteri yüklenemedi.",
+      "identity": "Künye",
+      "email": "E-posta",
+      "phone": "Telefon",
+      "country": "Ülke",
+      "manager": "Atanmış yönetici",
+      "noManager": "Henüz atanmadı",
+      "created": "Oluşturulma",
+      "actions": "Aksiyonlar",
+      "cases": "Vakalar",
+      "casesEmpty": "Bu müşterinin henüz vakası yok.",
+      "casesError": "Bu müşterinin vakaları yüklenemedi.",
+      "activity": "Aktivite",
+      "activityEmpty": "Henüz kayıtlı aktivite yok.",
+      "activityError": "Aktivite geçmişi yüklenemedi.",
+      "activitySystem": "Sistem"
+    },
     "create": {
       "fullName": "Ad soyad",
       "email": "E-posta (isteğe bağlı)",
       "phone": "Telefon (isteğe bağlı)",
-      "country": "Ülke kodu",
+      "country": "Ülke",
+      "countryPlaceholder": "Ülke seçin",
+      "noCountries": "Henüz size atanmış bir ülke yok. Bir süper yöneticiden ülke atamasını isteyin.",
       "submit": "Müşteri oluştur",
       "saving": "Oluşturuluyor…",
       "error": "Müşteri oluşturulamadı."
@@ -153,6 +721,30 @@
       "assigned": "Atandı",
       "exception": "İstisna"
     },
+    "account": {
+      "none": "Hesap yok",
+      "unclaimed": "Davet bekliyor",
+      "active": "Hesap aktif",
+      "create": "Giriş hesabı oluştur",
+      "creating": "Oluşturuluyor…",
+      "created": "{{name}} için giriş hesabı oluşturuldu. Şifre belirleyebilmesi için daveti gönderin.",
+      "error": "Giriş hesabı oluşturulamadı."
+    },
+    "applyOnBehalf": {
+      "action": "Onun adına başvur",
+      "title": "{{name}} için başvuru aç",
+      "hint": "Yeni taslağa yönlendirilirsiniz; müşterinin belgelerini ve ödeme dekontunu yükleyip başvuruyu tıpkı onun gibi tamamlayabilirsiniz.",
+      "category": "Hizmet kategorisi",
+      "offering": "Hizmet",
+      "offeringPlaceholder": "Bir hizmet seçin",
+      "noOfferings": "Bu kategoride aktif hizmet yok.",
+      "offeringsError": "Hizmetler yüklenemedi.",
+      "submit": "Başvuru aç",
+      "saving": "Açılıyor…",
+      "cancel": "İptal",
+      "success": "{{title}} için başvuru açıldı.",
+      "error": "Başvuru açılamadı."
+    },
     "invite": {
       "action": "Davet et",
       "emailLabel": "Davet e-postası",
@@ -162,6 +754,9 @@
       "error": "Davet oluşturulamadı.",
       "created": "{{email}} için davet oluşturuldu.",
       "tokenHint": "Bu jetonu müşteriyle paylaşın. Yalnızca bir kez gösterilir.",
+      "linkHint": "Bu bağlantıyı müşteriye gönderin. Bağlantıyı açıp kendi şifresini belirler.",
+      "copy": "Bağlantıyı kopyala",
+      "copied": "Kopyalandı",
       "expiresAt": "Sona erme: {{date}}",
       "dismiss": "Kapat"
     },
@@ -190,6 +785,12 @@
     "cancel": "İptal",
     "edit": "Düzenle",
     "saveError": "Değişiklikler kaydedilemedi.",
+    "noImage": "Görsel yok",
+    "uploadImage": "Görsel yükle",
+    "changeImage": "Görseli değiştir",
+    "removeImage": "Kaldır",
+    "uploading": "Yükleniyor…",
+    "uploadError": "Görsel yüklenemedi.",
     "state": {
       "active": "Aktif",
       "inactive": "Pasif",
@@ -223,6 +824,8 @@
       "category": "Kategori",
       "city": "Şehir",
       "website": "Web sitesi",
+      "logo": "Logo",
+      "cover": "Kapak fotoğrafı",
       "verified": "Ortaklık doğrulandı"
     },
     "offerings": {
@@ -230,7 +833,18 @@
       "slug": "Kısa ad",
       "summary": "Özet",
       "requirements": "Gereksinim özeti",
-      "provider": "Sağlayıcı"
+      "requiredDocuments": "Gerekli belgeler",
+      "requiredDocumentsHint": "Müşterinin bu hizmet için sağlaması gereken belgeleri seçin.",
+      "noDocuments": "Kütüphanede henüz belge yok. Belge kütüphanesi'nden ekleyin.",
+      "provider": "Sağlayıcı",
+      "noProvider": "Sağlayıcı yok (bağımsız)",
+      "category": "Kategori",
+      "city": "Şehir",
+      "logo": "Logo",
+      "cover": "Kapak fotoğrafı",
+      "priceAmount": "Genel fiyat",
+      "priceCurrency": "Para birimi",
+      "priceHint": "Her hizmetin bir para biriminde genel bir fiyatı olmalıdır; müşterinin kendi başvurusunu fiyatlandırmak için kullanılır."
     }
   },
   "audit": {
@@ -263,11 +877,24 @@
     "loading": "Vaka yükleniyor…",
     "loadError": "Bu vaka yüklenemedi.",
     "createdAt": "Oluşturuldu: {{date}}",
+    "draft": "Taslak",
+    "submittedAt": "Gönderildi: {{date}}",
     "workflow": "İş akışı",
     "workflowVersion": "Şablon sürümü {{version}}",
     "optional": "İsteğe bağlı",
+    "progressLabel": "İnceleme ilerlemesi",
+    "progressValue": "%{{percent}} tamamlandı",
     "documents": "Belgeler",
     "noDocuments": "Henüz belge yüklenmedi.",
+    "requiredDocuments": "Gerekli belgeler",
+    "requiredDocumentsHint": "Ekibin istediği her belgeyi yükleyin.",
+    "satisfied": "Sağlandı",
+    "pending": "Bekliyor",
+    "notUploaded": "Henüz yüklenmedi.",
+    "upload": "Yükle",
+    "reupload": "Yeniden yükle",
+    "uploading": "Yükleniyor…",
+    "uploadError": "Belge yüklenemedi.",
     "docKind": {
       "identity": "Kimlik",
       "medical": "Tıbbi",
@@ -281,6 +908,37 @@
     "quoIssuedAt": "Düzenlendi",
     "paymentEvidence": "Ödeme kanıtı",
     "noPaymentEvidence": "Henüz ödeme kanıtı gönderilmedi.",
+    "submit": {
+      "title": "Başvurunuzu gönderin",
+      "hint": "Ekip bu vakayı yalnızca siz gönderdikten sonra görür. Önce gerekli tüm belgeleri ve ödeme dekontunuzu yükleyin.",
+      "amountDue": "Ödenecek tutar",
+      "chooseMethod": "Nasıl ödeyeceğinizi seçin",
+      "beneficiary": "Hesap sahibi",
+      "reference": "Referans",
+      "receipt": "Ödeme dekontu",
+      "receiptHint": "Yukarıdaki ödemeye ait dekontu yükleyin.",
+      "receiptNeedsMethod": "Dekontu yüklemeden önce nasıl ödeyeceğinizi seçin.",
+      "uploadReceipt": "Dekont yükle",
+      "uploadingReceipt": "Yükleniyor…",
+      "reuploadReceipt": "Dekontu yeniden yükle",
+      "receiptReuploadHint": "Reddedilen dekontun yerine yeni bir dekont yükleyin.",
+      "receiptUploadError": "Dekont yüklenemedi.",
+      "selectError": "Ödeme yönteminiz kaydedilemedi.",
+      "checklistDone": "Belgeler tamam",
+      "checklistMissing": "Gerekli tüm belgeleri yükleyin",
+      "methodDone": "Ödeme yöntemi seçildi",
+      "methodMissing": "Nasıl ödeyeceğinizi seçin",
+      "receiptDone": "Dekont eklendi",
+      "receiptMissing": "Ödeme dekontunu ekleyin",
+      "ready": "Her şey hazır — şimdi gönderebilirsiniz.",
+      "missing": "Göndermeden önce yukarıdaki adımları tamamlayın.",
+      "submitButton": "Başvuruyu gönder",
+      "submitting": "Gönderiliyor…",
+      "submitError": "Başvuru gönderilemedi.",
+      "submitted": "Başvuru gönderildi. Ekibiniz buradan devam edecek.",
+      "noPrice": "Bu hizmet için henüz fiyat tanımlanmadı. Lütfen ekiple iletişime geçin.",
+      "noAccount": "Alıcı hesap henüz yapılandırılmadı. Lütfen ekiple iletişime geçin."
+    },
     "messages": {
       "title": "Mesajlar",
       "loading": "Mesajlar yükleniyor…",
@@ -291,11 +949,64 @@
       "placeholder": "Bir mesaj yazın…",
       "send": "Gönder",
       "sending": "Gönderiliyor…"
+    },
+    "review": {
+      "title": "Değerlendirme",
+      "current": "Mevcut karar",
+      "docsApproved": "Tüm zorunlu belgeler onaylandı",
+      "docsPending": "Bazı belgeler henüz onaylanmadı",
+      "paymentApproved": "Ödeme onaylandı",
+      "paymentPending": "Ödeme henüz onaylanmadı",
+      "approve": "Onayla",
+      "reject": "Reddet",
+      "confirmReject": "Reddi onayla",
+      "cancel": "Vazgeç",
+      "saving": "Kaydediliyor…",
+      "accept": "Vakayı kabul et",
+      "accepted": "Kabul edildi",
+      "rejectCase": "Vakayı reddet",
+      "rejectPlaceholder": "Müşteriye neyi düzeltmesi gerektiğini yazın…",
+      "rejectCasePlaceholder": "Bu vakanın neden reddedildiğini açıklayın…",
+      "blocked": "Bu vakayı kabul edebilmek için tüm zorunlu belgeler ve ödeme dekontu onaylanmalıdır.",
+      "actionError": "Değerlendirme kararı kaydedilemedi.",
+      "showPreview": "Dosyayı görüntüle",
+      "hidePreview": "Dosyayı gizle",
+      "loadingPreview": "Dosya açılıyor…",
+      "previewError": "Bu dosya açılamadı.",
+      "noPreview": "Bu dosya türü satır içinde önizlenemez.",
+      "openNewTab": "Yeni sekmede aç",
+      "rejectedBecause": "Reddedildi: {{note}}"
+    },
+    "fileDetail": {
+      "open": "Ayrıntılar",
+      "close": "Kapat",
+      "kind": "Tür",
+      "status": "İnceleme",
+      "uploadedAt": "Yüklendi",
+      "reviewer": "İnceleyen",
+      "notReviewed": "Henüz incelenmedi",
+      "reviewedAt": "İncelendi",
+      "note": "İnceleyen notu: {{note}}",
+      "history": "Yükleme geçmişi",
+      "historyHint": "Bu dosya için kaydedilen tüm sürümler, en yeniden en eskiye.",
+      "current": "Görüntülenen"
+    }
+  },
+  "review": {
+    "document": {
+      "pending": "Değerlendirme bekliyor",
+      "approved": "Onaylandı",
+      "rejected": "Reddedildi"
+    },
+    "case": {
+      "awaiting": "Değerlendirme bekliyor",
+      "in_review": "İnceleniyor",
+      "accepted": "Kabul edildi",
+      "rejected": "Reddedildi"
     }
   },
   "roles": {
     "customer": "Müşteri",
-    "staff": "Personel",
     "admin": "Yönetici",
     "super_admin": "Süper Yönetici"
   },
@@ -306,12 +1017,18 @@
     "empty": "Henüz bildirim yok.",
     "markAllRead": "Tümünü okundu işaretle",
     "types": {
+      "caseCreated": "Vakanız oluşturuldu",
       "messageCreated": "Vakanızda yeni mesaj",
       "stageTransitioned": "Bir vaka aşaması güncellendi",
       "caseClosed": "Vakanız kapatıldı",
       "paymentSubmitted": "Yeni ödeme kanıtı gönderildi",
       "paymentApproved": "Ödeme kanıtı onaylandı",
-      "paymentRejected": "Ödeme kanıtı reddedildi"
+      "paymentRejected": "Ödeme kanıtı reddedildi",
+      "documentApproved": "Bir belge onaylandı",
+      "documentRejected": "Bir belgenin yeniden yüklenmesi gerekiyor",
+      "documentReuploaded": "Müşteri bir belgeyi yeniden yükledi",
+      "caseAccepted": "Vakanız kabul edildi",
+      "caseRejected": "Vakanız reddedildi"
     }
   },
   "workflow": {

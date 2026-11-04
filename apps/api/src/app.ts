@@ -12,13 +12,17 @@ import { countryAssignmentsRouter } from './routes/countryAssignments.js';
 import { customersRouter } from './routes/customers.js';
 import { casesRouter } from './routes/cases.js';
 import { caseDocumentsRouter, documentContentRouter } from './routes/documents.js';
+import { documentRequirementsRouter } from './routes/documentRequirements.js';
 import { catalogRouter } from './routes/catalog.js';
 import { invitationsRouter } from './routes/invitations.js';
+import { mediaRouter } from './routes/media.js';
 import { notificationsRouter } from './routes/notifications.js';
 import { paymentAccountsRouter } from './routes/paymentAccounts.js';
 import { pricingRulesRouter } from './routes/pricingRules.js';
 import { paymentEvidenceRouter, quotationPaymentEvidenceRouter } from './routes/paymentEvidence.js';
 import { quotationsRouter } from './routes/quotations.js';
+import { showcaseRouter } from './routes/showcase.js';
+import { siteContentRouter } from './routes/siteContent.js';
 import { usersRouter } from './routes/users.js';
 import { workflowTemplatesRouter } from './routes/workflowTemplates.js';
 
@@ -28,7 +32,7 @@ export function createApp() {
   app.use(helmet());
   app.use(
     cors({
-      origin: config.corsOrigin,
+      origin: config.corsOrigins,
       credentials: true,
     }),
   );
@@ -57,6 +61,7 @@ export function createApp() {
   v1.use('/cases', casesRouter);
   v1.use('/documents', documentContentRouter);
   v1.use('/catalog', catalogRouter);
+  v1.use('/document-requirements', documentRequirementsRouter);
   v1.use('/pricing-rules', pricingRulesRouter);
   v1.use('/payment-accounts', paymentAccountsRouter);
   v1.use('/quotations', quotationPaymentEvidenceRouter);
@@ -65,6 +70,9 @@ export function createApp() {
   v1.use('/workflow-templates', workflowTemplatesRouter);
   v1.use('/audit', auditRouter);
   v1.use('/notifications', notificationsRouter);
+  v1.use('/media', mediaRouter);
+  v1.use('/showcase', showcaseRouter);
+  v1.use('/site-content', siteContentRouter);
 
   app.use('/api/v1', v1);
 

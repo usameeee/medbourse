@@ -1,5 +1,10 @@
 import type { Request } from 'express';
-import { ACCESS_COOKIE } from './constants.js';
+import { ACCESS_COOKIE, REFRESH_COOKIE } from './constants.js';
+
+export function readRefreshToken(req: Request): string | undefined {
+  const token = req.cookies?.[REFRESH_COOKIE];
+  return typeof token === 'string' && token.length > 0 ? token : undefined;
+}
 
 export function readAccessToken(req: Request): string | undefined {
   const header = req.headers.authorization;

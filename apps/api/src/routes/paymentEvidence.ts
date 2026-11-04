@@ -11,7 +11,7 @@ import { Quotation, toPublicQuotation } from '../models/Quotation.js';
 import { Case } from '../models/Case.js';
 import { writeAudit } from '../services/assignment.js';
 import { notifyCaseEvent } from '../services/notifications.js';
-import { memoryUpload, persistPrivateFile } from '../services/privateUpload.js';
+import { memoryUpload, persistPrivateFile, removePrivateFile } from '../services/privateUpload.js';
 import { assertDocumentAccess, signDocumentAccess, signedContentPath } from '../services/signedUrls.js';
 import { signCloudinaryUrl } from '../storage/cloudinary.js';
 import { getObjectStorage } from '../storage/index.js';
@@ -29,7 +29,7 @@ function canAccessQuotation(
   auth: { role: UserRole; customerId: string | null },
   customerId: string,
 ): boolean {
-  return roleHasPermission(auth.role, 'customer:read:staff') || auth.customerId === customerId;
+  return roleHasPermission(auth.role, 'customer:read:admin') || auth.customerId === customerId;
 }
 
 const contentQuery = z.object({
@@ -55,7 +55,26 @@ quotationPaymentEvidenceRouter.post(
       if (!canAccessQuotation(req.auth!, quotation.customerId.toString())) {
         throw new AppError(403, 'FORBIDDEN', 'Insufficient permissions');
       }
+      // A receipt is the proof of a payment into a chosen account. Refuse it while the case
+      // still has no payment method, so the admin never reviews a proof that points nowhere.
+      const relatedCase = await Case.findOne({ quotationId: quotation._id }).exec();
+      if (relatedCase && !relatedCase.paymentAccountId) {
+        throw new AppError(
+          400,
+          'PAYMENT_ACCOUNT_REQUIRED',
+          'Select a payment account before uploading the receipt',
+        );
+      }
       const stored = await persistPrivateFile(req.file);
+
+      // One receipt per quotation: a new upload (typically after a rejection) replaces the
+      // previous one, so the admin reviews the latest proof instead of a pile of stale attempts.
+      const previous = await PaymentEvidence.find({ quotationId: quotation._id }).exec();
+      await Promise.all(previous.map((entry) => removePrivateFile(entry)));
+      if (previous.length > 0) {
+        await PaymentEvidence.deleteMany({ _id: { $in: previous.map((entry) => entry._id) } }).exec();
+      }
+
       const evidence = await PaymentEvidence.create({
         quotationId: quotation._id,
         customerId: quotation.customerId,
@@ -81,14 +100,13 @@ quotationPaymentEvidenceRouter.post(
           currency: quotation.currency,
         },
       });
-      const relatedCase = await Case.findOne({ quotationId: quotation._id }).exec();
       if (relatedCase) {
         await notifyCaseEvent({
           caseId: relatedCase._id,
           customerId: relatedCase.customerId,
           createdByUserId: relatedCase.createdByUserId,
           actorUserId: req.auth!.userId,
-          target: 'staff',
+          target: 'admin',
           type: 'payment_evidence.submitted',
           metadata: {
             evidenceId: evidence._id.toString(),
@@ -152,7 +170,9 @@ paymentEvidenceRouter.get(
       const stored = await getObjectStorage().get(evidence.storageKey);
       res.setHeader('Content-Type', evidence.mimeType);
       res.setHeader('Cache-Control', 'private, no-store');
-      res.setHeader('Content-Disposition', 'attachment');
+      // Served inline so the portal can render a preview from the short-lived signed URL;
+      // the MIME allow-list keeps this to PDF/JPEG/PNG/WebP.
+      res.setHeader('Content-Disposition', 'inline');
       res.send(stored.bytes);
     } catch (err) {
       next(err);
@@ -160,10 +180,10 @@ paymentEvidenceRouter.get(
   },
 );
 
-paymentEvidenceRouter.post(
+paymentEvidenceRouter.patch(
   '/:id/review',
   requireAuth,
-  requirePermission('payment:verify:staff'),
+  requirePermission('payment:verify:admin'),
   validate({ params: idParams, body: reviewBody }),
   async (req, res, next) => {
     try {

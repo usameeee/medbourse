@@ -136,6 +136,116 @@
   gap: var(--space-2);
 }
 
+.localeBlock {
+  display: grid;
+  gap: var(--space-4);
+  flex: 1 1 100%;
+  padding: var(--space-4);
+  background: var(--color-surface-sunken);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+}
+
+.localeTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.localeTab {
+  min-height: 34px;
+  padding-inline: var(--space-4);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text-secondary);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.localeTabActive {
+  background: var(--color-surface-raised);
+  border-color: var(--color-border-default);
+  color: var(--color-brand-primary);
+}
+
+.localePanel {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.imageField {
+  display: grid;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.imageFieldLabel {
+  color: var(--color-text-secondary);
+}
+
+.imageFieldBody {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.imagePreview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 72px;
+  block-size: 72px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  background: var(--color-surface-sunken);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+}
+
+.imagePreviewImg {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: contain;
+}
+
+.imagePreviewEmpty {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.imageFieldActions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.uploadButton {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding-inline: var(--space-4);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-raised);
+  color: var(--color-text-primary);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.fileInput {
+  display: none;
+}
+
 .primaryButton {
   min-height: 40px;
   padding-inline: var(--space-4);
@@ -270,4 +380,72 @@
   background: color-mix(in srgb, var(--color-danger) 8%, transparent);
   border: 1px solid color-mix(in srgb, var(--color-danger) 30%, transparent);
   border-radius: var(--radius-md);
+}
+
+.documentField {
+  display: grid;
+  gap: var(--space-2);
+  flex: 1 1 320px;
+  min-width: 240px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.documentFieldLabel {
+  color: var(--color-text-secondary);
+}
+
+.documentHint {
+  margin: 0;
+  font-size: var(--text-xs);
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
+.documentList {
+  display: grid;
+  gap: var(--space-1);
+  max-height: 16rem;
+  overflow-y: auto;
+  padding: var(--space-2);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-base);
+}
+
+.documentOption {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.documentOption:hover {
+  background: var(--color-surface-sunken);
+}
+
+.documentOption input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-brand-primary);
+}
+
+.documentOptionText {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+
+.documentOptionName {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.documentOptionMeta {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
 }

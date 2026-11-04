@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import type {
+  CaseReviewStatus,
   CaseStatus,
+  DocumentReviewStatus,
   PaymentEvidenceStatus,
   ServiceCategory,
   WorkflowStageStatus,
@@ -61,4 +63,24 @@ export function CategoryBadge({ category }: { category: ServiceCategory }) {
         ? 'success'
         : 'warning';
   return <StatusBadge tone={tone} label={t(`categories.${category}`)} />;
+}
+
+export function DocumentReviewBadge({ status }: { status: DocumentReviewStatus }) {
+  const { t } = useTranslation();
+  const tone: BadgeTone =
+    status === 'approved' ? 'success' : status === 'rejected' ? 'danger' : 'warning';
+  return <StatusBadge tone={tone} label={t(`review.document.${status}`)} />;
+}
+
+export function CaseReviewBadge({ status }: { status: CaseReviewStatus }) {
+  const { t } = useTranslation();
+  const tone: BadgeTone =
+    status === 'accepted'
+      ? 'success'
+      : status === 'rejected'
+        ? 'danger'
+        : status === 'in_review'
+          ? 'warning'
+          : 'muted';
+  return <StatusBadge tone={tone} label={t(`review.case.${status}`)} />;
 }

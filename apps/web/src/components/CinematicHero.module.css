@@ -1,0 +1,285 @@
+.wrapper {
+  position: relative;
+  background: var(--color-surface-ink);
+}
+
+/* One pinned full-screen stage; the page scrolls past it while the timeline plays. */
+.viewport {
+  position: sticky;
+  inset-block-start: 0;
+  block-size: 100svh;
+  overflow: hidden;
+}
+
+/* Pointer-depth layer: the whole stack drifts a few pixels; only the visible frame shows it. */
+.parallax {
+  position: absolute;
+  inset: 0;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* Promote only the layers that are actually on screen. */
+.layer[data-active='true'] {
+  will-change: transform, opacity;
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  /* Per-frame focal point comes from the CMS via inherited custom properties. */
+  object-position: var(--focal-x, 50%) var(--focal-y, 50%);
+}
+
+/* Soft dark gradient so bottom-left copy stays legible over any photo. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgb(6 6 9 / 0.86) 0%,
+    rgb(6 6 9 / 0.5) 28%,
+    rgb(6 6 9 / 0.06) 56%,
+    rgb(6 6 9 / 0.32) 100%
+  );
+}
+
+/* Brief brightness dip used between scenes (never within one). */
+.veil {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: #05060a;
+}
+
+.copy {
+  position: absolute;
+  z-index: 4;
+  inset-block-end: clamp(var(--space-10), 9vh, var(--space-20));
+  inset-inline-start: clamp(var(--space-6), 6vw, var(--space-20));
+  inset-inline-end: clamp(var(--space-6), 6vw, var(--space-20));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  max-inline-size: 50rem;
+  /* Only the button is interactive; an invisible caption must never trap a click. */
+  pointer-events: none;
+}
+
+.eyebrow {
+  margin: 0;
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-xs);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--color-surface-ink);
+  color: var(--color-text-inverse);
+  border: 3px solid #fff;
+  box-shadow: 6px 6px 15px rgb(0 0 0 / 0.4);
+  transform: rotate(-2.5deg) translateX(-10px);
+  clip-path: polygon(2% 0%, 98% 2%, 100% 95%, 5% 100%, 0% 50%);
+}
+
+.title {
+  margin: 0;
+  padding: var(--space-3) var(--space-6);
+  font-size: clamp(var(--text-3xl), 5vw, var(--text-6xl));
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  background: var(--color-brand-primary-strong);
+  color: var(--color-text-inverse);
+  text-wrap: balance;
+  border: 4px solid #fff;
+  box-shadow: 10px 10px 20px rgb(0 0 0 / 0.5);
+  transform: rotate(1.5deg) translateX(10px);
+  margin-block-start: var(--space-2);
+  clip-path: polygon(0% 5%, 95% 0%, 100% 90%, 2% 100%);
+  position: relative;
+}
+
+.title::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  width: 60px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(2px);
+  transform: rotate(45deg);
+  z-index: 10;
+}
+
+.description {
+  margin: 0;
+  margin-block-start: var(--space-6);
+  padding: var(--space-5);
+  max-inline-size: 38rem;
+  font-size: clamp(var(--text-base), 1.4vw, var(--text-xl));
+  line-height: 1.4;
+  background: #fdfaf5; /* Parchment-like */
+  color: #1a1a1a;
+  border: 2px solid #ddd;
+  box-shadow: 15px 15px 35px rgb(0 0 0 / 0.3);
+  transform: rotate(-1deg) translateX(-5px);
+  font-family: 'Courier New', Courier, monospace; /* Typewriter feel */
+  position: relative;
+}
+
+.description::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 20%;
+  width: 40px;
+  height: 15px;
+  background: rgba(207, 63, 43, 0.3); /* Washi tape red */
+  transform: rotate(-5deg);
+}
+
+.buttonWrap {
+  justify-self: start;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 3rem;
+  padding-inline: var(--space-6);
+  border-radius: var(--radius-pill);
+  /* Bordeaux + inverse ink clears WCAG AA in both themes; bright red would not. */
+  background: var(--color-brand-primary-strong);
+  color: var(--color-text-inverse);
+  font-weight: 600;
+  text-decoration: none;
+  pointer-events: auto;
+  transition: filter 0.18s ease, transform 0.18s ease;
+}
+
+.button:hover,
+.button:focus-visible {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+.buttonIcon {
+  flex: none;
+  margin-inline-start: var(--space-2);
+}
+
+/* Progress dots, one per scene, labelled from the scene name. */
+.dots {
+  position: absolute;
+  z-index: 5;
+  inset-inline-end: clamp(var(--space-4), 3vw, var(--space-8));
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  justify-items: end;
+  gap: var(--space-3);
+}
+
+.dot {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: rgb(255 255 255 / 0.72);
+  cursor: pointer;
+}
+
+.dot:focus-visible {
+  outline: 2px solid var(--color-text-inverse);
+  outline-offset: 3px;
+}
+
+.dotMark {
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.45;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.dot[data-active='true'] .dotMark {
+  opacity: 1;
+  transform: scale(1.4);
+}
+
+.dotLabel {
+  max-inline-size: 0;
+  overflow: hidden;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.18s ease, max-inline-size 0.24s ease;
+}
+
+.dot[data-active='true'] .dotLabel {
+  max-inline-size: 14rem;
+  opacity: 1;
+}
+
+@media (max-width: 640px) {
+  .title,
+  .description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+  }
+
+  .dotLabel {
+    display: none;
+  }
+}
+
+/* ── Reduced-motion presentation: normal, stacked, no pin and no scrub ── */
+.static {
+  display: grid;
+  gap: var(--space-12);
+  padding-block: var(--space-16);
+  background: var(--color-surface-ink);
+}
+
+.staticItem {
+  position: relative;
+  display: grid;
+  gap: var(--space-5);
+  inline-size: min(72rem, calc(100% - 2 * var(--space-6)));
+  margin-inline: auto;
+}
+
+.staticImage {
+  inline-size: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: var(--focal-x, 50%) var(--focal-y, 50%);
+  border-radius: var(--radius-lg);
+}
+
+.staticText {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+}

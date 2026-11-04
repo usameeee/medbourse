@@ -14,6 +14,9 @@ export const memoryStorage: ObjectStorage = {
     }
     return found;
   },
+  async delete(key) {
+    objects.delete(key);
+  },
 };
 
 export function resetMemoryStorage() {

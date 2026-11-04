@@ -3,7 +3,7 @@ import { basename } from 'node:path';
 import multer from 'multer';
 import { AppError } from '../errors/AppError.js';
 import { config } from '../config.js';
-import { uploadPrivateCloudinary } from '../storage/cloudinary.js';
+import { deletePrivateCloudinary, uploadPrivateCloudinary } from '../storage/cloudinary.js';
 import { getObjectStorage } from '../storage/index.js';
 
 const ALLOWED_MIME = new Set(['application/pdf', 'image/jpeg', 'image/png', 'image/webp']);
@@ -67,4 +67,26 @@ export async function persistPrivateFile(file: Express.Multer.File | undefined):
     storageDriver: config.storageDriver,
     resourceType,
   };
+}
+
+/**
+ * Removes a sensitive file that has just been replaced by a newer upload. Cleanup is best
+ * effort: a storage failure must not block the replacement, otherwise the record would
+ * survive alongside the new one and the customer would see a stale, already-rejected file.
+ * The worst case is an orphaned object in the bucket.
+ */
+export async function removePrivateFile(input: {
+  storageKey: string;
+  storageDriver: 'memory' | 'local' | 'cloudinary';
+  resourceType: string | null;
+}): Promise<void> {
+  try {
+    if (input.storageDriver === 'cloudinary') {
+      await deletePrivateCloudinary(input.storageKey, input.resourceType ?? 'raw');
+      return;
+    }
+    await getObjectStorage().delete(input.storageKey);
+  } catch {
+    /* best effort — see the doc comment above */
+  }
 }

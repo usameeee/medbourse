@@ -1,15 +1,17 @@
 import { Router } from 'express';
 import { z } from 'zod';
-import { roleHasPermission } from '@medbourse/shared';
+import { roleHasPermission, type CustomerAccountStatus } from '@medbourse/shared';
 import { AppError } from '../errors/AppError.js';
 import { requireAuth } from '../middleware/requireAuth.js';
 import { requirePermission } from '../middleware/requirePermission.js';
 import { validate } from '../middleware/validate.js';
 import { Invitation, toPublicInvitation } from '../models/Invitation.js';
 import { Customer, toPublicCustomer } from '../models/Customer.js';
+import { toPublicUser, User } from '../models/User.js';
 import { issueInvitation } from '../services/invitations.js';
 import {
   assertAssignableManager,
+  listAssignedCountryCodes,
   resolveCountryAssignment,
   writeAudit,
 } from '../services/assignment.js';
@@ -47,11 +49,23 @@ export const customersRouter = Router();
 customersRouter.post(
   '/',
   requireAuth,
-  requirePermission('customer:create:staff'),
+  requirePermission('customer:create:admin'),
   validate({ body: createBody }),
   async (req, res, next) => {
     try {
       const body = req.body as z.infer<typeof createBody>;
+      // A country admin may only open customers in the countries assigned to them; a super
+      // admin is not scoped.
+      if (req.auth!.role === 'admin') {
+        const assigned = await listAssignedCountryCodes(req.auth!.userId);
+        if (!assigned.includes(body.countryCode)) {
+          throw new AppError(
+            403,
+            'COUNTRY_NOT_ASSIGNED',
+            'You can only open customers in countries assigned to you',
+          );
+        }
+      }
       const email = body.email ?? null;
       if (email) {
         const duplicate = await Customer.findOne({ email }).exec();
@@ -93,7 +107,7 @@ customersRouter.post(
 customersRouter.get(
   '/',
   requireAuth,
-  requirePermission('customer:read:staff'),
+  requirePermission('customer:read:admin'),
   validate({ query: listQuery }),
   async (req, res, next) => {
     try {
@@ -127,7 +141,7 @@ customersRouter.get(
 customersRouter.get(
   '/queue/unassigned',
   requireAuth,
-  requirePermission('customer:read:staff'),
+  requirePermission('customer:read:admin'),
   validate({ query: listQuery }),
   async (req, res, next) => {
     try {
@@ -154,7 +168,7 @@ customersRouter.get(
 customersRouter.post(
   '/:id/assignment',
   requireAuth,
-  requirePermission('assignment:manage:admin'),
+  requirePermission('assignment:manage:super_admin'),
   validate({ params: idParams, body: reassignBody }),
   async (req, res, next) => {
     try {
@@ -172,7 +186,7 @@ customersRouter.post(
         throw new AppError(
           400,
           'INVALID_MANAGER',
-          'Manager must be an active staff, admin, or super_admin account',
+          'Manager must be an active admin or super_admin account',
         );
       }
       const fromManagerId = customer.assignedManagerUserId?.toString() ?? null;
@@ -204,7 +218,7 @@ customersRouter.post(
 customersRouter.post(
   '/:id/invitations',
   requireAuth,
-  requirePermission('customer:create:staff'),
+  requirePermission('customer:create:admin'),
   validate({ params: idParams, body: inviteBody }),
   async (req, res, next) => {
     try {
@@ -212,7 +226,7 @@ customersRouter.post(
       const { email } = req.body as z.infer<typeof inviteBody>;
       const result = await issueInvitation({
         customerId: id,
-        emailFromStaff: email,
+        emailFromAdmin: email,
         actorUserId: req.auth!.userId,
       });
       res.status(201).json(result);
@@ -225,7 +239,7 @@ customersRouter.post(
 customersRouter.post(
   '/:id/invitations/:invitationId/revoke',
   requireAuth,
-  requirePermission('customer:create:staff'),
+  requirePermission('customer:create:admin'),
   validate({
     params: idParams.extend({
       invitationId: z.string().refine((value) => mongoose.Types.ObjectId.isValid(value), 'Invalid id'),
@@ -259,6 +273,63 @@ customersRouter.post(
   },
 );
 
+/**
+ * Office flow: a walk-in customer has no account, so an admin opens one on their behalf. The
+ * account carries no password yet (`passwordHash: null`) and cannot sign in until the customer
+ * claims an invitation. The email is the login identity, so it must exist on the record first.
+ */
+customersRouter.post(
+  '/:id/account',
+  requireAuth,
+  requirePermission('customer:create:admin'),
+  validate({ params: idParams }),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params as z.infer<typeof idParams>;
+      const customer = await Customer.findById(id).exec();
+      if (!customer) {
+        throw new AppError(404, 'NOT_FOUND', 'Customer not found');
+      }
+      if (!customer.email) {
+        throw new AppError(
+          400,
+          'EMAIL_REQUIRED',
+          'Add an email to the customer before creating their account',
+        );
+      }
+      const email = customer.email.toLowerCase();
+      const existing = await User.findOne({ email }).select('+passwordHash').exec();
+      if (existing) {
+        // Idempotent when the account already belongs to this customer and is still unclaimed.
+        if (existing.customerId?.toString() === customer._id.toString() && !existing.passwordHash) {
+          res.json({ user: toPublicUser(existing) });
+          return;
+        }
+        throw new AppError(409, 'EMAIL_IN_USE', 'An account with this email already exists');
+      }
+
+      const user = await User.create({
+        email,
+        passwordHash: null,
+        role: 'customer',
+        displayName: customer.fullName,
+        customerId: customer._id,
+        emailVerifiedAt: null,
+      });
+      await writeAudit({
+        actorUserId: req.auth!.userId,
+        action: 'customer.account_provisioned',
+        entityType: 'Customer',
+        entityId: customer._id.toString(),
+        metadata: { userId: user._id.toString(), email },
+      });
+      res.status(201).json({ user: toPublicUser(user) });
+    } catch (err) {
+      next(err);
+    }
+  },
+);
+
 customersRouter.get(
   '/:id',
   requireAuth,
@@ -270,12 +341,31 @@ customersRouter.get(
       if (!customer) {
         throw new AppError(404, 'NOT_FOUND', 'Customer not found');
       }
-      const staffRead = roleHasPermission(req.auth!.role, 'customer:read:staff');
+      const managerRead = roleHasPermission(req.auth!.role, 'customer:read:admin');
       const selfRead = req.auth!.customerId === id;
-      if (!staffRead && !selfRead) {
+      if (!managerRead && !selfRead) {
         throw new AppError(403, 'FORBIDDEN', 'Insufficient permissions');
       }
-      res.json({ customer: toPublicCustomer(customer) });
+      // The detail page names who is looking after this customer and whether a login account
+      // is ready; the list stays lean and resolves nothing, so only this route pays for the lookups.
+      const [manager, account] = await Promise.all([
+        customer.assignedManagerUserId
+          ? User.findById(customer.assignedManagerUserId).exec()
+          : Promise.resolve(null),
+        User.findOne({ customerId: customer._id }).select('+passwordHash').exec(),
+      ]);
+      const accountStatus: CustomerAccountStatus = !account
+        ? 'none'
+        : account.passwordHash
+          ? 'active'
+          : 'unclaimed';
+      res.json({
+        customer: {
+          ...toPublicCustomer(customer),
+          assignedManagerName: manager ? (manager.displayName ?? manager.email) : null,
+          accountStatus,
+        },
+      });
     } catch (err) {
       next(err);
     }

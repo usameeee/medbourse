@@ -5,6 +5,8 @@
   "brand": {
     "name": "MEDBOURSE",
     "eyebrow": "Türkiye · Education · Healthcare · Travel",
+    "tagline": "Education · Healthcare · Travel in Türkiye",
+    "leadTitle": "One team for studying, treatment, and travel in Türkiye",
     "lead": "Consulting for university admissions, medical coordination, and travel in Türkiye. This is the development environment; public and operational interfaces share one brand."
   },
   "language": {
@@ -14,11 +16,146 @@
     "fr": "Français",
     "ar": "العربية"
   },
+  "theme": {
+    "switchToDark": "Switch to dark theme",
+    "switchToLight": "Switch to light theme"
+  },
+  "invitePage": {
+    "eyebrow": "Invitation",
+    "title": "Set your password",
+    "lead": "You were invited by the MEDBOURSE team. Choose a password to activate your account and sign in.",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "hint": "At least 10 characters.",
+    "submit": "Activate my account",
+    "saving": "Activating…",
+    "mismatch": "The passwords do not match.",
+    "error": "Could not activate your account. The link may have expired.",
+    "missingToken": "This invitation link is not valid."
+  },
+  "footer": {
+    "navAria": "Footer",
+    "faq": "FAQ",
+    "privacy": "Privacy policy",
+    "terms": "Terms of service",
+    "social": {
+      "label": "Follow us",
+      "instagram": "Instagram",
+      "x": "X",
+      "linkedin": "LinkedIn",
+      "youtube": "YouTube"
+    }
+  },
+  "faqPage": {
+    "eyebrow": "Support",
+    "title": "Frequently asked questions",
+    "lead": "Quick answers about studying, treatment, and travel in Türkiye — and how your case works.",
+    "items": {
+      "q1": "What does medbourse actually do?",
+      "a1": "We coordinate three connected services in Türkiye: university admissions, medical consultation and treatment planning, and travel around your appointments. Everything runs through a single case handled by one team.",
+      "q2": "Is my personal and medical information safe?",
+      "a2": "Yes. Identity and medical documents are stored in private storage and are only accessible to the team members assigned to your case. We never sell your data.",
+      "q3": "Do I need an account to get started?",
+      "a3": "An account lets you open a case and follow its progress. You can create one in a minute; it keeps your documents and messages in one private place.",
+      "q4": "How are costs handled?",
+      "a4": "Once your case is reviewed, you receive a written quotation with the exact amounts. Quotations are fixed snapshots, so the price you are shown is the price that applies to that offer.",
+      "q5": "Which languages can I use?",
+      "a5": "The platform is available in English, Turkish, French, and Arabic. You can switch languages at any time from the top of the page.",
+      "q6": "How do I contact the team?",
+      "a6": "Use the contact page to reach us, or sign in to your case to send a message directly to the team handling it."
+    }
+  },
+  "privacyPage": {
+    "eyebrow": "Legal",
+    "title": "Privacy policy",
+    "lead": "How medbourse collects, uses, and protects your information.",
+    "updated": "Last updated: {{date}}",
+    "sections": {
+      "dataWeCollect": {
+        "title": "Information we collect",
+        "body": "We collect the information you provide when you create an account or open a case — such as your name, contact details, and the documents you upload. We also record technical information needed to operate the service securely."
+      },
+      "howWeUse": {
+        "title": "How we use your information",
+        "body": "Your information is used to assess and coordinate your case, to communicate with you, and to keep a record of decisions. We do not use it for purposes unrelated to the services you requested."
+      },
+      "sensitiveData": {
+        "title": "Sensitive documents",
+        "body": "Identity and medical documents are treated as sensitive. They are stored privately, accessed only by team members assigned to your case, and shared with partner institutions only when necessary to deliver the service you asked for."
+      },
+      "dataSharing": {
+        "title": "Sharing",
+        "body": "We share information only with the partners needed to fulfil your case — for example, a university, clinic, or travel provider — and only the details relevant to that step. We do not sell personal data."
+      },
+      "retention": {
+        "title": "Retention",
+        "body": "We keep your information for as long as your case is active and for the period afterwards that is required by law or by our record-keeping obligations, after which it is deleted or anonymised."
+      },
+      "rights": {
+        "title": "Your rights",
+        "body": "You may request access to, correction of, or deletion of your personal data, subject to legal requirements. To exercise these rights, contact us using the details below."
+      },
+      "cookies": {
+        "title": "Cookies and local storage",
+        "body": "We use local storage to remember your language and theme preferences. These are functional only and are not used for advertising."
+      },
+      "contact": {
+        "title": "Contact",
+        "body": "For any privacy question or request, reach us through the contact page."
+      }
+    }
+  },
+  "termsPage": {
+    "eyebrow": "Legal",
+    "title": "Terms of service",
+    "lead": "The terms that apply when you use medbourse.",
+    "updated": "Last updated: {{date}}",
+    "sections": {
+      "acceptance": {
+        "title": "Acceptance of these terms",
+        "body": "By creating an account or using medbourse, you agree to these terms. If you do not agree, please do not use the service."
+      },
+      "services": {
+        "title": "The service",
+        "body": "medbourse provides coordination for education, medical, and travel services in Türkiye. We act as an intermediary and facilitator; final admission, medical, and travel decisions rest with the relevant institutions and providers."
+      },
+      "accounts": {
+        "title": "Accounts",
+        "body": "You are responsible for the accuracy of the information you provide and for keeping your account credentials secure. You must be legally able to enter into this agreement."
+      },
+      "quotations": {
+        "title": "Quotations and payments",
+        "body": "Where a quotation is issued, it reflects the scope described at that time and is valid as stated. Prices are shown in the currency specified and are based on a fixed snapshot; changes in scope may require a new quotation."
+      },
+      "acceptableUse": {
+        "title": "Acceptable use",
+        "body": "You agree not to misuse the service, upload unlawful or misleading content, or attempt to access data that does not belong to you."
+      },
+      "liability": {
+        "title": "Limitation of liability",
+        "body": "We take care in coordinating your case, but we are not liable for decisions made by third-party institutions or providers, or for delays and outcomes outside our control."
+      },
+      "changes": {
+        "title": "Changes to these terms",
+        "body": "We may update these terms as the service evolves. Material changes will be reflected by the updated date above."
+      },
+      "contact": {
+        "title": "Contact",
+        "body": "Questions about these terms can be sent through the contact page."
+      }
+    }
+  },
   "publicSite": {
     "navAria": "Public site",
+    "showcaseLabel": "MEDBOURSE showcase",
+    "carousel": {
+      "scroll": "Explore"
+    },
     "nav": {
+      "universities": "Universities",
+      "hospitals": "Hospitals",
+      "tourism": "Tourism",
       "services": "Services",
-      "offerings": "Offerings",
       "contact": "Contact"
     },
     "services": {
@@ -34,19 +171,36 @@
         "body": "Practical travel arrangements around appointments and campus visits, so each trip has a clear purpose."
       }
     },
-    "offerings": {
-      "title": "Current offerings",
-      "lead": "Active services published by verified providers.",
-      "loading": "Loading offerings…",
-      "error": "Could not load offerings.",
-      "empty": "No offerings are published yet.",
-      "requirements": "Requirements",
-      "from": "Provided by"
-    },
     "contact": {
       "title": "Start in your workspace",
       "body": "Every enquiry runs through your own case, so documents and messages stay in one private place. Create an account below to begin, or sign in if you already have one.",
       "cta": "Create an account"
+    }
+  },
+  "categoryCta": {
+    "education": "Explore universities",
+    "medical": "Explore clinics",
+    "tourism": "Explore travel"
+  },
+  "categoryPage": {
+    "back": "Back to home",
+    "eyebrow": "Service line",
+    "loading": "Loading…",
+    "loadError": "Could not load this page.",
+    "providers": {
+      "education": "Universities & institutions",
+      "medical": "Clinics & hospitals",
+      "tourism": "Travel & accommodation",
+      "empty": "No providers are published yet.",
+      "verified": "Verified partner",
+      "unverified": "Not yet verified",
+      "website": "Visit website"
+    },
+    "offerings": {
+      "title": "Offerings",
+      "empty": "No offerings are published yet.",
+      "requirements": "Requirements",
+      "from": "Provided by"
     }
   },
   "health": {
@@ -62,6 +216,7 @@
   },
   "auth": {
     "title": "Account",
+    "close": "Close",
     "email": "Email",
     "password": "Password",
     "passwordHint": "At least 10 characters.",
@@ -75,7 +230,40 @@
     "registered": "Account created.",
     "signedOut": "Signed out.",
     "signedInAs": "{{email}} · {{role}}",
-    "unknownError": "Something went wrong."
+    "unknownError": "Something went wrong.",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "country": "Your country",
+    "countryPlaceholder": "Select your country",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "code": "Six-digit code",
+    "verify": "Verify",
+    "verifyTitle": "Verify your email",
+    "sendCode": "Send code",
+    "forgotTitle": "Recover your password",
+    "forgotLink": "Forgot your password?",
+    "resetTitle": "Set a new password",
+    "resetPassword": "Reset password",
+    "backToLogin": "Back to sign in",
+    "codeSent": "We emailed you a six-digit code.",
+    "codeSentTo": "Enter the six-digit code we sent to {{email}}.",
+    "resetCodeSent": "If that address exists, we emailed a reset code.",
+    "passwordReset": "Password updated.",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "errors": {
+      "passwordTooShort": "Use at least 10 characters.",
+      "passwordMismatch": "The passwords do not match.",
+      "emailInUse": "An account with this email already exists.",
+      "invalidCredentials": "Invalid email or password.",
+      "codeInvalid": "That code is not correct.",
+      "codeExpired": "That code has expired. Request a new one.",
+      "codeNotFound": "No pending code for this email.",
+      "codeTooManyAttempts": "Too many attempts. Request a new code.",
+      "invalidInvitation": "This invitation is no longer valid.",
+      "invalidPassword": "The current password is incorrect."
+    }
   },
   "portal": {
     "workspace": "Workspace",
@@ -84,13 +272,362 @@
   "nav": {
     "cases": "Cases",
     "customers": "Customers",
+    "users": "Users",
     "catalog": "Catalog",
-    "audit": "Audit log"
+    "documents": "Document library",
+    "payments": "Payments",
+    "showcase": "Showcase",
+    "site": "Site content",
+    "audit": "Audit log",
+    "profile": "My profile",
+    "assignments": "Country assignments"
+  },
+  "profile": {
+    "title": "My profile",
+    "details": "Personal details",
+    "displayName": "Display name",
+    "country": "Country",
+    "countryPlaceholder": "Select your country",
+    "emailVerified": "Verified",
+    "changePhoto": "Change photo",
+    "removePhoto": "Remove",
+    "avatarUpdated": "Photo updated.",
+    "avatarRemoved": "Photo removed.",
+    "saved": "Profile saved.",
+    "currentPassword": "Current password",
+    "changePassword": "Change password",
+    "passwordChanged": "Password changed.",
+    "save": "Save changes",
+    "unknownError": "Something went wrong."
+  },
+  "countryAssignments": {
+    "title": "Country assignments",
+    "subtitle": "Bind a country to the admins who serve it. Admins only see the countries they are assigned to.",
+    "createTitle": "New assignment",
+    "editTitle": "Edit assignment",
+    "country": "Country",
+    "searchCountries": "Search countries…",
+    "noCountry": "No country matches your search.",
+    "assignedBadge": "Assigned",
+    "managers": "Assigned managers",
+    "noManagers": "No active admin accounts available.",
+    "unavailable": "No longer assignable",
+    "active": "Active",
+    "inactive": "Inactive",
+    "save": "Save assignment",
+    "saving": "Saving…",
+    "clear": "Clear",
+    "refresh": "Refresh",
+    "loading": "Loading assignments…",
+    "loadError": "Could not load country assignments.",
+    "empty": "No country assignments yet.",
+    "selectCountry": "Select a country.",
+    "noManager": "Select at least one manager.",
+    "saved": "Country assignment saved.",
+    "edit": "Edit",
+    "columns": {
+      "country": "Country",
+      "managers": "Managers",
+      "status": "Status",
+      "actions": "Actions"
+    }
+  },
+  "payments": {
+    "title": "Payments",
+    "subtitleSuper": "Set the global default price and receiving account, then override them per country. The global default applies wherever a country has no rule of its own.",
+    "subtitleAdmin": "Set the price and receiving account for each country assigned to you. Until you set one, the global default applies.",
+    "refresh": "Refresh",
+    "globalScope": "Global",
+    "globalHint": "Fallback used when a country has no rule of its own.",
+    "loading": "Loading payment settings…",
+    "loadError": "Could not load payment settings.",
+    "saveError": "Could not save.",
+    "saved": "Saved.",
+    "tabs": {
+      "pricing": "Prices",
+      "accounts": "Receiving accounts"
+    },
+    "columns": {
+      "scope": "Scope",
+      "services": "Services",
+      "amount": "Amount",
+      "active": "State",
+      "actions": "Actions",
+      "label": "Label",
+      "method": "Method",
+      "provider": "Provider",
+      "currency": "Currency"
+    },
+    "emptyRules": "No prices defined yet.",
+    "emptyAccounts": "No receiving accounts defined yet.",
+    "allServices": "All services",
+    "anyCategory": "Any category",
+    "selectCountry": "Select a country.",
+    "noCountries": "You are not assigned to any country yet. Ask an administrator to assign you one.",
+    "offering": "Service",
+    "category": "Category",
+    "amount": "Amount",
+    "currency": "Currency",
+    "active": "Active",
+    "inactive": "Inactive",
+    "edit": "Edit",
+    "newRule": "New price",
+    "editRule": "Edit price",
+    "newAccount": "New receiving account",
+    "editAccount": "Edit receiving account",
+    "save": "Save",
+    "create": "Create",
+    "cancel": "Cancel",
+    "label": "Account label",
+    "beneficiary": "Beneficiary name",
+    "method": "Payment method",
+    "profile": "Payment profile",
+    "provider": "Provider",
+    "priority": "Priority",
+    "priorityHint": "Lower numbers are offered first when several rails serve the same country and currency.",
+    "methods": {
+      "bank_transfer": "Bank transfer",
+      "instant_payment": "Instant payment",
+      "mobile_money": "Mobile money",
+      "digital_wallet": "Digital wallet",
+      "payment_gateway": "Payment link",
+      "remittance_pickup": "Cash pickup",
+      "crypto": "Crypto",
+      "cash_office": "Cash at office"
+    },
+    "profiles": {
+      "iban": "International (IBAN)",
+      "local": "Domestic account",
+      "upi": "UPI",
+      "pix": "Pix",
+      "interac": "Interac e-Transfer",
+      "zelle": "Zelle",
+      "phone": "Phone number",
+      "email": "Email address",
+      "link": "Payment link",
+      "agent": "Agent location",
+      "address": "Wallet address",
+      "office": "Office address"
+    },
+    "fields": {
+      "iban": "IBAN",
+      "swiftBic": "SWIFT / BIC",
+      "accountNumber": "Account number",
+      "bankCode": "Bank / routing code",
+      "branch": "Branch",
+      "upiVpa": "UPI ID",
+      "pixKey": "Pix key",
+      "email": "Email address",
+      "zelleHandle": "Zelle handle",
+      "phone": "Phone number",
+      "handle": "Handle",
+      "url": "Payment link",
+      "merchantId": "Merchant ID",
+      "city": "Pickup city",
+      "agentCode": "Agent code",
+      "address": "Address",
+      "network": "Network",
+      "memo": "Memo / tag",
+      "contact": "Contact number"
+    },
+    "fieldHints": {
+      "iban": "For example TR33 0006 1005 1978 6457 8413 26",
+      "account_number": "The domestic account number",
+      "bank_code": "Sort, routing or branch code",
+      "swift_bic": "8 or 11 characters, for example TCZBTR2A",
+      "phone": "In international format, for example +90 555 111 22 33",
+      "email": "The wallet or bridge email address",
+      "handle": "For example name@bank",
+      "url": "An https:// payment link",
+      "crypto_address": "The wallet address, exactly as issued",
+      "text": "Free text"
+    },
+    "referenceHint": "Reference hint",
+    "notes": "Notes"
+  },
+  "documentLibrary": {
+    "title": "Document library",
+    "subtitle": "Define the documents customers must provide once, then reuse them across services. Cases keep a frozen copy, so editing here never changes what a customer was already asked for.",
+    "refresh": "Refresh",
+    "loading": "Loading document library…",
+    "loadError": "Could not load the document library.",
+    "saveError": "Could not save the document.",
+    "saved": "Saved.",
+    "empty": "No documents yet.",
+    "edit": "Edit",
+    "active": "Active",
+    "inactive": "Inactive",
+    "key": "Key",
+    "kindLabel": "Document type",
+    "order": "Order",
+    "documentTitle": "Title",
+    "description": "Description",
+    "createTitle": "New document",
+    "editTitle": "Edit document",
+    "save": "Save changes",
+    "create": "Create",
+    "cancel": "Cancel",
+    "columns": {
+      "title": "Title",
+      "key": "Key",
+      "kind": "Kind",
+      "order": "Order",
+      "active": "State",
+      "actions": "Actions"
+    },
+    "kind": {
+      "identity": "Identity",
+      "medical": "Medical",
+      "supporting": "Supporting"
+    }
+  },
+  "usersAdmin": {
+    "title": "Users",
+    "search": "Search",
+    "searchPlaceholder": "Name or email",
+    "roleFilter": "Role",
+    "allRoles": "All roles",
+    "statusFilter": "Status",
+    "allStatuses": "All statuses",
+    "active": "Active",
+    "inactive": "Inactive",
+    "apply": "Apply",
+    "refresh": "Refresh",
+    "loading": "Loading users…",
+    "loadError": "Could not load users.",
+    "empty": "No users match these filters.",
+    "columns": {
+      "user": "User",
+      "role": "Role",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "you": "You",
+    "activate": "Activate",
+    "deactivate": "Deactivate",
+    "pageInfo": "Page {{page}} of {{totalPages}} · {{total}} users",
+    "prev": "Previous",
+    "next": "Next",
+    "createTitle": "Add an admin account",
+    "create": "Create account",
+    "created": "Account created."
+  },
+  "showcase": {
+    "title": "Showcase",
+    "lead": "Curate the cinematic hero. Each scene pairs one or more photos with a headline, a short narrative and an optional button, in every language.",
+    "loading": "Loading slides…",
+    "loadError": "Could not load the slides.",
+    "empty": "No slides yet. Add the first one.",
+    "refresh": "Refresh",
+    "create": "New slide",
+    "edit": "Edit slide",
+    "cancel": "Cancel",
+    "save": "Save slide",
+    "saving": "Saving…",
+    "saveError": "Could not save the slide.",
+    "delete": "Delete",
+    "deleteConfirm": "Delete this slide? This cannot be undone.",
+    "deleteError": "Could not delete the slide.",
+    "upload": "Upload image",
+    "uploading": "Uploading…",
+    "uploadError": "Could not upload the image.",
+    "changePhoto": "Replace image",
+    "noPhoto": "No image selected",
+    "hint": "Frames play as one continuous camera move, so order them the way the camera should travel. Prefer wide, high-contrast photos with room for text.",
+    "framesTitle": "Frames",
+    "framesHint": "Upload the ordered photos for this scene. The camera moves forward through them.",
+    "frameCount": "{{count}} frames",
+    "addFrame": "Add frame",
+    "removeFrame": "Remove",
+    "noFrames": "No frames yet — add the first photo.",
+    "focalPoint": "Focal point",
+    "order": "Order",
+    "orderHint": "Unique within its category",
+    "orderTaken": "That order is already used in this category.",
+    "category": "Category",
+    "categoryNone": "No category",
+    "state": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "fields": {
+      "name": "Navigation label (optional)",
+      "eyebrow": "Eyebrow (optional)",
+      "headline": "Headline",
+      "narrative": "Narrative",
+      "altText": "Alt text (accessibility)"
+    }
+  },
+  "site": {
+    "title": "Site content",
+    "lead": "Manage the public page copy and social accounts. Saving publishes immediately.",
+    "refresh": "Refresh",
+    "loading": "Loading site content…",
+    "loadError": "Could not load the site content.",
+    "save": "Save",
+    "saving": "Saving…",
+    "saved": "Saved.",
+    "saveError": "Could not save. Please try again.",
+    "active": "Active",
+    "order": "Order",
+    "tabs": {
+      "social": "Social",
+      "pages": "Pages"
+    },
+    "pageNames": {
+      "faq": "FAQ",
+      "services": "Services",
+      "privacy": "Privacy policy",
+      "terms": "Terms of service"
+    },
+    "social": {
+      "heading": "Social accounts",
+      "hint": "Shown in the footer and on the contact page.",
+      "add": "Add account",
+      "empty": "No accounts yet — the built-in links are shown on the site.",
+      "network": "Network",
+      "url": "Profile URL",
+      "remove": "Remove"
+    },
+    "pages": {
+      "heading": "Page copy",
+      "hint": "Leave a page empty to keep its built-in content. Blocks render top to bottom.",
+      "active": "Publish this page override",
+      "updated": "Last updated",
+      "updatedHint": "Optional, e.g. 2026-10-16",
+      "eyebrow": "Eyebrow",
+      "title": "Title",
+      "lead": "Intro / lead",
+      "sections": "Blocks",
+      "addSection": "Add block",
+      "sectionTitle": "Block heading",
+      "sectionBody": "Block text",
+      "removeSection": "Remove block",
+      "emptySections": "No blocks yet."
+    }
   },
   "categories": {
     "education": "Education",
     "medical": "Medical",
     "tourism": "Tourism"
+  },
+  "applications": {
+    "title": "Start an application",
+    "subtitle": "Choose a service and your country. This opens a draft case where you upload the required documents and your payment receipt, then submit it to your team.",
+    "category": "Service category",
+    "offering": "Service",
+    "country": "Your country",
+    "countryPlaceholder": "Select your country",
+    "phone": "Phone (optional)",
+    "message": "Message (optional)",
+    "messagePlaceholder": "Tell us briefly what you need…",
+    "loadingOfferings": "Loading services…",
+    "noOfferings": "No services are available in this category yet.",
+    "loadError": "Could not load services.",
+    "submitError": "Could not create your application.",
+    "submit": "Start application",
+    "submitting": "Starting…",
+    "cancel": "Cancel"
   },
   "cases": {
     "title": "Cases",
@@ -105,7 +642,8 @@
     },
     "status": {
       "open": "Open",
-      "closed": "Closed"
+      "closed": "Closed",
+      "draft": "Draft"
     },
     "columns": {
       "offering": "Offering",
@@ -113,10 +651,17 @@
       "status": "Status",
       "created": "Created"
     },
+    "draftBadge": "Draft",
     "prev": "Previous",
     "next": "Next",
     "pageInfo": "Page {{page}} of {{totalPages}} · {{total}} total",
-    "openCase": "Open case: {{title}}"
+    "openCase": "Open case: {{title}}",
+    "startApplication": "Start an application",
+    "welcomeTitle": "Welcome to MEDBOURSE",
+    "welcomeBody": "You do not have any cases yet. Start an application and we will open your first case.",
+    "welcomeStep1": "Pick the service you are interested in.",
+    "welcomeStep2": "Tell us your country so we can assign the right team.",
+    "welcomeStep3": "Follow progress, documents, and messages in one place."
   },
   "customers": {
     "title": "Customers",
@@ -130,11 +675,34 @@
     "prev": "Previous",
     "next": "Next",
     "pageInfo": "Page {{page}} of {{totalPages}} · {{total}} total",
+    "openCustomer": "Open customer: {{name}}",
+    "detail": {
+      "back": "← Back to customers",
+      "loading": "Loading customer…",
+      "loadError": "Could not load this customer.",
+      "identity": "Profile",
+      "email": "Email",
+      "phone": "Phone",
+      "country": "Country",
+      "manager": "Assigned manager",
+      "noManager": "Not assigned yet",
+      "created": "Created",
+      "actions": "Actions",
+      "cases": "Cases",
+      "casesEmpty": "This customer has no cases yet.",
+      "casesError": "Could not load this customer’s cases.",
+      "activity": "Activity",
+      "activityEmpty": "No activity recorded yet.",
+      "activityError": "Could not load the activity history.",
+      "activitySystem": "System"
+    },
     "create": {
       "fullName": "Full name",
       "email": "Email (optional)",
       "phone": "Phone (optional)",
-      "country": "Country code",
+      "country": "Country",
+      "countryPlaceholder": "Select a country",
+      "noCountries": "No countries are assigned to you yet. Ask a super admin to assign one.",
       "submit": "Create customer",
       "saving": "Creating…",
       "error": "Could not create the customer."
@@ -153,6 +721,30 @@
       "assigned": "Assigned",
       "exception": "Exception"
     },
+    "account": {
+      "none": "No account",
+      "unclaimed": "Invitation pending",
+      "active": "Account active",
+      "create": "Create login account",
+      "creating": "Creating…",
+      "created": "Login account created for {{name}}. Send the invitation so they can set a password.",
+      "error": "Could not create the login account."
+    },
+    "applyOnBehalf": {
+      "action": "Apply on their behalf",
+      "title": "Open a case for {{name}}",
+      "hint": "You will be taken to the new draft so you can upload the customer's documents, the payment receipt, and submit — exactly as they would.",
+      "category": "Service category",
+      "offering": "Service",
+      "offeringPlaceholder": "Select a service",
+      "noOfferings": "No active services in this category.",
+      "offeringsError": "Could not load services.",
+      "submit": "Open case",
+      "saving": "Opening…",
+      "cancel": "Cancel",
+      "success": "Case opened for {{title}}.",
+      "error": "Could not open the case."
+    },
     "invite": {
       "action": "Invite",
       "emailLabel": "Invitation email",
@@ -162,6 +754,9 @@
       "error": "Could not create the invitation.",
       "created": "Invitation created for {{email}}.",
       "tokenHint": "Share this token with the customer. It is shown only once.",
+      "linkHint": "Send this link to the customer. They open it to set their own password.",
+      "copy": "Copy link",
+      "copied": "Copied",
       "expiresAt": "Expires {{date}}",
       "dismiss": "Dismiss"
     },
@@ -190,6 +785,12 @@
     "cancel": "Cancel",
     "edit": "Edit",
     "saveError": "Could not save changes.",
+    "noImage": "No image",
+    "uploadImage": "Upload image",
+    "changeImage": "Change image",
+    "removeImage": "Remove",
+    "uploading": "Uploading…",
+    "uploadError": "Could not upload the image.",
     "state": {
       "active": "Active",
       "inactive": "Inactive",
@@ -223,6 +824,8 @@
       "category": "Category",
       "city": "City",
       "website": "Website",
+      "logo": "Logo",
+      "cover": "Cover photo",
       "verified": "Partnership verified"
     },
     "offerings": {
@@ -230,7 +833,18 @@
       "slug": "Slug",
       "summary": "Summary",
       "requirements": "Requirements summary",
-      "provider": "Provider"
+      "requiredDocuments": "Required documents",
+      "requiredDocumentsHint": "Pick the documents the customer must provide for this service.",
+      "noDocuments": "No documents in the library yet. Add them under Document library.",
+      "provider": "Provider",
+      "noProvider": "No provider (standalone)",
+      "category": "Category",
+      "city": "City",
+      "logo": "Logo",
+      "cover": "Cover photo",
+      "priceAmount": "General price",
+      "priceCurrency": "Currency",
+      "priceHint": "Every service must have one general price in a currency; it is used to quote a self-service application."
     }
   },
   "audit": {
@@ -263,11 +877,24 @@
     "loading": "Loading case…",
     "loadError": "Could not load this case.",
     "createdAt": "Created {{date}}",
+    "draft": "Draft",
+    "submittedAt": "Submitted {{date}}",
     "workflow": "Workflow",
     "workflowVersion": "Template version {{version}}",
     "optional": "Optional",
+    "progressLabel": "Review progress",
+    "progressValue": "{{percent}}% complete",
     "documents": "Documents",
     "noDocuments": "No documents uploaded yet.",
+    "requiredDocuments": "Required documents",
+    "requiredDocumentsHint": "Upload each document the team has asked for.",
+    "satisfied": "Provided",
+    "pending": "Pending",
+    "notUploaded": "Not uploaded yet.",
+    "upload": "Upload",
+    "reupload": "Re-upload",
+    "uploading": "Uploading…",
+    "uploadError": "Could not upload the document.",
     "docKind": {
       "identity": "Identity",
       "medical": "Medical",
@@ -281,6 +908,37 @@
     "quoIssuedAt": "Issued",
     "paymentEvidence": "Payment evidence",
     "noPaymentEvidence": "No payment evidence submitted yet.",
+    "submit": {
+      "title": "Submit your application",
+      "hint": "The team only sees this case after you submit it. Upload every required document and your payment receipt first.",
+      "amountDue": "Amount due",
+      "chooseMethod": "Choose how you will pay",
+      "beneficiary": "Beneficiary",
+      "reference": "Reference",
+      "receipt": "Payment receipt",
+      "receiptHint": "Upload the receipt for the payment above.",
+      "receiptNeedsMethod": "Choose how you will pay before uploading the receipt.",
+      "uploadReceipt": "Upload receipt",
+      "uploadingReceipt": "Uploading…",
+      "reuploadReceipt": "Re-upload receipt",
+      "receiptReuploadHint": "Upload a new receipt to replace the rejected one.",
+      "receiptUploadError": "Could not upload the receipt.",
+      "selectError": "Could not save your payment method.",
+      "checklistDone": "Documents complete",
+      "checklistMissing": "Upload all required documents",
+      "methodDone": "Payment method selected",
+      "methodMissing": "Choose how you will pay",
+      "receiptDone": "Receipt attached",
+      "receiptMissing": "Attach the payment receipt",
+      "ready": "Everything is in place — you can submit now.",
+      "missing": "Complete the steps above before submitting.",
+      "submitButton": "Submit application",
+      "submitting": "Submitting…",
+      "submitError": "Could not submit the application.",
+      "submitted": "Application submitted. Your team will follow up here.",
+      "noPrice": "No price is defined for this service yet. Please contact the team.",
+      "noAccount": "The receiving account is not configured yet. Please contact the team."
+    },
     "messages": {
       "title": "Messages",
       "loading": "Loading messages…",
@@ -291,11 +949,64 @@
       "placeholder": "Write a message…",
       "send": "Send",
       "sending": "Sending…"
+    },
+    "review": {
+      "title": "Review",
+      "current": "Current decision",
+      "docsApproved": "All required documents approved",
+      "docsPending": "Some documents are not approved yet",
+      "paymentApproved": "Payment confirmed",
+      "paymentPending": "Payment not confirmed yet",
+      "approve": "Approve",
+      "reject": "Reject",
+      "confirmReject": "Confirm rejection",
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "accept": "Accept case",
+      "accepted": "Accepted",
+      "rejectCase": "Reject case",
+      "rejectPlaceholder": "Tell the customer what to fix…",
+      "rejectCasePlaceholder": "Explain why this case is being rejected…",
+      "blocked": "Every required document and the payment receipt must be approved before you can accept this case.",
+      "actionError": "Could not save the review decision.",
+      "showPreview": "View file",
+      "hidePreview": "Hide file",
+      "loadingPreview": "Opening file…",
+      "previewError": "Could not open this file.",
+      "noPreview": "This file type can’t be previewed inline.",
+      "openNewTab": "Open in a new tab",
+      "rejectedBecause": "Rejected: {{note}}"
+    },
+    "fileDetail": {
+      "open": "Details",
+      "close": "Close",
+      "kind": "Type",
+      "status": "Review",
+      "uploadedAt": "Uploaded",
+      "reviewer": "Reviewed by",
+      "notReviewed": "Not reviewed yet",
+      "reviewedAt": "Reviewed",
+      "note": "Reviewer note: {{note}}",
+      "history": "Upload history",
+      "historyHint": "Every version recorded for this file, newest first.",
+      "current": "Shown"
+    }
+  },
+  "review": {
+    "document": {
+      "pending": "Awaiting review",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "case": {
+      "awaiting": "Awaiting review",
+      "in_review": "In review",
+      "accepted": "Accepted",
+      "rejected": "Rejected"
     }
   },
   "roles": {
     "customer": "Customer",
-    "staff": "Staff",
     "admin": "Admin",
     "super_admin": "Super admin"
   },
@@ -306,12 +1017,18 @@
     "empty": "No notifications yet.",
     "markAllRead": "Mark all as read",
     "types": {
+      "caseCreated": "Your case was created",
       "messageCreated": "New message on your case",
       "stageTransitioned": "A case stage was updated",
       "caseClosed": "Your case was closed",
       "paymentSubmitted": "New payment evidence submitted",
       "paymentApproved": "Payment evidence approved",
-      "paymentRejected": "Payment evidence rejected"
+      "paymentRejected": "Payment evidence rejected",
+      "documentApproved": "A document was approved",
+      "documentRejected": "A document needs to be re-uploaded",
+      "documentReuploaded": "The customer re-uploaded a document",
+      "caseAccepted": "Your case was accepted",
+      "caseRejected": "Your case was rejected"
     }
   },
   "workflow": {

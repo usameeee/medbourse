@@ -1,18 +1,27 @@
 :root {
-  --color-brand-primary: #0b4f4a;
-  --color-brand-secondary: #c4a962;
+  color-scheme: light;
+
+  /* Türkiye flag palette — red leads, deep teal supports. */
+  --color-brand-primary: #e30a17;
+  --color-brand-primary-strong: #a8060f;
+  --color-brand-secondary: #0b4f4a;
   --color-brand-accent: #1a6b64;
 
   --color-surface-base: #f7f6f3;
   --color-surface-raised: #ffffff;
   --color-surface-sunken: #eeede8;
+  --color-surface-ink: #08211f;
+  --color-surface-ink-raised: #0f302c;
 
   --color-text-primary: #1c1b19;
   --color-text-secondary: #5c5954;
   --color-text-muted: #8a8680;
+  --color-text-inverse: #f5f3ef;
+  --color-text-inverse-muted: #a9bfbb;
 
   --color-border-default: #d8d5ce;
   --color-border-strong: #b8b4ab;
+  --color-border-inverse: rgb(255 255 255 / 0.16);
 
   --color-success: #2d6a4f;
   --color-warning: #b8860b;
@@ -26,21 +35,76 @@
   --text-sm: 0.875rem;
   --text-base: 1rem;
   --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
   --text-2xl: 1.5rem;
   --text-3xl: 2rem;
+  --text-4xl: 2.5rem;
+  --text-5xl: 3.25rem;
 
+  --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
   --space-4: 1rem;
+  --space-5: 1.25rem;
   --space-6: 1.5rem;
   --space-8: 2rem;
+  --space-10: 2.5rem;
   --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
 
+  --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
+  --radius-pill: 999px;
 
   --layout-max: 72rem;
+  --layout-dashboard: 90rem;
+
   --shadow-sm: 0 1px 2px rgb(28 27 25 / 0.06);
+  --shadow-md: 0 12px 32px rgb(28 27 25 / 0.09);
+  --shadow-lg: 0 28px 70px rgb(8 33 31 / 0.35);
+}
+
+/*
+ * Dark theme. `data-theme` is set on <html> by src/theme/theme.ts (and by the
+ * inline bootstrap in index.html so the first paint is already correct).
+ * Note `--color-text-inverse` stays light on purpose: it is the ink used on the
+ * red brand surfaces and on the deep `--color-surface-ink` sections, both of
+ * which remain dark in either theme.
+ */
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --color-brand-primary: #ff4450;
+  --color-brand-primary-strong: #d80913;
+  --color-brand-secondary: #2fa79b;
+  --color-brand-accent: #46c5b8;
+
+  --color-surface-base: #0a1614;
+  --color-surface-raised: #12211e;
+  --color-surface-sunken: #061110;
+  --color-surface-ink: #040d0c;
+  --color-surface-ink-raised: #0c1d1a;
+
+  --color-text-primary: #f1efeb;
+  --color-text-secondary: #b6b2aa;
+  --color-text-muted: #8b8880;
+  --color-text-inverse: #f5f3ef;
+  --color-text-inverse-muted: #a9bfbb;
+
+  --color-border-default: #253934;
+  --color-border-strong: #3a534c;
+  --color-border-inverse: rgb(255 255 255 / 0.16);
+
+  --color-success: #55c98a;
+  --color-warning: #e0b73f;
+  --color-danger: #ef6b6b;
+  --color-info: #6fa8e6;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.45);
+  --shadow-md: 0 12px 32px rgb(0 0 0 / 0.5);
+  --shadow-lg: 0 28px 70px rgb(0 0 0 / 0.6);
 }
 
 @media (prefers-reduced-motion: reduce) {

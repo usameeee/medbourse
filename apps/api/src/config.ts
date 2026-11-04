@@ -24,16 +24,41 @@ function readSmtpPort(): number {
   return port;
 }
 
+function readCorsOrigins(): string[] {
+  const raw = process.env.CORS_ORIGIN ?? 'http://localhost:5173';
+  const origins = raw
+    .split(',')
+    .map((value) => value.trim())
+    .filter(Boolean);
+  return origins.length > 0 ? origins : ['http://localhost:5173'];
+}
+
+/** Parses a `jsonwebtoken`-style duration (`15m`, `7d`, `3600s`) into milliseconds. */
+function readDurationMs(raw: string | undefined, fallbackLiteral: string): number {
+  const value = (raw ?? fallbackLiteral).trim();
+  const match = /^(\d+(?:\.\d+)?)\s*(ms|s|m|h|d)$/.exec(value);
+  if (!match) {
+    return readDurationMs(undefined, fallbackLiteral);
+  }
+  const amount = Number.parseFloat(match[1]);
+  const unit = match[2] as 'ms' | 's' | 'm' | 'h' | 'd';
+  const factors: Record<typeof unit, number> = { ms: 1, s: 1_000, m: 60_000, h: 3_600_000, d: 86_400_000 };
+  return Math.round(amount * factors[unit]);
+}
+
 export const config = {
   nodeEnv: process.env.NODE_ENV ?? 'development',
   port: readPort(),
   host: process.env.API_HOST ?? '0.0.0.0',
-  corsOrigin: process.env.CORS_ORIGIN ?? 'http://localhost:5173',
+  corsOrigins: readCorsOrigins(),
   serviceName: 'medbourse-api',
   version: '0.0.1',
   mongodbUri: process.env.MONGODB_URI ?? '',
   jwtSecret: process.env.JWT_SECRET ?? '',
   jwtAccessExpires: process.env.JWT_ACCESS_EXPIRES ?? '15m',
+  jwtRefreshExpires: process.env.JWT_REFRESH_EXPIRES ?? '7d',
+  accessCookieMaxAgeMs: readDurationMs(process.env.JWT_ACCESS_EXPIRES, '15m'),
+  refreshCookieMaxAgeMs: readDurationMs(process.env.JWT_REFRESH_EXPIRES, '7d'),
   cookieSecret: process.env.COOKIE_SECRET ?? '',
   bcryptRounds: process.env.VITEST === 'true' ? 4 : 12,
   storageDriver: (process.env.VITEST === 'true'
@@ -44,6 +69,7 @@ export const config = {
     apiKey: process.env.CLOUDINARY_API_KEY ?? '',
     apiSecret: process.env.CLOUDINARY_API_SECRET ?? '',
     folder: process.env.CLOUDINARY_FOLDER_SENSITIVE ?? 'medbourse/private',
+    publicFolder: process.env.CLOUDINARY_FOLDER_PUBLIC ?? 'medbourse/public',
   },
   smtp: {
     host: process.env.SMTP_HOST ?? 'smtp.gmail.com',

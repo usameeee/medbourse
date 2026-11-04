@@ -37,7 +37,7 @@ countryAssignmentsRouter.get(
 countryAssignmentsRouter.put(
   '/',
   requireAuth,
-  requirePermission('assignment:manage:admin'),
+  requirePermission('assignment:manage:super_admin'),
   validate({ body: upsertBody }),
   async (req, res, next) => {
     try {
@@ -53,7 +53,7 @@ countryAssignmentsRouter.put(
           throw new AppError(
             400,
             'INVALID_MANAGER',
-            'Each manager must be an active staff, admin, or super_admin account',
+            'Each manager must be an active admin or super_admin account',
           );
         }
         managers.push(manager._id);

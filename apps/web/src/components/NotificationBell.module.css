@@ -7,18 +7,18 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   padding: 0;
-  border: 1px solid color-mix(in srgb, var(--color-surface-raised) 40%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-text-inverse) 40%, transparent);
   border-radius: var(--radius-md);
   background: transparent;
-  color: var(--color-surface-raised);
+  color: var(--color-text-inverse);
   cursor: pointer;
 }
 
 .bell:hover {
-  background: color-mix(in srgb, var(--color-surface-raised) 12%, transparent);
+  background: color-mix(in srgb, var(--color-text-inverse) 12%, transparent);
 }
 
 .icon {
@@ -35,7 +35,7 @@
   padding-inline: 4px;
   border-radius: 999px;
   background: var(--color-brand-secondary);
-  color: var(--color-brand-primary);
+  color: var(--color-text-inverse);
   font-size: var(--text-xs);
   font-weight: 700;
   line-height: 18px;

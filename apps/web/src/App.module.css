@@ -6,7 +6,8 @@
   gap: var(--space-6);
 }
 
-.muted {
-  margin: 0;
-  color: var(--color-text-muted);
+.splash {
+  min-block-size: 100vh;
+  display: grid;
+  place-items: center;
 }
